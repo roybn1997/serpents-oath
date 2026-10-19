@@ -102,7 +102,10 @@ html[lang="en"] .slab { font-family: "Pixelify Sans", sans-serif; font-weight: 6
 .slab:hover { transform: translateY(-2px); background-color: #fff6df; }
 .slab:active { transform: translateY(3px); box-shadow: inset 0 0 0 2px var(--bronze-hi), 0 1px 0 0 var(--night); }
 .slab.big { min-height: 70px; padding: 14px 34px 16px; font-size: clamp(22px, 3vw, 29px); }
-.maclink { display: block; text-align: center; margin-top: -4px; font-size: 17px; color: var(--gold); text-decoration: underline; text-underline-offset: 4px; }
+.dlrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; width: min(880px, 100%); }
+.slab .lbl > span { white-space: nowrap; }
+.slab .lbl { display: grid; gap: 3px; text-align: start; }
+.slab small { font: 500 15px/1.2 var(--font-body); color: var(--ink-2); letter-spacing: .02em; }
 .macnote { max-width: 62ch; margin: 24px auto 0; text-align: center; line-height: 1.7; }
 .slab .dl { flex: none; width: 21px; height: 24px; background: currentColor; clip-path: polygon(33% 0, 67% 0, 67% 42%, 100% 42%, 50% 88%, 0 42%, 33% 42%); }
 .meta { margin: 2px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; font-size: 15px; color: var(--parch-2); text-shadow: 2px 2px 0 #000; }
@@ -207,6 +210,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
   .steps { grid-template-columns: minmax(0, 1fr); }
   .about { grid-template-columns: minmax(0, 1fr); }
   .notes ul { grid-template-columns: minmax(0, 1fr); }
+  .dlrow { grid-template-columns: minmax(0, 1fr); width: min(440px, 100%); }
 }
 @media (max-width: 720px) {
   .bar nav { display: none; }
@@ -226,6 +230,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
 @media (max-width: 420px) {
   .brand span { font-size: 17px; }
   .slab.big { padding-inline: 22px; }
+  .slab .lbl > span { white-space: normal; }
 }
 /* motion off: the still town instead of the video, and the snake, torches and stars hold still */
 @media (prefers-reduced-motion: reduce) {
@@ -258,8 +263,10 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
     </div>
     <div class="band" aria-hidden="true"></div>
     <p class="tag" data-t="tagline"></p>
-    <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span data-t="dl_btn"></span></a>
-    <a class="maclink" href="#" data-t="mac_link"></a>
+    <div class="dlrow">
+      <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
+      <a class="slab big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small data-t="mac_sub"></small></span></a>
+    </div>
     <p class="meta" id="meta"></p>
     <p class="req" data-h="req"></p>
   </div>
@@ -315,8 +322,10 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
 
   <section class="sec cta" aria-labelledby="cta-h">
     <h2 id="cta-h" data-t="cta_h"></h2>
-    <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span data-t="dl_btn"></span></a>
-    <a class="maclink" href="#" data-t="mac_link"></a>
+    <div class="dlrow">
+      <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
+      <a class="slab big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small data-t="mac_sub"></small></span></a>
+    </div>
   </section>
 </main>
 
@@ -337,10 +346,10 @@ const T = {
     nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_upd: 'עדכונים', lang: 'English',
     tagline: 'המסע של V להחזיר את ריין הביתה',
     dl_btn: 'הורדה ל-Windows',
-    mac_link: 'גם ל-Mac (Safari או Chrome)',
+    mac_btn: 'הורדה ל-Mac', mac_sub: 'גרסת Web',
     mac_p: 'על Mac: מורידים את <span class="file">SerpentsOath-Mac.zip</span>, מחלצים, ופותחים את <span class="ltr">The Serpent\'s Oath.html</span> בדפדפן. בלי התקנה, וההתקדמות נשמרת בדפדפן הזה.',
     ver: 'גרסה', mb: 'MB',
-    req: 'Windows 10 או 11, 64 ביט. בלי התקנה. <a href="#run">איך מפעילים?</a>',
+    req: 'Windows 10 או 11, 64 ביט. ב-Mac: ‏Safari או Chrome. בלי התקנה. <a href="#run">איך מפעילים?</a>',
     run_h: 'איך מורידים ומפעילים',
     run_sub: 'שלושה צעדים, בלי התקנה ובלי הרשאות מנהל.',
     s1_h: 'מורידים את קובץ ה-ZIP',
@@ -363,17 +372,17 @@ const T = {
     upd_sub: '{n} עדכונים מאז 14.10.2026, החדש ביותר למעלה.',
     soon: 'בקרוב',
     cta_h: 'מוכנים לצאת לדרך?',
-    foot: 'משחק הרפתקאות ל-Windows. חינם, בלי התקנה.',
+    foot: 'משחק הרפתקאות ל-Windows ול-Mac. חינם, בלי התקנה.',
     top: 'חזרה למעלה',
   },
   en: {
     nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', lang: 'עברית',
     tagline: "V's journey to bring Rain home",
     dl_btn: 'Download for Windows',
-    mac_link: 'Also for Mac (Safari or Chrome)',
+    mac_btn: 'Download for Mac', mac_sub: 'Web version',
     mac_p: 'On a Mac: download <span class="file">SerpentsOath-Mac.zip</span>, extract it, and open <span class="ltr">The Serpent\'s Oath.html</span> in your browser. Nothing to install. Progress is saved in that browser.',
     ver: 'Version', mb: 'MB',
-    req: 'Windows 10 or 11, 64-bit. Nothing to install. <a href="#run">How to run it?</a>',
+    req: 'Windows 10 or 11, 64-bit. On a Mac: Safari or Chrome. Nothing to install. <a href="#run">How to run it?</a>',
     run_h: 'Download and play',
     run_sub: 'Three steps. No installation, no admin rights.',
     s1_h: 'Download the ZIP',
@@ -396,7 +405,7 @@ const T = {
     upd_sub: '{n} updates since 14 Oct 2026, newest first.',
     soon: 'Coming soon',
     cta_h: 'Ready to set out?',
-    foot: 'An adventure game for Windows. Free, nothing to install.',
+    foot: 'An adventure game for Windows and Mac. Free, nothing to install.',
     top: 'Back to top',
   },
 };
@@ -427,9 +436,9 @@ function render() {
   const bit = (label, val) => { const s = el('span'); if (label) s.append(label + ' '); s.append(el('b', '', val)); return s; };
   const parts = [];
   if (cur?.v) parts.push(bit(t.ver, cur.v));
-  if (SITE.ZIP_MB) parts.push(bit('', SITE.ZIP_MB + ' ' + t.mb));
   if (cur?.date) parts.push(bit('', fmt(cur.date, L)));
   parts.forEach((p, i) => { if (i) meta.append(el('span', 'sep', '·')); meta.append(p); });
+  document.querySelectorAll('.winsz').forEach((e) => { e.textContent = SITE.ZIP_MB ? '\u2066' + SITE.ZIP_MB + ' ' + t.mb + '\u2069' : ''; });
   $('#upd-sub').textContent = fill(t.upd_sub);
   shots(); board();
 }
@@ -461,7 +470,7 @@ function board() {
 // the hero snake: a head and a body of segments, each a beat behind the one in front
 (() => { const sn = $('#snake'); for (let i = 0; i < 17; i++) { const s = el('i', i === 16 ? 'hd' : ''); s.style.setProperty('--i', 16 - i); sn.append(s); } })();
 document.querySelectorAll('.dlbtn').forEach((a) => { a.href = SITE.ZIP_URL || '#'; });
-document.querySelectorAll('.maclink').forEach((a) => { a.href = SITE.MAC_URL || '#'; });
+document.querySelectorAll('.macbtn').forEach((a) => { a.href = SITE.MAC_URL || '#'; });
 
 // the living background: a 12 s seamless loop (webm, mp4 for Safari). With motion off it isn't even downloaded,
 // and the still town (hero.jpg) stays
