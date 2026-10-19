@@ -5,6 +5,7 @@
 // Each entry: v (version, optional), date (YYYY-MM-DD), he/en: { title, items: [one plain line per change] }.
 window.SITE = {
   ZIP_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath.zip',
+  MAC_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Mac.zip',
   ZIP_MB: 134,
 };
 

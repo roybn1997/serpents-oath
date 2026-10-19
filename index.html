@@ -102,6 +102,8 @@ html[lang="en"] .slab { font-family: "Pixelify Sans", sans-serif; font-weight: 6
 .slab:hover { transform: translateY(-2px); background-color: #fff6df; }
 .slab:active { transform: translateY(3px); box-shadow: inset 0 0 0 2px var(--bronze-hi), 0 1px 0 0 var(--night); }
 .slab.big { min-height: 70px; padding: 14px 34px 16px; font-size: clamp(22px, 3vw, 29px); }
+.maclink { display: block; text-align: center; margin-top: -4px; font-size: 17px; color: var(--gold); text-decoration: underline; text-underline-offset: 4px; }
+.macnote { max-width: 62ch; margin: 24px auto 0; text-align: center; line-height: 1.7; }
 .slab .dl { flex: none; width: 21px; height: 24px; background: currentColor; clip-path: polygon(33% 0, 67% 0, 67% 42%, 100% 42%, 50% 88%, 0 42%, 33% 42%); }
 .meta { margin: 2px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; font-size: 15px; color: var(--parch-2); text-shadow: 2px 2px 0 #000; }
 .meta b { font: 400 14px/1.6 var(--font-num); color: var(--gold); letter-spacing: .02em; direction: ltr; unicode-bidi: isolate; }
@@ -257,6 +259,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
     <div class="band" aria-hidden="true"></div>
     <p class="tag" data-t="tagline"></p>
     <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span data-t="dl_btn"></span></a>
+    <a class="maclink" href="#" data-t="mac_link"></a>
     <p class="meta" id="meta"></p>
     <p class="req" data-h="req"></p>
   </div>
@@ -273,6 +276,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
       <li class="step parch"><div class="medal" aria-hidden="true">2</div><h3 data-t="s2_h"></h3><p data-h="s2_p"></p></li>
       <li class="step parch"><div class="medal" aria-hidden="true">3</div><h3 data-h="s3_h"></h3><p data-h="s3_p"></p></li>
     </ol>
+      <p class="macnote" data-h="mac_p"></p>
     <div class="notes parch">
       <h3 data-t="notes_h"></h3>
       <ul>
@@ -312,6 +316,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
   <section class="sec cta" aria-labelledby="cta-h">
     <h2 id="cta-h" data-t="cta_h"></h2>
     <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span data-t="dl_btn"></span></a>
+    <a class="maclink" href="#" data-t="mac_link"></a>
   </section>
 </main>
 
@@ -332,6 +337,8 @@ const T = {
     nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_upd: 'עדכונים', lang: 'English',
     tagline: 'המסע של V להחזיר את ריין הביתה',
     dl_btn: 'הורדה ל-Windows',
+    mac_link: 'גם ל-Mac (Safari או Chrome)',
+    mac_p: 'על Mac: מורידים את <span class="file">SerpentsOath-Mac.zip</span>, מחלצים, ופותחים את <span class="ltr">The Serpent\'s Oath.html</span> בדפדפן. בלי התקנה, וההתקדמות נשמרת בדפדפן הזה.',
     ver: 'גרסה', mb: 'MB',
     req: 'Windows 10 או 11, 64 ביט. בלי התקנה. <a href="#run">איך מפעילים?</a>',
     run_h: 'איך מורידים ומפעילים',
@@ -363,6 +370,8 @@ const T = {
     nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', lang: 'עברית',
     tagline: "V's journey to bring Rain home",
     dl_btn: 'Download for Windows',
+    mac_link: 'Also for Mac (Safari or Chrome)',
+    mac_p: 'On a Mac: download <span class="file">SerpentsOath-Mac.zip</span>, extract it, and open <span class="ltr">The Serpent\'s Oath.html</span> in your browser. Nothing to install. Progress is saved in that browser.',
     ver: 'Version', mb: 'MB',
     req: 'Windows 10 or 11, 64-bit. Nothing to install. <a href="#run">How to run it?</a>',
     run_h: 'Download and play',
@@ -452,6 +461,7 @@ function board() {
 // the hero snake: a head and a body of segments, each a beat behind the one in front
 (() => { const sn = $('#snake'); for (let i = 0; i < 17; i++) { const s = el('i', i === 16 ? 'hd' : ''); s.style.setProperty('--i', 16 - i); sn.append(s); } })();
 document.querySelectorAll('.dlbtn').forEach((a) => { a.href = SITE.ZIP_URL || '#'; });
+document.querySelectorAll('.maclink').forEach((a) => { a.href = SITE.MAC_URL || '#'; });
 
 // the living background: a 12 s seamless loop (webm, mp4 for Safari). With motion off it isn't even downloaded,
 // and the still town (hero.jpg) stays
