@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -414,7 +414,7 @@ const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct
 const fmt = (d, L) => { const [y, m, dd] = d.split('-').map(Number); return L === 'he' ? `${dd}.${m}.${y}` : `${dd} ${MON[m - 1]} ${y}`; };
 const SITE = window.SITE || {}, UPDATES = window.UPDATES || [];
 const fill = (s) => s.replace('{mb}', SITE.ZIP_MB || '').replace('{n}', UPDATES.length);
-let L = 'he';
+let L = 'en';
 
 function render() {
   const t = T[L], h = document.documentElement;
@@ -472,10 +472,10 @@ else {
   bgv.preload = 'auto'; bgv.autoplay = true; bgv.load(); bgv.play().catch(() => {});
 }
 
-// language: ?lang=en|he, then the visitor's last choice, then Hebrew
+// language: ?lang=en|he, then the visitor's last choice, then English
 const q = new URLSearchParams(location.search).get('lang');
 let saved = null; try { saved = localStorage.getItem('so-lang'); } catch (e) {}
-L = q === 'en' || q === 'he' ? q : saved === 'en' ? 'en' : 'he';
+L = q === 'en' || q === 'he' ? q : saved === 'he' ? 'he' : 'en';
 render();
 $('#lang').addEventListener('click', () => { L = L === 'he' ? 'en' : 'he'; try { localStorage.setItem('so-lang', L); } catch (e) {} render(); });
 </script>

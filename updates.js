@@ -11,7 +11,7 @@ window.SITE = {
 
 window.UPDATES = [
   {
-    v: '21', date: '2026-10-19', upcoming: true,
+    v: '21', date: '2026-10-19',
     he: { title: 'סבבים 19 ו-20', items: [
       'מדרגות שאפשר לעלות עליהן, קירות בלי פרצות, ומערות שנפתחות בצלעות הגבעות וההרים',
       'משימת הענקים: דמאליס, אישה־פרה עם קופיץ, נתח בשר שגוררים בחבל, ושני ענקים שמפסיקים לריב',
@@ -20,7 +20,14 @@ window.UPDATES = [
       'שובל הרעל, כישור חדש אחרי קאמפה, ו-10% סיכוי למכה קריטית',
       'קודים חדשים: MAX נותן את כל הנשקים, הבגדים והכישורים, ו-UNDEAD שומר על V בחיים',
       'הזמן ביום עובר לאט יותר, והצללים כבר לא קופצים בשקיעה ובזריחה',
-      // round 20: the rest of the round's changes go here
+      'קומבו: בכל מכה V מתקדמת צעד קדימה, והרגליים זזות בהתאם',
+      'הגלגול: V קופצת קדימה קלות ואז מתגלגלת, בלי לשקוע לתוך הקרקע',
+      'קרח: בלי נעליים מתאימות V מחליקה, ונעלי הקרח מונעות את זה. סוחרים מוכרים סוס, שמובל בחבל',
+      'הדשא, הבניינים והענקים קיבלו גרפיקה מעודכנת',
+      'בכל סצנת דיבור הדמויות נמצאות במרכז המסך, לרוחב ולגובה. כשקיר מסתיר אותן, המצלמה מסתובבת סביבו',
+      'נשק חדש בשם Echo, ומעבר חדש מהאדס לקאמפה, עם פתיחה מחודשת',
+      'האדס אוזן מחדש',
+      'באתר: הורדה גם ל-Mac, ובמשחק הודעה כשיש גרסה חדשה',
     ] },
     en: { title: 'Rounds 19 and 20', items: [
       'Stairs you can climb, walls with no gaps, and caves that open into hillsides and mountains',
@@ -30,7 +37,14 @@ window.UPDATES = [
       'Poison Trail, a new skill after Kampe, and a 10% chance of a critical hit',
       'New codes: MAX gives every weapon, outfit and skill, and UNDEAD keeps V alive',
       'Days pass more slowly, and shadows no longer jump at sunset and sunrise',
-      // round 20: the rest of the round's changes go here
+      'Combo: every hit steps V forward, and her feet move with it',
+      'Roll: V leaps forward a little and then rolls, without sinking into the ground',
+      'Ice: without proper shoes V slips, and ice boots stop that. Traders sell a horse, held on a rope',
+      'Grass, buildings and giants have updated graphics',
+      'In every talk scene the characters stand in the middle of the screen, across and up and down. When a wall hides them, the camera steps round it',
+      'A new weapon called Echo, and a new passage from Hades to Kampe with a fresh opening',
+      'Hades has been rebalanced',
+      'On the site: a Mac download too, and the game shows a notice when a newer version is out',
     ] },
   },
   {
