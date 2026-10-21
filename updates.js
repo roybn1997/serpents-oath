@@ -11,6 +11,31 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '29', date: '2026-10-21',
+    he: { title: 'סבבים 22 עד 29', items: [
+      'חלק פתיחה חדש ומהיר: חושך, ברקים ורעמים, והאביר השחור חוטף את ROYE',
+      'השמות החדשים VAL ו-ROYE, מקדש עם צעדי שיש וסצנת חטיפה מחודשת',
+      'הופליט שיש חדש: לוחם אבן ללא פנים עם מגן ענק, התנפלות וקפיצה שנוחתת בעיגול',
+      'סוס עם הילוכים חדשים, כנפי דרקון שמרחפות, וחרבות הדרקון גדולות ומרשימות יותר',
+      'נשקים וציוד מרמה 1 עד 100 בשלוש דרגות: רגיל, מעולה וגיבורי, עם רמה מינימלית בכל פריט',
+      'מפלצות ובוסים חזקים יותר לפי רמה, ומפרק 5 צריך טחינה ומשימות כדי להתקדם',
+      'אלכימאי בכל עיר ששולב שלושה פריטים זהים לאחד מהדרגה הבאה',
+      'הסבר שקוף כשעוברים עם העכבר על סקיל, ועליית רמה מרשימה בהאטה, עמוד אור והכיתוב LVL UP!',
+      'בתעופה עם כנפיים הידיים והנשק נשארים יציבים, והמשחק פחות נתקע',
+    ] },
+    en: { title: 'Rounds 22 to 29', items: [
+      'A new, faster opening: darkness, lightning and thunder, and the Black Knight takes ROYE',
+      'The new names VAL and ROYE, marble footsteps in the temple, and a rebuilt abduction scene',
+      'A new marble hoplite: a faceless stone warrior with a giant shield, a charge, and a leap that lands in a circle',
+      'New horse gaits, hovering dragon wings, and bigger, more impressive dragon swords',
+      'Weapons and gear from level 1 to 100 in three grades, Normal, Masterwork and Heroic, each showing its minimum level',
+      'Stronger monsters and bosses by level, and from chapter 5 you must grind and do quests to move on',
+      'An alchemist in every town who fuses three identical items into one of the next grade',
+      'A transparent tooltip when you hover a skill, and a bigger level-up with slow motion, a pillar of light and LVL UP!',
+      'While flying on wings her hands and weapon stay still, and the game stutters less',
+    ] },
+  },
+  {
     v: '21', date: '2026-10-19',
     he: { title: 'סבבים 19 ו-20', items: [
       'מדרגות שאפשר לעלות עליהן, קירות בלי פרצות, ומערות שנפתחות בצלעות הגבעות וההרים',
