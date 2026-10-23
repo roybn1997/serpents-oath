@@ -17,6 +17,35 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '30', date: '2026-10-23',
+    he: { title: 'גרסה 30: מראה חדש לכל המשחק, ולאנצ\'ר', items: [
+      'לאנצ\'ר חדש: מורידים אותו פעם אחת, והוא מתקין את המשחק, מעדכן אותו אוטומטית (רק את הקבצים שהשתנו) ופותח אותו',
+      'כל המשחק בסגנון פיקסל-ארט חדש: V, תושבי הערים, המפלצות, הנוף, האפקטים והממשק',
+      'V החדשה עם צמות שזזות באמת ונחות מעל הכנפיים',
+      '194 מפלצות עם רמות, וויקי באתר עם כולן',
+      'הספינה לאיים היא עכשיו ספינת מסע גדולה, עם קראקן מאיים, מוזיקת אימה ומשחק אסטרגלוס בחדר המוגן',
+      'איים אמיתיים בים במקום הרים בצורת קונוס, עם חופים, צוקים, כפרים ומקדשים',
+      'פיזיקה חדשה: מדרונות וקצוות בלי היתקעות, שחייה חלקה, רגליים שלא מחליקות, ורוח שמזיזה שיער, גלימות ועצים',
+      'NPC חדשים: שומרים בשערים, חכמים וחקלאים, לבוש לפי אזור ופחות פנים חוזרות',
+      'סימנים חדשים: "?" למשימה, "!" למסירה ולדמויות סיפור, ויהלום זהב לכל מי שאפשר לדבר איתו',
+      'עץ כישורים, חלונות ומקשים חדשים, הסבר "איך משחקים" ומעבר שפה מהתפריט',
+      'זוגות חרבות וגרזנים גדולים יותר, ואם נתקעים המשחק מזיז אותך הצידה למקום פנוי',
+    ] },
+    en: { title: 'Version 30: a new look for the whole game, and a launcher', items: [
+      'A new launcher: download it once and it installs the game, keeps it up to date (only the changed files) and starts it',
+      'The whole game in a new pixel-art style: V, townsfolk, monsters, landscapes, effects and the interface',
+      'The new V, with braids that really move and lie over her wings',
+      '194 monsters with levels, and a wiki on the site with all of them',
+      'The ferry to the isles is now a great galleon, with a menacing kraken, eerie music and a knucklebones game in the safe room',
+      'Real islands at sea instead of cone-shaped hills, with beaches, cliffs, villages and temples',
+      'New physics: no getting stuck on slopes and ledges, smooth swimming, feet that stay planted, and wind that moves hair, cloaks and trees',
+      'New townsfolk: gate guards, scholars and farmers, regional clothes and fewer repeated faces',
+      'New marks: "?" for a quest, "!" to hand in or for story characters, and a gold diamond for anyone you can talk to',
+      'A skill tree, new windows and keys, a how-to-play page and a language switch in the menu',
+      'Bigger dual swords and axes, and if you get stuck the game moves you aside to free ground',
+    ] },
+  },
+  {
     v: '29', date: '2026-10-21',
     he: { title: 'סבבים 22 עד 29', items: [
       'חלק פתיחה חדש ומהיר: חושך, ברקים ורעמים, והאביר השחור חוטף את ROYE',
