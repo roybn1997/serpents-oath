@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Serpent's Oath</title>
-<meta name="description" content="The Serpent's Oath: המסע של Val להחזיר את Roye הביתה. משחק הרפתקאות בעולם פתוח של יוון המיתולוגית, ל-Windows, בלי התקנה.">
+<meta name="description" content="The Serpent's Oath: המסע של Val להחזיר את Roye הביתה. משחק הרפתקאות בעולם פתוח של יוון המיתולוגית, ל-Windows. מורידים את המשגר, והוא מתקין ומעדכן את המשחק.">
 <meta name="theme-color" content="#160e08">
 <meta property="og:title" content="The Serpent's Oath">
-<meta property="og:description" content="Val's journey to bring Roye home. An open-world adventure in mythic Greece, for Windows.">
+<meta property="og:description" content="Val's journey to bring Roye home. An open-world adventure in mythic Greece, for Windows. Download the launcher; it installs and updates the game.">
 <meta property="og:image" content="assets/hero.jpg">
 <link rel="icon" href="assets/icon-64.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -282,7 +282,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
     <p class="tag" data-t="tagline"></p>
     <div class="dlrow">
       <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
-      <a class="slab big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small data-t="mac_sub"></small></span></a>
+      <a class="slab big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small class="macsz"></small></span></a>
     </div>
     <p class="meta" id="meta"></p>
     <p class="req" data-h="req"></p>
@@ -298,7 +298,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
     <ol class="steps">
       <li class="step parch"><div class="medal" aria-hidden="true">1</div><h3 data-t="s1_h"></h3><p data-h="s1_p"></p></li>
       <li class="step parch"><div class="medal" aria-hidden="true">2</div><h3 data-t="s2_h"></h3><p data-h="s2_p"></p></li>
-      <li class="step parch"><div class="medal" aria-hidden="true">3</div><h3 data-h="s3_h"></h3><p data-h="s3_p"></p></li>
+      <li class="step parch"><div class="medal" aria-hidden="true">3</div><h3 data-t="s3_h"></h3><p data-h="s3_p"></p></li>
     </ol>
       <p class="macnote" data-h="mac_p"></p>
     <div class="notes parch">
@@ -343,7 +343,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
     <h2 id="cta-h" data-t="cta_h"></h2>
     <div class="dlrow">
       <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
-      <a class="slab big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small data-t="mac_sub"></small></span></a>
+      <a class="slab big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small class="macsz"></small></span></a>
     </div>
   </section>
 </main>
@@ -359,29 +359,30 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
 <script>
 // texts in both languages. data-t fills textContent, data-h fills markup (only these fixed strings, never data).
 const EXE = `<span class="file"><img src="assets/icon-64.png" alt="">The Serpent's Oath.exe</span>`;
-const ZIPF = `<span class="file">SerpentsOath.zip</span>`;
+const ZIPF = `<span class="file">SerpentsOath-Launcher.zip</span>`;
+const MACF = `<span class="file">SerpentsOath-Launcher-Mac.zip</span>`;
 const T = {
   he: {
     nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_upd: 'עדכונים', nav_wiki: 'ויקי', lang: 'English',
     tagline: 'המסע של Val להחזיר את Roye הביתה',
-    dl_btn: 'הורדה ל-Windows',
-    mac_btn: 'הורדה ל-Mac', mac_sub: 'גרסת Web',
-    mac_p: 'על Mac: מורידים את <span class="file">SerpentsOath-Mac.zip</span>, מחלצים, ופותחים את <span class="ltr">The Serpent\'s Oath.html</span> בדפדפן. בלי התקנה, וההתקדמות נשמרת בדפדפן הזה.',
+    dl_btn: 'הורדת המשגר', dl_sub: 'Windows · ',
+    mac_btn: 'המשגר ל-Mac', mac_sub: 'בטא · Apple silicon',
+    mac_p: `ב-Mac (בטא): מורידים את ${MACF} (למעבדי Apple silicon; <a class="intel" href="#">למחשבי Mac עם Intel</a>), מחלצים ופותחים את <span class="ltr">The Serpent\'s Oath.app</span>. בפעם הראשונה macOS מבקש אישור: הגדרות המערכת › פרטיות ואבטחה › <span class="ltr">Open Anyway</span>, כי האפליקציה לא אושרה (notarized) על ידי Apple.`,
     ver: 'גרסה', mb: 'MB',
-    req: 'Windows 10 או 11, 64 ביט. ב-Mac: ‏Safari או Chrome. בלי התקנה. <a href="#run">איך מפעילים?</a>',
-    run_h: 'איך מורידים ומפעילים',
-    run_sub: 'שלושה צעדים, בלי התקנה ובלי הרשאות מנהל.',
-    s1_h: 'מורידים את קובץ ה-ZIP',
-    s1_p: `לוחצים על כפתור ההורדה ושומרים את ${ZIPF}. הקובץ שוקל בערך <span class="ltr">{mb}MB</span>.`,
-    s2_h: 'מחלצים לתיקייה',
-    s2_p: 'קליק ימני על הקובץ ובוחרים <b>"חלץ הכל"</b> (<span class="ltr">Extract All</span>). אפשר לחלץ לכל מקום, גם לשולחן העבודה.',
-    s3_h: `לוחצים על ${EXE}`,
-    s3_p: 'לחיצה כפולה על הקובץ בתוך התיקייה שחילצתם, והמשחק נפתח. זהו.',
+    req: 'Windows 10 או 11, 64 ביט. Mac בבטא. המשגר מתקין ומעדכן את המשחק. <a href="#run">איך זה עובד?</a>',
+    run_h: 'איך מורידים ומשחקים',
+    run_sub: 'שלושה צעדים. את ההתקנה והעדכונים עושה המשגר.',
+    s1_h: 'מורידים את המשגר',
+    s1_p: `לוחצים על כפתור ההורדה ושומרים את ${ZIPF} (בערך <span class="ltr">{mb}MB</span>). זו ההורדה היחידה: את המשחק עצמו מוריד המשגר.`,
+    s2_h: 'מחלצים ופותחים את המשגר',
+    s2_p: `קליק ימני על הקובץ, <b>"חלץ הכל"</b> (<span class="ltr">Extract All</span>), ואז לחיצה כפולה על ${EXE} בתוך התיקייה.`,
+    s3_h: 'לוחצים התקנה, ואז קמפיין',
+    s3_p: 'המשגר מוריד ומתקין את המשחק (אפשר לבחור תיקייה), בודק כל קובץ, ומאז מעדכן אותו לבד בכל פתיחה.',
     notes_h: 'טוב לדעת',
-    n_ss: 'בפעם הראשונה Windows עלול להציג חלון כחול: <b class="ltr">"Windows protected your PC"</b>. לוחצים על <span class="key">More info</span> ואז על <span class="key">Run anyway</span>. זה קורה כי המשחק עוד לא חתום דיגיטלית.',
+    n_ss: 'בפעם הראשונה Windows עלול להציג חלון כחול: <b class="ltr">"Windows protected your PC"</b>. לוחצים על <span class="key">More info</span> ואז על <span class="key">Run anyway</span>. זה קורה כי המשגר עוד לא חתום דיגיטלית.',
     n_save: 'השמירות נשמרות בפרופיל המשתמש שלכם, ב-<span class="path">%APPDATA%\\SerpentsOath</span>, ולא בתיקיית המשחק.',
-    n_upd: '<b>עדכון:</b> מורידים את ה-ZIP החדש ומחלצים אותו. ההתקדמות נשמרת, ואת התיקייה הישנה אפשר למחוק.',
-    n_req: 'Windows 10 או 11, 64 ביט. לא צריך התקנה ולא הרשאות מנהל.',
+    n_upd: '<b>עדכונים אוטומטיים:</b> בכל פתיחה המשגר בודק אם יש גרסה חדשה ומוריד רק את הקבצים שהשתנו. ההתקדמות נשמרת. מי שכבר שיחק בגרסת ה-ZIP הקודמת ממשיך מאותה נקודה, ואת התיקייה הישנה אפשר למחוק.',
+    n_req: 'Windows 10 או 11, 64 ביט. לא צריך הרשאות מנהל: המשחק מותקן בתיקיית המשתמש.',
     n_full: '<span class="key">F11</span> או <span class="key">Alt+Enter</span> עוברים בין מסך מלא לחלון.',
     about_h: 'על המשחק',
     about_p1: 'Val היא אישה רגילה מכפר קטן לחוף הים האגאי. בלילה שבו נעלמו הכוכבים, מרכבה שחורה לקחה ממנה את Roye, והיא יוצאת אחריו: דרך ערי יוון המוקפות חומות, הרים ומערות, אל הנהר של המתים ועד לשאול. בדרך היא נלחמת במפלצות, מדברת עם אלים וגיבורים, ומגלה שמדוזה, היצור שכולם לימדו אותה לפחד ממנו, היא לא מה שחשבה.',
@@ -392,30 +393,30 @@ const T = {
     upd_sub: '{n} עדכונים מאז 14.10.2026, החדש ביותר למעלה.',
     soon: 'בקרוב',
     cta_h: 'מוכנים לצאת לדרך?',
-    foot: 'משחק הרפתקאות ל-Windows ול-Mac. חינם, בלי התקנה.',
+    foot: 'משחק הרפתקאות ל-Windows (ול-Mac בבטא). חינם. המשגר מתקין ומעדכן אותו.',
     top: 'חזרה למעלה',
   },
   en: {
     nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', nav_wiki: 'Wiki', lang: 'עברית',
     tagline: "Val's journey to bring Roye home",
-    dl_btn: 'Download for Windows',
-    mac_btn: 'Download for Mac', mac_sub: 'Web version',
-    mac_p: 'On a Mac: download <span class="file">SerpentsOath-Mac.zip</span>, extract it, and open <span class="ltr">The Serpent\'s Oath.html</span> in your browser. Nothing to install. Progress is saved in that browser.',
+    dl_btn: 'Download the launcher', dl_sub: 'Windows · ',
+    mac_btn: 'Launcher for Mac', mac_sub: 'Beta · Apple silicon',
+    mac_p: `On a Mac (beta): download ${MACF} (Apple silicon; <a class="intel" href="#">Intel Macs</a>), extract it and open <span class="ltr">The Serpent\'s Oath.app</span>. The first time, macOS asks you to confirm in System Settings › Privacy &amp; Security › <b>Open Anyway</b>, because the app is not notarized by Apple.`,
     ver: 'Version', mb: 'MB',
-    req: 'Windows 10 or 11, 64-bit. On a Mac: Safari or Chrome. Nothing to install. <a href="#run">How to run it?</a>',
+    req: 'Windows 10 or 11, 64-bit. Mac in beta. The launcher installs and updates the game. <a href="#run">How does it work?</a>',
     run_h: 'Download and play',
-    run_sub: 'Three steps. No installation, no admin rights.',
-    s1_h: 'Download the ZIP',
-    s1_p: `Click the download button and save ${ZIPF} (about {mb} MB).`,
-    s2_h: 'Extract it to a folder',
-    s2_p: 'Right-click the file and choose <b>Extract All</b>. Any folder works, even the desktop.',
-    s3_h: `Double-click ${EXE}`,
-    s3_p: "It's inside the folder you extracted, and the game opens. That's it.",
+    run_sub: 'Three steps. The launcher does the installing and the updating.',
+    s1_h: 'Download the launcher',
+    s1_p: `Click the download button and save ${ZIPF} (about {mb} MB). It is the only download: the launcher fetches the game itself.`,
+    s2_h: 'Extract it and open the launcher',
+    s2_p: `Right-click the file, choose <b>Extract All</b>, then double-click ${EXE} inside the folder.`,
+    s3_h: 'Click INSTALL, then CAMPAIGN',
+    s3_p: 'The launcher downloads and installs the game (pick a folder if you like), checks every file, and from then on updates it by itself whenever you open it.',
     notes_h: 'Good to know',
-    n_ss: 'The first time, Windows may show a blue window: <b>"Windows protected your PC"</b>. Click <span class="key">More info</span>, then <span class="key">Run anyway</span>. It appears because the game isn\'t digitally signed yet.',
+    n_ss: 'The first time, Windows may show a blue window: <b>"Windows protected your PC"</b>. Click <span class="key">More info</span>, then <span class="key">Run anyway</span>. It appears because the launcher isn\'t digitally signed yet.',
     n_save: 'Your saves live in your Windows profile, in <span class="path">%APPDATA%\\SerpentsOath</span>, not in the game folder.',
-    n_upd: '<b>Updating:</b> download the new ZIP and extract it. Your progress carries over, and you can delete the old folder.',
-    n_req: 'Windows 10 or 11, 64-bit. No installation and no admin rights needed.',
+    n_upd: '<b>Updates are automatic:</b> every time it opens, the launcher checks for a new version and downloads only the files that changed. Progress carries over, including from the old ZIP version, whose folder you can delete.',
+    n_req: 'Windows 10 or 11, 64-bit. No admin rights needed: the game installs into your user folder.',
     n_full: '<span class="key">F11</span> or <span class="key">Alt+Enter</span> switches between full screen and a window.',
     about_h: 'About the game',
     about_p1: 'Val is an ordinary woman from a small village on the Aegean coast. On the night the stars went out, a black chariot took Roye from her, and she goes after him: through walled Greek cities, mountains and caves, to the river of the dead and down into the underworld. Along the way she fights monsters, talks with gods and heroes, and learns that Medusa, the creature everyone taught her to fear, is not what she seemed.',
@@ -426,7 +427,7 @@ const T = {
     upd_sub: '{n} updates since 14 Oct 2026, newest first.',
     soon: 'Coming soon',
     cta_h: 'Ready to set out?',
-    foot: 'An adventure game for Windows and Mac. Free, nothing to install.',
+    foot: 'An adventure game for Windows (and Mac, in beta). Free. The launcher installs and updates it.',
     top: 'Back to top',
   },
 };
@@ -450,7 +451,7 @@ const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) 
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const fmt = (d, L) => { const [y, m, dd] = d.split('-').map(Number); return L === 'he' ? `${dd}.${m}.${y}` : `${dd} ${MON[m - 1]} ${y}`; };
 const SITE = window.SITE || {}, UPDATES = window.UPDATES || [];
-const fill = (s) => s.replace('{mb}', SITE.ZIP_MB || '').replace('{n}', UPDATES.length);
+const fill = (s) => s.replace('{mb}', SITE.LAUNCHER_MB || '').replace('{n}', UPDATES.length);
 let L = 'en';
 
 function render() {
@@ -466,7 +467,9 @@ function render() {
   if (cur?.v) parts.push(bit(t.ver, cur.v));
   if (cur?.date) parts.push(bit('', fmt(cur.date, L)));
   parts.forEach((p, i) => { if (i) meta.append(el('span', 'sep', '·')); meta.append(p); });
-  document.querySelectorAll('.winsz').forEach((e) => { e.textContent = SITE.ZIP_MB ? '\u2066' + SITE.ZIP_MB + ' ' + t.mb + '\u2069' : ''; });
+  document.querySelectorAll('.winsz').forEach((e) => { e.textContent = t.dl_sub + (SITE.LAUNCHER_MB ? '\u2066' + SITE.LAUNCHER_MB + ' ' + t.mb + '\u2069' : ''); });
+  document.querySelectorAll('.macsz').forEach((e) => { e.textContent = t.mac_sub + (SITE.MAC_MB ? ' · \u2066' + SITE.MAC_MB + ' ' + t.mb + '\u2069' : ''); });
+  document.querySelectorAll('a.intel').forEach((a) => { a.href = SITE.MAC_INTEL_URL || '#'; });
   $('#upd-sub').textContent = fill(t.upd_sub);
   shots(); clips(); board();
 }
@@ -534,8 +537,10 @@ function board() {
 
 // the hero snake: a head and a body of segments, each a beat behind the one in front
 (() => { const sn = $('#snake'); for (let i = 0; i < 17; i++) { const s = el('i', i === 16 ? 'hd' : ''); s.style.setProperty('--i', 16 - i); sn.append(s); } })();
-document.querySelectorAll('.dlbtn').forEach((a) => { a.href = SITE.ZIP_URL || '#'; });
-document.querySelectorAll('.macbtn').forEach((a) => { a.href = SITE.MAC_URL || '#'; });
+// the site gives out the launcher only; the launcher installs and updates the game (no game ZIP is linked here)
+document.querySelectorAll('.dlbtn').forEach((a) => { a.href = SITE.LAUNCHER_URL || '#'; });
+document.querySelectorAll('.macbtn').forEach((a) => { if (SITE.MAC_URL) a.href = SITE.MAC_URL; else a.remove(); });
+if (!SITE.MAC_URL) { document.querySelectorAll('.macnote').forEach((e) => e.remove()); document.querySelectorAll('.dlrow').forEach((r) => { r.style.gridTemplateColumns = 'minmax(0, 1fr)'; r.style.width = 'min(440px, 100%)'; }); }
 
 // the living background: a 12 s seamless loop (webm, mp4 for Safari). With motion off it isn't even downloaded,
 // and the still town (hero.jpg) stays

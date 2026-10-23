@@ -1,12 +1,18 @@
-// The Serpent's Oath site: the download and the updates board. A new release is two edits here:
-//   1. point ZIP_URL at the release (the "latest" link below always serves the newest one) and set ZIP_MB;
-//   2. add one entry at the TOP of UPDATES (newest first). upcoming: true shows it as "coming soon" and keeps it
-//      out of the version line under the download button.
+// The Serpent's Oath site: the download and the updates board.
+// The site hands out the LAUNCHER only: the launcher installs the game, keeps it up to date and starts it, so a new
+// game release needs no change here (the launcher reads the release's signed game-manifest.json from GitHub).
+//   - LAUNCHER_URL / MAC_*: the launcher packages on the latest GitHub release ("latest" always serves the newest one);
+//     change them only if the file names change. *_MB are the download sizes shown on the buttons.
+//   - set MAC_URL to '' to hide the Mac button (e.g. if a Mac build is not attached to the release).
+//   - news: add one entry at the TOP of UPDATES (newest first). upcoming: true shows it as "coming soon" and keeps it
+//     out of the version line under the download button. The launcher reads this list too (as data, never run).
 // Each entry: v (version, optional), date (YYYY-MM-DD), he/en: { title, items: [one plain line per change] }.
 window.SITE = {
-  ZIP_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath.zip',
-  MAC_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Mac.zip',
-  ZIP_MB: 134,
+  LAUNCHER_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher.zip',
+  LAUNCHER_MB: 132,
+  MAC_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac.zip',
+  MAC_INTEL_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac-Intel.zip',
+  MAC_MB: 104,
 };
 
 window.UPDATES = [
