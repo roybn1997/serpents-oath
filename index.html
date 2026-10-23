@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Serpent's Oath</title>
-<meta name="description" content="The Serpent's Oath: המסע של V להחזיר את ריין הביתה. משחק הרפתקאות בעולם פתוח של יוון המיתולוגית, ל-Windows, בלי התקנה.">
+<meta name="description" content="The Serpent's Oath: המסע של Val להחזיר את Roye הביתה. משחק הרפתקאות בעולם פתוח של יוון המיתולוגית, ל-Windows, בלי התקנה.">
 <meta name="theme-color" content="#160e08">
 <meta property="og:title" content="The Serpent's Oath">
-<meta property="og:description" content="V's journey to bring Rain home. An open-world adventure in mythic Greece, for Windows.">
+<meta property="og:description" content="Val's journey to bring Roye home. An open-world adventure in mythic Greece, for Windows.">
 <meta property="og:image" content="assets/hero.jpg">
 <link rel="icon" href="assets/icon-64.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -179,6 +179,21 @@ main { display: grid; gap: 72px; padding: 56px 0 24px; }
 .shot a { display: block; padding: 6px; background: var(--leather); border: 3px solid var(--night); box-shadow: var(--fr-sm); }
 .shot img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; image-rendering: pixelated; background: var(--leather-2); }
 .shot figcaption { font-size: 14px; color: var(--parch-2); text-align: center; }
+.about + .shots { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 22px; }
+/* the clips: real gameplay, 8 s loops, loaded only when they scroll into view; a pause chip on each */
+.clips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0; }
+.clip { margin: 0; display: grid; gap: 6px; align-content: start; }
+.clip .fr { position: relative; padding: 6px; background: var(--leather); border: 3px solid var(--night); box-shadow: var(--fr-sm); }
+.clip video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--leather-2) center / cover no-repeat; }
+.clip figcaption { font-size: 14px; color: var(--parch-2); text-align: center; }
+.clip .pp { position: absolute; inset-inline-end: 12px; bottom: 12px; width: 30px; height: 30px; padding: 0; border: 2px solid var(--night); background: rgba(26, 17, 11, .78); box-shadow: inset 0 0 0 2px var(--bronze); cursor: pointer; display: grid; place-items: center; opacity: .75; }
+.clip .pp:hover, .clip .pp:focus-visible { opacity: 1; }
+.clip .pp:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.clip .pp i { width: 4px; height: 12px; background: var(--parch-hi); box-shadow: 6px 0 0 var(--parch-hi); transform: translateX(-3px); }
+.clip .pp[aria-pressed="false"] i { width: 0; height: 0; background: none; box-shadow: none; transform: translateX(1px); border: solid transparent; border-width: 7px 0 7px 11px; border-left-color: var(--parch-hi); }
+.wikiline { margin: 22px 0 0; display: flex; justify-content: center; }
+.wikiline .slab { gap: 10px; }
+.wikiline img { image-rendering: pixelated; }
 
 /* the updates board: one parchment tablet per update, newest first */
 .log { display: grid; gap: 14px; }
@@ -219,8 +234,9 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
   .torch { transform: scale(.62); transform-origin: 50% 30%; }
   .torch.l { left: -2px; } .torch.r { right: -2px; }
   .sech { font-size: 22px; }
-  .shots { gap: 10px; }
-  .shot a { padding: 4px; }
+  .shots, .clips { gap: 10px; }
+  .shot a, .clip .fr { padding: 4px; }
+  .about + .shots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .upd summary { padding: 14px 16px 13px; }
   .upd ul { padding: 0 16px 18px; }
   .notes, .about .txt { padding: 22px 20px 20px; }
@@ -250,6 +266,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
     <a href="#run" data-t="nav_run"></a>
     <a href="#about" data-t="nav_about"></a>
     <a href="#updates" data-t="nav_upd"></a>
+    <a href="wiki.html" class="wikilink" data-t="nav_wiki"></a>
   </nav>
   <button class="chip" id="lang" type="button"></button>
 </header>
@@ -310,8 +327,10 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
           <li><img src="assets/pi-gstar.png" alt=""><span data-t="f_lang"></span></li>
         </ul>
       </div>
-      <div class="shots" id="shots"></div>
+      <div class="clips" id="clips"></div>
     </div>
+    <div class="shots" id="shots"></div>
+    <p class="wikiline"><a class="slab" href="wiki.html"><img src="assets/pi-scroll.png" alt="" width="22" height="22"><span data-t="wiki_cta"></span></a></p>
   </section>
 
   <section class="sec" id="updates" aria-labelledby="upd-h">
@@ -343,8 +362,8 @@ const EXE = `<span class="file"><img src="assets/icon-64.png" alt="">The Serpent
 const ZIPF = `<span class="file">SerpentsOath.zip</span>`;
 const T = {
   he: {
-    nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_upd: 'עדכונים', lang: 'English',
-    tagline: 'המסע של V להחזיר את ריין הביתה',
+    nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_upd: 'עדכונים', nav_wiki: 'ויקי', lang: 'English',
+    tagline: 'המסע של Val להחזיר את Roye הביתה',
     dl_btn: 'הורדה ל-Windows',
     mac_btn: 'הורדה ל-Mac', mac_sub: 'גרסת Web',
     mac_p: 'על Mac: מורידים את <span class="file">SerpentsOath-Mac.zip</span>, מחלצים, ופותחים את <span class="ltr">The Serpent\'s Oath.html</span> בדפדפן. בלי התקנה, וההתקדמות נשמרת בדפדפן הזה.',
@@ -365,7 +384,8 @@ const T = {
     n_req: 'Windows 10 או 11, 64 ביט. לא צריך התקנה ולא הרשאות מנהל.',
     n_full: '<span class="key">F11</span> או <span class="key">Alt+Enter</span> עוברים בין מסך מלא לחלון.',
     about_h: 'על המשחק',
-    about_p1: 'V היא אישה רגילה מכפר קטן לחוף הים האגאי. בלילה שבו נעלמו הכוכבים, מרכבה שחורה לקחה ממנה את ריין, והיא יוצאת אחריו: דרך ערי יוון המוקפות חומות, הרים ומערות, אל הנהר של המתים ועד לשאול. בדרך היא נלחמת במפלצות, מדברת עם אלים וגיבורים, ומגלה שמדוזה, היצור שכולם לימדו אותה לפחד ממנו, היא לא מה שחשבה.',
+    about_p1: 'Val היא אישה רגילה מכפר קטן לחוף הים האגאי. בלילה שבו נעלמו הכוכבים, מרכבה שחורה לקחה ממנה את Roye, והיא יוצאת אחריו: דרך ערי יוון המוקפות חומות, הרים ומערות, אל הנהר של המתים ועד לשאול. בדרך היא נלחמת במפלצות, מדברת עם אלים וגיבורים, ומגלה שמדוזה, היצור שכולם לימדו אותה לפחד ממנו, היא לא מה שחשבה.',
+    wiki_cta: 'כל המפלצות, הנשקים, הכישורים והמקומות: לוויקי',
     about_p2: 'עולם פתוח אחד גדול בפיקסל־ארט, קרבות עם משקל, כישורים, נשקים ובגדים, סוסים, ומוזיקה שנכתבה למשחק.',
     f_world: 'עולם פתוח', f_fight: 'קרבות וכישורים', f_horse: 'רכיבה על סוסים', f_story: 'סיפור בפרקים', f_lang: 'עברית ואנגלית',
     upd_h: 'לוח העדכונים',
@@ -376,8 +396,8 @@ const T = {
     top: 'חזרה למעלה',
   },
   en: {
-    nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', lang: 'עברית',
-    tagline: "V's journey to bring Rain home",
+    nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', nav_wiki: 'Wiki', lang: 'עברית',
+    tagline: "Val's journey to bring Roye home",
     dl_btn: 'Download for Windows',
     mac_btn: 'Download for Mac', mac_sub: 'Web version',
     mac_p: 'On a Mac: download <span class="file">SerpentsOath-Mac.zip</span>, extract it, and open <span class="ltr">The Serpent\'s Oath.html</span> in your browser. Nothing to install. Progress is saved in that browser.',
@@ -398,7 +418,8 @@ const T = {
     n_req: 'Windows 10 or 11, 64-bit. No installation and no admin rights needed.',
     n_full: '<span class="key">F11</span> or <span class="key">Alt+Enter</span> switches between full screen and a window.',
     about_h: 'About the game',
-    about_p1: 'V is an ordinary woman from a small village on the Aegean coast. On the night the stars went out, a black chariot took Rain from her, and she goes after him: through walled Greek cities, mountains and caves, to the river of the dead and down into the underworld. Along the way she fights monsters, talks with gods and heroes, and learns that Medusa, the creature everyone taught her to fear, is not what she seemed.',
+    about_p1: 'Val is an ordinary woman from a small village on the Aegean coast. On the night the stars went out, a black chariot took Roye from her, and she goes after him: through walled Greek cities, mountains and caves, to the river of the dead and down into the underworld. Along the way she fights monsters, talks with gods and heroes, and learns that Medusa, the creature everyone taught her to fear, is not what she seemed.',
+    wiki_cta: 'Every monster, weapon, skill and place: open the wiki',
     about_p2: 'One big open world in pixel art, combat with weight, skills, weapons and outfits, horses, and music made for the game.',
     f_world: 'Open world', f_fight: 'Combat and skills', f_horse: 'Horse riding', f_story: 'A story in chapters', f_lang: 'Hebrew and English',
     upd_h: 'Updates',
@@ -409,9 +430,16 @@ const T = {
     top: 'Back to top',
   },
 };
+// the clips under "About": real gameplay, recorded by tools/site/record.mjs in the game repo (8 s seamless loops)
+const CLIPS = [
+  { src: 'assets/clip-ride', he: 'Val רוכבת על סוס מלחמה מברונזה, החוצה משערי אתונה', en: 'Val rides out of the gates of Athens on her bronze warhorse' },
+  { src: 'assets/clip-fight', he: 'קרב מול להקה: חרב, מגן וכישורים', en: 'A fight against a pack: sword, shield and skills' },
+  { src: 'assets/clip-story', he: 'טרטרוס: קאמפה, השומרת, פוגשת את Val', en: 'Tartarus: Kampe, the warden, meets Val' },
+  { src: 'assets/clip-inventory', he: 'התיק: נשקים, שריון וסטים לפי נדירות', en: 'The satchel: weapons, armour and sets by rarity' },
+];
 // the screenshots under "About": real captures from the game
 const SHOTS = [
-  { src: 'assets/shot-1.jpg', he: 'V באגורה של אתונה', en: 'V in the agora of Athens' },
+  { src: 'assets/shot-1.jpg', he: 'Val באגורה של אתונה', en: 'Val in the agora of Athens' },
   { src: 'assets/shot-2.jpg', he: 'קרב בדרך לתבאי', en: 'A fight on the road to Thebes' },
   { src: 'assets/shot-3.jpg', he: 'כארון והסירה שלו על נהר המתים', en: 'Charon and his boat on the river of the dead' },
   { src: 'assets/shot-4.jpg', he: 'קיקלופ והרפיה בשעת אחר הצהריים', en: 'A cyclops and a harpy in the late afternoon' },
@@ -440,7 +468,44 @@ function render() {
   parts.forEach((p, i) => { if (i) meta.append(el('span', 'sep', '·')); meta.append(p); });
   document.querySelectorAll('.winsz').forEach((e) => { e.textContent = SITE.ZIP_MB ? '\u2066' + SITE.ZIP_MB + ' ' + t.mb + '\u2069' : ''; });
   $('#upd-sub').textContent = fill(t.upd_sub);
-  shots(); board();
+  shots(); clips(); board();
+}
+
+// each clip shows its poster until it comes near the screen, then loads and plays (muted, looping, inline on phones);
+// off screen it pauses. With motion off it stays a still: the play chip starts it by hand.
+const STILL = matchMedia('(prefers-reduced-motion: reduce)');
+const near = 'IntersectionObserver' in window ? new IntersectionObserver((es) => {
+  for (const e of es) { const v = e.target; if (e.isIntersecting) { load(v); if (!v.dataset.held) v.play().catch(() => {}); } else v.pause(); }
+}, { rootMargin: '200px 0px' }) : null;
+function load(v) {
+  if (v.dataset.on) return; v.dataset.on = 1;
+  for (const [ext, type] of [['webm', 'video/webm'], ['mp4', 'video/mp4']]) { const s = el('source'); s.src = `${v.dataset.src}.${ext}`; s.type = type; v.append(s); }
+  v.load();
+}
+let clipsBuilt = false;
+function clips() {
+  const box = $('#clips');
+  if (clipsBuilt) { // a language switch only changes the words
+    box.querySelectorAll('.clip').forEach((f, i) => { f.querySelector('figcaption').textContent = CLIPS[i][L]; f.querySelector('video').setAttribute('aria-label', CLIPS[i][L]); f.querySelector('.pp').setAttribute('aria-label', L === 'he' ? 'הפעלה או השהיה' : 'Play or pause'); });
+    return;
+  }
+  clipsBuilt = true;
+  for (const c of CLIPS) {
+    const f = el('figure', 'clip'), fr = el('div', 'fr'), v = el('video'), b = el('button', 'pp');
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none'; v.poster = c.src + '.jpg';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-label', c[L]);
+    v.width = 1280; v.height = 720; v.dataset.src = c.src;
+    b.type = 'button'; b.append(el('i')); b.setAttribute('aria-label', L === 'he' ? 'הפעלה או השהיה' : 'Play or pause');
+    const still = STILL.matches || !near;
+    if (still) v.dataset.held = 1;
+    b.setAttribute('aria-pressed', String(!still));
+    b.addEventListener('click', () => {
+      if (v.paused) { delete v.dataset.held; load(v); v.play().catch(() => {}); b.setAttribute('aria-pressed', 'true'); }
+      else { v.dataset.held = 1; v.pause(); b.setAttribute('aria-pressed', 'false'); }
+    });
+    fr.append(v, b); f.append(fr, el('figcaption', '', c[L])); box.append(f);
+    if (near && !STILL.matches) near.observe(v);
+  }
 }
 
 function shots() {
