@@ -17,7 +17,7 @@ window.SITE = {
 
 window.UPDATES = [
   {
-    v: '30', date: '2026-10-23',
+    v: '30', date: '2026-10-24',
     he: { title: 'גרסה 30: מראה חדש לכל המשחק, ולאנצ\'ר', items: [
       'לאנצ\'ר חדש: מורידים אותו פעם אחת, והוא מתקין את המשחק, מעדכן אותו אוטומטית (רק את הקבצים שהשתנו) ופותח אותו',
       'כל המשחק בסגנון פיקסל-ארט חדש: V, תושבי הערים, המפלצות, הנוף, האפקטים והממשק',
@@ -29,6 +29,8 @@ window.UPDATES = [
       'NPC חדשים: שומרים בשערים, חכמים וחקלאים, לבוש לפי אזור ופחות פנים חוזרות',
       'סימנים חדשים: "?" למשימה, "!" למסירה ולדמויות סיפור, ויהלום זהב לכל מי שאפשר לדבר איתו',
       'עץ כישורים, חלונות ומקשים חדשים, הסבר "איך משחקים" ומעבר שפה מהתפריט',
+      'מערכת כישורים חדשה: 96 כישורים ואולטימייטים, לכל אחד אפקט, אייקון וצליל משלו, וענף חמישי בעץ: נתיב העלייה',
+      'כישור יכול לקטוע כישור אחר (Q עוצר R), חוץ מאולטימייט שכבר פוגע',
       'זוגות חרבות וגרזנים גדולים יותר, ואם נתקעים המשחק מזיז אותך הצידה למקום פנוי',
       'שמיים חדשים: שמש וירח שזזים לפי השעה, כוכבים בלילה, ומים שמשקפים את האור',
       'נשקים נישאים בצורה טבעית מחוץ לקרב ומורמים במתח בקרב, והלהב החד פונה למטה',
@@ -36,6 +38,11 @@ window.UPDATES = [
       'מצלמת שיחה חלקה שממרכזת את מי שמדבר, והמשחק מתחיל בזום הרחוק ביותר',
       'קרב הקראקן: פוגעים בזרוע כשהיא מכה בסיפון, ואי אפשר להיתקע ליד המעקה',
       'גלגלת העכבר מעל חלון גוללת אותו בלי לשנות זום, וחלונות נפתחים במרכז המסך',
+      'עצים חדשים גבוהים מאוד, ואלון ההמדריאדה: מפלצת עץ ברמה 32 שפוקחת עיניים ומצליפה בענפים כשעוברים לידה',
+      'בסירה הקטנה V חותרת (עם Shift מהר יותר), יש שובל במים, ומפלצות מעופפות לא תוקפות בים',
+      'קצף דק סביב סלעי הים, ותושבי העיר עוקפים בתים, מזרקות ודוכנים',
+      'התקפות איטיות ב-30% ועם יותר משקל, צעדים, רוח וגשם שקטים יותר, וההגדרות מחולקות לנושאים',
+      'תיקונים בסיפור: הטבעת, אקו בדמות רוח, קמפה, האדס, ותבליט חצוב בשער של מדוזה',
     ] },
     en: { title: 'Version 30: a new look for the whole game, and a launcher', items: [
       'A new launcher: download it once and it installs the game, keeps it up to date (only the changed files) and starts it',
@@ -48,6 +55,8 @@ window.UPDATES = [
       'New townsfolk: gate guards, scholars and farmers, regional clothes and fewer repeated faces',
       'New marks: "?" for a quest, "!" to hand in or for story characters, and a gold diamond for anyone you can talk to',
       'A skill tree, new windows and keys, a how-to-play page and a language switch in the menu',
+      'A new skill system: 96 skills and ultimates, each with its own effect, icon and sound, and a fifth branch in the tree, the Path of Ascent',
+      'A skill can cut off another (Q stops R), except an ultimate that is already striking',
       'Bigger dual swords and axes, and if you get stuck the game moves you aside to free ground',
       'A new sky: the sun and moon move with the hour, stars at night, and water that catches the light',
       'Weapons carried naturally out of a fight and raised with strain in one, sharp edge down',
@@ -55,6 +64,11 @@ window.UPDATES = [
       'A smooth talk camera that centres whoever speaks, and the game starts at the widest zoom',
       'The Kraken fight: strike an arm when it hits the deck, and no more getting stuck at the rail',
       'The mouse wheel over a window scrolls it instead of zooming, and windows open in the middle of the screen',
+      'New towering trees, and the Hamadryad Oak: a level 32 tree monster that opens its eyes and lashes with its branches when you pass',
+      'In the small boat V rows (faster with Shift), the boat leaves a wake, and flying monsters leave you alone at sea',
+      'Thin surf around sea rocks, and townsfolk walk around houses, fountains and stalls',
+      'Attacks 30% slower with more weight, quieter footsteps, wind and rain, and settings split into tabs',
+      'Story fixes: the ring, Echo as a spirit, Kampe, Hades, and a carved relief at Medusa\'s gate',
     ] },
   },
   {
