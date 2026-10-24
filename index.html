@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;700&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="lang.css">
 <style>
 /* The Serpent's Oath site, in the game's own menu language: night sky, bronze frames, parchment, pixel sprites.
    Colours, frames and the title treatment are the game's style.css tokens. Every path is relative (GitHub Pages). */
@@ -33,7 +34,7 @@
   --gut: max(16px, env(safe-area-inset-left, 0px));
   color-scheme: dark;
 }
-html[lang="en"] { --font-title: "Pixelify Sans", "Rubik", system-ui, sans-serif; }
+html:not([lang="he"]) { --font-title: "Pixelify Sans", "Rubik", system-ui, sans-serif; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 64px; -webkit-text-size-adjust: 100%; }
 html, body { cursor: var(--cur-arrow); }
@@ -60,8 +61,6 @@ bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
 .bar nav a:hover { color: var(--gold); }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; font: 600 16px/1.2 var(--font-body); color: var(--parch-hi); background: var(--leather); border: 2px solid var(--night); box-shadow: inset 0 0 0 2px var(--bronze); }
 .chip:hover { background: var(--leather-2); color: var(--gold); }
-#lang { margin-inline-start: 6px; }
-#lang[lang="en"] { font-family: "Pixelify Sans", sans-serif; }
 
 /* ---------- hero: Athens from above, the town held still while the camera drifts ---------- */
 .hero { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: min(88vh, 860px); min-height: min(88svh, 860px); padding: 48px var(--gut) 96px;
@@ -98,7 +97,7 @@ bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
 .slab { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-width: 176px; min-height: 52px; padding: 11px 24px; text-decoration: none;
   font: 700 25px/1.1 var(--font-body); color: var(--ink); background: var(--parch-hi) var(--tex) 0 0 / 128px; image-rendering: pixelated; border: 3px solid var(--night);
   box-shadow: inset 0 0 0 2px var(--bronze-hi), inset 0 -5px 0 2px rgba(120, 85, 40, .28), 0 4px 0 0 var(--night); transition: transform .06s steps(2); }
-html[lang="en"] .slab { font-family: "Pixelify Sans", sans-serif; font-weight: 600; }
+html:not([lang="he"]) .slab { font-family: "Pixelify Sans", sans-serif; font-weight: 600; }
 .slab:hover { transform: translateY(-2px); background-color: #fff6df; }
 .slab:active { transform: translateY(3px); box-shadow: inset 0 0 0 2px var(--bronze-hi), 0 1px 0 0 var(--night); }
 .slab.big { min-height: 70px; padding: 14px 34px 16px; font-size: clamp(22px, 3vw, 29px); }
@@ -229,7 +228,6 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
 }
 @media (max-width: 720px) {
   .bar nav { display: none; }
-  #lang { margin-inline-start: auto; }
   .logo { padding-inline: 34px; }
   .torch { transform: scale(.62); transform-origin: 50% 30%; }
   .torch.l { left: -2px; } .torch.r { right: -2px; }
@@ -268,7 +266,14 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
     <a href="#updates" data-t="nav_upd"></a>
     <a href="wiki.html" class="wikilink" data-t="nav_wiki"></a>
   </nav>
-  <button class="chip" id="lang" type="button"></button>
+  <div class="langw">
+    <button class="chip globe-btn" id="lang" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu"><svg viewBox="0 0 13 13" aria-hidden="true"><path d="M4 0h5v1h-5zM2 1h2v1h-2zM6 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM0 6h13v1h-13zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM6 11h1v1h-1zM9 11h2v1h-2zM4 12h5v1h-5z"/></svg></button>
+    <div class="lmenu" id="lang-menu" role="menu" hidden>
+      <button type="button" role="menuitemradio" class="lopt" data-l="he" lang="he">עברית</button>
+      <button type="button" role="menuitemradio" class="lopt" data-l="en" lang="en">English</button>
+      <button type="button" role="menuitemradio" class="lopt" data-l="es" lang="es">Español</button>
+    </div>
+  </div>
 </header>
 
 <section class="hero" id="top">
@@ -356,14 +361,15 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
 </footer>
 
 <script src="updates.js"></script>
+<script src="lang.js"></script>
 <script>
-// texts in both languages. data-t fills textContent, data-h fills markup (only these fixed strings, never data).
+// texts in Hebrew, English and Spanish. data-t fills textContent, data-h fills markup (only these fixed strings, never data).
 const EXE = `<span class="file"><img src="assets/icon-64.png" alt="">The Serpent's Oath.exe</span>`;
 const ZIPF = `<span class="file">SerpentsOath-Launcher.zip</span>`;
 const MACF = `<span class="file">SerpentsOath-Launcher-Mac.zip</span>`;
 const T = {
   he: {
-    nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_upd: 'עדכונים', nav_wiki: 'ויקי', lang: 'English',
+    nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_upd: 'עדכונים', nav_wiki: 'ויקי',
     tagline: 'המסע של Val להחזיר את Roye הביתה',
     dl_btn: 'הורדת המשגר', dl_sub: 'Windows · ',
     mac_btn: 'המשגר ל-Mac', mac_sub: 'בטא · Apple silicon',
@@ -397,7 +403,7 @@ const T = {
     top: 'חזרה למעלה',
   },
   en: {
-    nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', nav_wiki: 'Wiki', lang: 'עברית',
+    nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', nav_wiki: 'Wiki',
     tagline: "Val's journey to bring Roye home",
     dl_btn: 'Download the launcher', dl_sub: 'Windows · ',
     mac_btn: 'Launcher for Mac', mac_sub: 'Beta · Apple silicon',
@@ -430,36 +436,70 @@ const T = {
     foot: 'An adventure game for Windows (and Mac, in beta). Free. The launcher installs and updates it.',
     top: 'Back to top',
   },
+  es: {
+    nav_run: 'Descargar y jugar', nav_about: 'El juego', nav_upd: 'Novedades', nav_wiki: 'Wiki',
+    tagline: 'El viaje de Val para traer a Roye de vuelta a casa',
+    dl_btn: 'Descargar el launcher', dl_sub: 'Windows · ',
+    mac_btn: 'Launcher para Mac', mac_sub: 'Beta · Apple silicon',
+    mac_p: `En Mac (beta): descarga ${MACF} (Apple silicon; <a class="intel" href="#">Mac con Intel</a>), descomprímelo y abre <span class="ltr">The Serpent\'s Oath.app</span>. La primera vez, macOS te pide confirmarlo en Ajustes del Sistema › Privacidad y seguridad › <b>Abrir igualmente</b>, porque Apple no ha notarizado la app.`,
+    ver: 'Versión', mb: 'MB',
+    req: 'Windows 10 u 11, 64 bits. Mac en beta. El launcher instala y actualiza el juego. <a href="#run">¿Cómo funciona?</a>',
+    run_h: 'Descargar y jugar',
+    run_sub: 'Tres pasos. El launcher se encarga de instalar y actualizar.',
+    s1_h: 'Descarga el launcher',
+    s1_p: `Pulsa el botón de descarga y guarda ${ZIPF} (unos {mb} MB). Es la única descarga: el juego lo descarga el propio launcher.`,
+    s2_h: 'Descomprímelo y abre el launcher',
+    s2_p: `Haz clic derecho en el archivo, elige <b>Extraer todo</b> (<span class="ltr">Extract All</span>) y haz doble clic en ${EXE} dentro de la carpeta.`,
+    s3_h: 'Pulsa INSTALL y luego CAMPAIGN',
+    s3_p: 'El launcher descarga e instala el juego (puedes elegir la carpeta), comprueba cada archivo y, desde entonces, lo actualiza solo cada vez que lo abres. El launcher y el juego están en inglés y en hebreo.',
+    notes_h: 'Conviene saber',
+    n_ss: 'La primera vez, Windows puede mostrar una ventana azul: <b>«Windows protegió su PC»</b>. Pulsa <span class="key">Más información</span> y luego <span class="key">Ejecutar de todas formas</span>. Aparece porque el launcher aún no tiene firma digital.',
+    n_save: 'Tus partidas se guardan en tu perfil de Windows, en <span class="path">%APPDATA%\\SerpentsOath</span>, no en la carpeta del juego.',
+    n_upd: '<b>Las actualizaciones son automáticas:</b> cada vez que se abre, el launcher busca una versión nueva y descarga solo los archivos que han cambiado. El progreso se conserva, también el de la antigua versión ZIP, cuya carpeta puedes borrar.',
+    n_req: 'Windows 10 u 11, 64 bits. No hacen falta permisos de administrador: el juego se instala en tu carpeta de usuario.',
+    n_full: '<span class="key">F11</span> o <span class="key">Alt+Enter</span> cambia entre pantalla completa y ventana.',
+    about_h: 'Sobre el juego',
+    about_p1: 'Val es una mujer corriente de un pequeño pueblo de la costa del Egeo. La noche en que se apagaron las estrellas, un carro negro se llevó a Roye, y ella sale tras él: por ciudades griegas amuralladas, montañas y cuevas, hasta el río de los muertos y el inframundo. Por el camino lucha contra monstruos, habla con dioses y héroes, y descubre que Medusa, la criatura a la que todos le enseñaron a temer, no es lo que parecía.',
+    wiki_cta: 'Todos los monstruos, armas, habilidades y lugares: abre la wiki',
+    about_p2: 'Un gran mundo abierto en pixel art, combates con peso, habilidades, armas y atuendos, caballos y música compuesta para el juego.',
+    f_world: 'Mundo abierto', f_fight: 'Combate y habilidades', f_horse: 'Montar a caballo', f_story: 'Una historia por capítulos', f_lang: 'En hebreo e inglés',
+    upd_h: 'Novedades',
+    upd_sub: '{n} actualizaciones desde el 14 oct 2026, la más reciente primero.',
+    soon: 'Próximamente',
+    cta_h: '¿Todo listo para partir?',
+    foot: 'Un juego de aventuras para Windows (y Mac, en beta). Gratis. El launcher lo instala y lo actualiza.',
+    top: 'Volver arriba',
+  },
 };
 // the clips under "About": real gameplay, recorded by tools/site/record.mjs in the game repo (8 s seamless loops)
 const CLIPS = [
-  { src: 'assets/clip-ride', he: 'Val רוכבת על סוס מלחמה מברונזה, החוצה משערי אתונה', en: 'Val rides out of the gates of Athens on her bronze warhorse' },
-  { src: 'assets/clip-fight', he: 'קרב מול להקה: חרב, מגן וכישורים', en: 'A fight against a pack: sword, shield and skills' },
-  { src: 'assets/clip-story', he: 'טרטרוס: קאמפה, השומרת, פוגשת את Val', en: 'Tartarus: Kampe, the warden, meets Val' },
-  { src: 'assets/clip-inventory', he: 'התיק: נשקים, שריון וסטים לפי נדירות', en: 'The satchel: weapons, armour and sets by rarity' },
+  { src: 'assets/clip-ride', he: 'Val רוכבת על סוס מלחמה מברונזה, החוצה משערי אתונה', en: 'Val rides out of the gates of Athens on her bronze warhorse', es: 'Val sale de las puertas de Atenas en su caballo de guerra de bronce' },
+  { src: 'assets/clip-fight', he: 'קרב מול להקה: חרב, מגן וכישורים', en: 'A fight against a pack: sword, shield and skills', es: 'Un combate contra una manada: espada, escudo y habilidades' },
+  { src: 'assets/clip-story', he: 'טרטרוס: קאמפה, השומרת, פוגשת את Val', en: 'Tartarus: Kampe, the warden, meets Val', es: 'Tártaro: Campe, la guardiana, se encuentra con Val' },
+  { src: 'assets/clip-inventory', he: 'התיק: נשקים, שריון וסטים לפי נדירות', en: 'The satchel: weapons, armour and sets by rarity', es: 'El zurrón: armas, armaduras y conjuntos por rareza' },
 ];
 // the screenshots under "About": real captures from the game
 const SHOTS = [
-  { src: 'assets/shot-1.jpg', he: 'Val באגורה של אתונה', en: 'Val in the agora of Athens' },
-  { src: 'assets/shot-2.jpg', he: 'קרב בדרך לתבאי', en: 'A fight on the road to Thebes' },
-  { src: 'assets/shot-3.jpg', he: 'כארון והסירה שלו על נהר המתים', en: 'Charon and his boat on the river of the dead' },
-  { src: 'assets/shot-4.jpg', he: 'קיקלופ והרפיה בשעת אחר הצהריים', en: 'A cyclops and a harpy in the late afternoon' },
+  { src: 'assets/shot-1.jpg', he: 'Val באגורה של אתונה', en: 'Val in the agora of Athens', es: 'Val en el ágora de Atenas' },
+  { src: 'assets/shot-2.jpg', he: 'קרב בדרך לתבאי', en: 'A fight on the road to Thebes', es: 'Un combate en el camino a Tebas' },
+  { src: 'assets/shot-3.jpg', he: 'כארון והסירה שלו על נהר המתים', en: 'Charon and his boat on the river of the dead', es: 'Caronte y su barca en el río de los muertos' },
+  { src: 'assets/shot-4.jpg', he: 'קיקלופ והרפיה בשעת אחר הצהריים', en: 'A cyclops and a harpy in the late afternoon', es: 'Un cíclope y una arpía a media tarde' },
 ];
 
 const $ = (s) => document.querySelector(s);
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
-const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const fmt = (d, L) => { const [y, m, dd] = d.split('-').map(Number); return L === 'he' ? `${dd}.${m}.${y}` : `${dd} ${MON[m - 1]} ${y}`; };
+const MON = { en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'] };
+const fmt = (d, L) => { const [y, m, dd] = d.split('-').map(Number); return L === 'he' ? `${dd}.${m}.${y}` : `${dd} ${MON[L][m - 1]} ${y}`; };
+const PLAY = { he: 'הפעלה או השהיה', en: 'Play or pause', es: 'Reproducir o pausar' };
 const SITE = window.SITE || {}, UPDATES = window.UPDATES || [];
 const fill = (s) => s.replace('{mb}', SITE.LAUNCHER_MB || '').replace('{n}', UPDATES.length);
 let L = 'en';
 
 function render() {
-  const t = T[L], h = document.documentElement;
-  h.lang = L; h.dir = L === 'he' ? 'rtl' : 'ltr';
+  const t = T[L];
+  SoLang.show(L);
   document.querySelectorAll('[data-t]').forEach((e) => { e.textContent = fill(t[e.dataset.t]); });
   document.querySelectorAll('[data-h]').forEach((e) => { e.innerHTML = fill(t[e.dataset.h]); });
-  const lb = $('#lang'); lb.textContent = t.lang; lb.lang = L === 'he' ? 'en' : 'he'; lb.setAttribute('aria-label', L === 'he' ? 'Switch to English' : 'מעבר לעברית');
   // the version line under the button: the newest released update (an upcoming one isn't in the ZIP yet)
   const cur = UPDATES.find((u) => !u.upcoming), meta = $('#meta'); meta.textContent = '';
   const bit = (label, val) => { const s = el('span'); if (label) s.append(label + ' '); s.append(el('b', '', val)); return s; };
@@ -489,7 +529,7 @@ let clipsBuilt = false;
 function clips() {
   const box = $('#clips');
   if (clipsBuilt) { // a language switch only changes the words
-    box.querySelectorAll('.clip').forEach((f, i) => { f.querySelector('figcaption').textContent = CLIPS[i][L]; f.querySelector('video').setAttribute('aria-label', CLIPS[i][L]); f.querySelector('.pp').setAttribute('aria-label', L === 'he' ? 'הפעלה או השהיה' : 'Play or pause'); });
+    box.querySelectorAll('.clip').forEach((f, i) => { f.querySelector('figcaption').textContent = CLIPS[i][L]; f.querySelector('video').setAttribute('aria-label', CLIPS[i][L]); f.querySelector('.pp').setAttribute('aria-label', PLAY[L]); });
     return;
   }
   clipsBuilt = true;
@@ -498,7 +538,7 @@ function clips() {
     v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none'; v.poster = c.src + '.jpg';
     v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-label', c[L]);
     v.width = 1280; v.height = 720; v.dataset.src = c.src;
-    b.type = 'button'; b.append(el('i')); b.setAttribute('aria-label', L === 'he' ? 'הפעלה או השהיה' : 'Play or pause');
+    b.type = 'button'; b.append(el('i')); b.setAttribute('aria-label', PLAY[L]);
     const still = STILL.matches || !near;
     if (still) v.dataset.held = 1;
     b.setAttribute('aria-pressed', String(!still));
@@ -524,7 +564,7 @@ function board() {
   const box = $('#log'), was = [...box.querySelectorAll('details')].map((d) => d.open);
   box.textContent = '';
   UPDATES.forEach((u, i) => {
-    const d = el('details', 'upd parch' + (u.upcoming ? ' up' : '')), s = el('summary'), x = u[L] || u.he;
+    const d = el('details', 'upd parch' + (u.upcoming ? ' up' : '')), s = el('summary'), x = u[L] || u.en;
     d.open = was.length ? !!was[i] : i < 3;
     s.append(el('span', 'dt', fmt(u.date, L)));
     if (u.v) { const v = el('span', 'v', L === 'he' ? 'גרסה ' : 'v'); v.append(el('span', 'ltr', u.v)); s.append(v); }
@@ -551,12 +591,10 @@ else {
   bgv.preload = 'auto'; bgv.autoplay = true; bgv.load(); bgv.play().catch(() => {});
 }
 
-// language: ?lang=en|he, then the visitor's last choice, then English
-const q = new URLSearchParams(location.search).get('lang');
-let saved = null; try { saved = localStorage.getItem('so-lang'); } catch (e) {}
-L = q === 'en' || q === 'he' ? q : saved === 'he' ? 'he' : 'en';
+// language (lang.js): ?lang=he|en|es, then the visitor's last choice, then the browser's, then English; the globe changes it
+L = SoLang.pick();
 render();
-$('#lang').addEventListener('click', () => { L = L === 'he' ? 'en' : 'he'; try { localStorage.setItem('so-lang', L); } catch (e) {} render(); });
+SoLang.mount((l) => { L = l; render(); });
 </script>
 </body>
 </html>

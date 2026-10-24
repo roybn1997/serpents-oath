@@ -6,7 +6,8 @@
 //   - set MAC_URL to '' to hide the Mac button (e.g. if a Mac build is not attached to the release).
 //   - news: add one entry at the TOP of UPDATES (newest first). upcoming: true shows it as "coming soon" and keeps it
 //     out of the version line under the download button. The launcher reads this list too (as data, never run).
-// Each entry: v (version, optional), date (YYYY-MM-DD), he/en: { title, items: [one plain line per change] }.
+// Each entry: v (version, optional), date (YYYY-MM-DD), he/en/es: { title, items: [one plain line per change] }.
+// (es: the site's Spanish; the game and the launcher are Hebrew and English, and the launcher reads he/en only.)
 window.SITE = {
   LAUNCHER_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher.zip',
   LAUNCHER_MB: 132,
@@ -70,6 +71,32 @@ window.UPDATES = [
       'Attacks 30% slower with more weight, quieter footsteps, wind and rain, and settings split into tabs',
       'Story fixes: the ring, Echo as a spirit, Kampe, Hades, and a carved relief at Medusa\'s gate',
     ] },
+    es: { title: 'Versión 30: un aspecto nuevo para todo el juego, y un launcher', items: [
+      'Un launcher nuevo: lo descargas una vez y él instala el juego, lo mantiene al día (solo los archivos que cambian) y lo abre',
+      'Todo el juego con un nuevo estilo de pixel art: V, los habitantes, los monstruos, los paisajes, los efectos y la interfaz',
+      'La nueva V, con trenzas que se mueven de verdad y caen sobre sus alas',
+      '195 monstruos con niveles, y una wiki en la web con todos ellos',
+      'El barco a las islas es ahora un gran galeón, con un kraken amenazante, música inquietante y un juego de tabas en la sala segura',
+      'Islas de verdad en el mar en lugar de colinas en forma de cono, con playas, acantilados, pueblos y templos',
+      'Física nueva: nada de quedarse atascado en pendientes y bordes, nado fluido, pies que no resbalan y viento que mueve el pelo, las capas y los árboles',
+      'Habitantes nuevos: guardias en las puertas, sabios y campesinos, ropa de cada región y menos caras repetidas',
+      'Marcas nuevas: "?" para una misión, "!" para entregarla o para personajes de la historia, y un diamante dorado para cualquiera con quien puedas hablar',
+      'Un árbol de habilidades, ventanas y teclas nuevas, una página de cómo jugar y un cambio de idioma en el menú',
+      'Un nuevo sistema de habilidades: 96 habilidades y definitivas, cada una con su efecto, icono y sonido, y una quinta rama en el árbol, la Senda del Ascenso',
+      'Una habilidad puede interrumpir otra (Q detiene R), salvo una definitiva que ya está golpeando',
+      'Espadas dobles y hachas más grandes, y si te quedas atascado el juego te aparta a un terreno libre',
+      'Un cielo nuevo: el sol y la luna se mueven con la hora, estrellas por la noche y agua que refleja la luz',
+      'Las armas se llevan con naturalidad fuera del combate y se alzan con esfuerzo en él, con el filo hacia abajo',
+      'Un inventario con V entera en el centro y su equipo puesto a su alrededor: arrastra o haz doble clic para ponértelo y quitártelo',
+      'Una cámara de diálogo suave que centra a quien habla, y el juego empieza con el zoom más abierto',
+      'El combate contra el Kraken: golpea un tentáculo cuando choca contra la cubierta, y ya no te quedas atascado en la borda',
+      'La rueda del ratón sobre una ventana la desplaza en lugar de hacer zoom, y las ventanas se abren en el centro de la pantalla',
+      'Árboles gigantes nuevos, y el Roble Hamadríade: un monstruo árbol de nivel 32 que abre los ojos y azota con sus ramas cuando pasas',
+      'En la barca pequeña V rema (más rápido con Shift), la barca deja estela y los monstruos voladores te dejan en paz en el mar',
+      'Espuma fina alrededor de las rocas del mar, y los habitantes rodean casas, fuentes y puestos',
+      'Ataques un 30% más lentos y con más peso, pasos más suaves, viento y lluvia, y ajustes divididos en pestañas',
+      'Correcciones de la historia: el anillo, Eco como espíritu, Campe, Hades y un relieve tallado en la puerta de Medusa',
+    ] },
   },
   {
     v: '29', date: '2026-10-21',
@@ -94,6 +121,17 @@ window.UPDATES = [
       'An alchemist in every town who fuses three identical items into one of the next grade',
       'A transparent tooltip when you hover a skill, and a bigger level-up with slow motion, a pillar of light and LVL UP!',
       'While flying on wings her hands and weapon stay still, and the game stutters less',
+    ] },
+    es: { title: 'Rondas 22 a 29', items: [
+      'Un comienzo nuevo y más rápido: oscuridad, relámpagos y truenos, y el Caballero Negro se lleva a ROYE',
+      'Los nuevos nombres VAL y ROYE, pasos sobre mármol en el templo y una escena del rapto rehecha',
+      'Un nuevo hoplita de mármol: un guerrero de piedra sin rostro con un escudo gigante, una embestida y un salto que cae en círculo',
+      'Nuevos aires del caballo, alas de dragón que planean y espadas de dragón más grandes e impresionantes',
+      'Armas y equipo del nivel 1 al 100 en tres grados, Normal, Maestro y Heroico, cada uno con su nivel mínimo',
+      'Monstruos y jefes más fuertes según el nivel, y desde el capítulo 5 hay que entrenar y hacer misiones para avanzar',
+      'Un alquimista en cada ciudad que funde tres objetos idénticos en uno del grado siguiente',
+      'Una descripción transparente al pasar el ratón sobre una habilidad, y una subida de nivel más grande con cámara lenta, un pilar de luz y ¡LVL UP!',
+      'Al volar con alas, sus manos y su arma se quedan quietas, y el juego da menos tirones',
     ] },
   },
   {
@@ -132,6 +170,23 @@ window.UPDATES = [
       'Hades has been rebalanced',
       'On the site: a Mac download too, and the game shows a notice when a newer version is out',
     ] },
+    es: { title: 'Rondas 19 y 20', items: [
+      'Escaleras que se pueden subir, muros sin huecos y cuevas que se abren en laderas y montañas',
+      'La misión de los gigantes: Damalis, la mujer vaca, y su cuchilla, un trozo de carne arrastrado con una cuerda y dos gigantes que dejan de pelear',
+      'Caronte trabaja en cubierta y se para a hablar, y el río se dibuja limpio',
+      'Pantalla completa por defecto, y música más tranquila, más larga y menos repetitiva',
+      'Rastro de Veneno, una habilidad nueva después de Campe, y un 10% de probabilidad de golpe crítico',
+      'Códigos nuevos: MAX da todas las armas, atuendos y habilidades, y UNDEAD mantiene viva a V',
+      'Los días pasan más despacio, y las sombras ya no saltan al atardecer ni al amanecer',
+      'Combo: cada golpe hace avanzar a V, y sus pies se mueven con él',
+      'Voltereta: V salta un poco hacia delante y luego rueda, sin hundirse en el suelo',
+      'Hielo: sin el calzado adecuado V resbala, y las botas de hielo lo evitan. Los comerciantes venden un caballo, atado con una cuerda',
+      'La hierba, los edificios y los gigantes tienen gráficos actualizados',
+      'En cada escena de diálogo los personajes quedan en el centro de la pantalla, a lo ancho y a lo alto. Cuando un muro los tapa, la cámara lo rodea',
+      'Un arma nueva llamada Eco, y un nuevo paso de Hades a Campe con una apertura nueva',
+      'Hades se ha reequilibrado',
+      'En la web: también una descarga para Mac, y el juego avisa cuando sale una versión más nueva',
+    ] },
   },
   {
     v: '20', date: '2026-10-18',
@@ -151,6 +206,14 @@ window.UPDATES = [
       "Hades' distortion strike brings purple fire down across the whole hall",
       'A Windows installer, packed in a ZIP',
     ] },
+    es: { title: 'Música del inframundo y ropa que se mueve', items: [
+      'Música metal de 8 bits para el inframundo',
+      'La ropa de V se balancea y ondea al moverse, y nunca la atraviesa',
+      'Un golpe cargado con un arma grande agrieta el suelo, y el arco de la espada sigue a la hoja',
+      'Una lata de carne en conserva es la forma de pasar a Cerbero',
+      'El golpe de distorsión de Hades hace caer fuego púrpura por toda la sala',
+      'Un instalador para Windows, empaquetado en un ZIP',
+    ] },
   },
   {
     v: '19', date: '2026-10-18',
@@ -163,6 +226,11 @@ window.UPDATES = [
       'Left Ctrl turns x1.5 speed on and off',
       'Two new skill keys: X and Z',
       "Atropos' Blade replaces the Thread of Fate: the weapon turns coal-black and hits 50% harder for 7 seconds",
+    ] },
+    es: { title: 'Teclas nuevas y la Hoja de Átropos', items: [
+      'Ctrl izquierdo activa y desactiva la velocidad x1,5',
+      'Dos teclas de habilidad nuevas: X y Z',
+      'La Hoja de Átropos sustituye al Hilo del Destino: el arma se vuelve negra como el carbón y golpea un 50% más fuerte durante 7 segundos',
     ] },
   },
   {
@@ -178,6 +246,12 @@ window.UPDATES = [
       "Everyone at V's level: townsfolk, 32 gods and heroes, 18 enemies and bosses, 29 animals",
       'New colours and lighting across the world',
       'The health bar flashes when low, and spear grips and combos look better',
+    ] },
+    es: { title: 'Una nueva dirección artística', items: [
+      'Pixel art con el doble de detalle para cada personaje, según la imagen de referencia de V',
+      'Todos al nivel de V: habitantes, 32 dioses y héroes, 18 enemigos y jefes, 29 animales',
+      'Colores e iluminación nuevos en todo el mundo',
+      'La barra de vida parpadea cuando está baja, y el agarre de las lanzas y los combos se ven mejor',
     ] },
   },
   {
@@ -196,6 +270,13 @@ window.UPDATES = [
       'A map 20% smaller, with 123 caves',
       'Every kind of monster has its own battle music',
     ] },
+    es: { title: 'Capítulo 4: La isla sin retorno', items: [
+      'El capítulo 4, «La isla sin retorno»',
+      'Una voltereta con salto, y habilidades en movimiento',
+      '50 habilidades en cinco niveles, que venden los sacerdotes de las ciudades',
+      'Un mapa un 20% más pequeño, con 123 cuevas',
+      'Cada tipo de monstruo tiene su propia música de combate',
+    ] },
   },
   {
     v: '16', date: '2026-10-17',
@@ -210,6 +291,12 @@ window.UPDATES = [
       'When V is hit: a shake, a red flash, knockback and a damage number',
       'A tidier HUD above the skill bar, with larger, clearer text',
       'Kampe fights with whip, tail and venom, and no longer gets stuck',
+    ] },
+    es: { title: 'Combates con peso', items: [
+      'Mantén pulsado para cargar un golpe fuerte; tres pulsaciones rápidas hacen el combo propio de cada arma',
+      'Cuando golpean a V: una sacudida, un destello rojo, retroceso y un número de daño',
+      'Una interfaz más ordenada sobre la barra de habilidades, con texto más grande y claro',
+      'Campe lucha con látigo, cola y veneno, y ya no se queda atascada',
     ] },
   },
   {
@@ -228,6 +315,13 @@ window.UPDATES = [
       'Roadside events and wandering merchants on horseback',
       'Cheat codes in the pause menu',
     ] },
+    es: { title: 'Ciudades griegas', items: [
+      'Manzanas con patio, un ágora con estoas y puestos, una acrópolis, teatros y templos',
+      'Ciudades portuarias con barcos, muelles y grúas, y pueblos y campos a su alrededor',
+      'Cuatro comerciantes en cada ciudad',
+      'Sucesos en el camino y mercaderes ambulantes a caballo',
+      'Códigos de trucos en el menú de pausa',
+    ] },
   },
   {
     v: '14', date: '2026-10-17',
@@ -244,6 +338,13 @@ window.UPDATES = [
       'Boars charge, and a blow hits up to two monsters',
       'New trees that sway in the wind',
       'A shore in the underworld, and a way back with Charon',
+    ] },
+    es: { title: 'Un comienzo nuevo', items: [
+      'La historia empieza en el patio de la pareja, en la ciudad, y el rapto de Rain se escenifica de nuevo',
+      'V empieza con una lanza; Filón le da la espada',
+      'Los jabalíes embisten, y un golpe alcanza hasta a dos monstruos',
+      'Árboles nuevos que se mecen con el viento',
+      'Una orilla en el inframundo, y un camino de vuelta con Caronte',
     ] },
   },
   {
@@ -262,6 +363,13 @@ window.UPDATES = [
       'Roaming giants, and Mormo at night',
       'Treasure maps, clue scrolls and hunting quests',
     ] },
+    es: { title: 'Ciudades amuralladas', items: [
+      '10 ciudades con murallas, torres, puertas, una ciudadela y canales',
+      'Templos en los que se puede entrar, y 44 cuevas con túneles, monstruos y cofres',
+      '20 escenas lejanas señaladas por una columna de humo',
+      'Gigantes errantes, y Mormo de noche',
+      'Mapas del tesoro, pergaminos con pistas y misiones de caza',
+    ] },
   },
   {
     date: '2026-10-16',
@@ -277,6 +385,12 @@ window.UPDATES = [
       'A priest, an armoury and a trader in every city',
       'Hunting, rain with sound, and a new Cerberus',
     ] },
+    es: { title: 'Hades, armas y tiendas', items: [
+      'Un combate imposible de ganar contra Hades, que revive a V y le da una guadaña y Fuego Infernal',
+      'Las armas vienen en conjuntos, en seis niveles de calidad',
+      'Un sacerdote, una armería y un comerciante en cada ciudad',
+      'Caza, lluvia con sonido y un nuevo Cerbero',
+    ] },
   },
   {
     v: '10', date: '2026-10-16',
@@ -290,6 +404,11 @@ window.UPDATES = [
       'The new spin skill: three turns and five blows',
       'A gold arrow cursor and a teal objective arrow',
     ] },
+    es: { title: 'Conversaciones y el giro', items: [
+      'En las conversaciones todos se giran para mirarse',
+      'La nueva habilidad de giro: tres vueltas y cinco golpes',
+      'Un cursor de flecha dorada y una flecha turquesa hacia el objetivo',
+    ] },
   },
   {
     date: '2026-10-16',
@@ -300,6 +419,10 @@ window.UPDATES = [
     en: { title: 'Tartarus', items: [
       "A Tartarus chapter after Hades' hall: stairs, an ambush and a bridge over the river of fire",
       'A boss fight with Kampe, warden of Tartarus',
+    ] },
+    es: { title: 'Tártaro', items: [
+      'Un capítulo del Tártaro después de la sala de Hades: escaleras, una emboscada y un puente sobre el río de fuego',
+      'Un combate contra Campe, guardiana del Tártaro',
     ] },
   },
   {
@@ -320,6 +443,14 @@ window.UPDATES = [
       'A quest list on the side of the screen',
       'The first Windows installer',
     ] },
+    es: { title: 'Correr, definitivas y sonido', items: [
+      'Una animación de carrera de verdad',
+      'Tres niveles de habilidad definitiva, que se ganan por el camino',
+      'Un sonido para cada golpe y cada fase de cada habilidad, y controles de volumen',
+      'Las armas pierden fuerza contra monstruos mucho más fuertes, y los monstruos crecen con cada muerte',
+      'Una lista de misiones a un lado de la pantalla',
+      'El primer instalador para Windows',
+    ] },
   },
   {
     v: '6', date: '2026-10-15',
@@ -336,6 +467,13 @@ window.UPDATES = [
       "The ferry ride with Charon into the underworld, and Hades' gate opens",
       '12 towns, 35 side quests and ten times the monsters',
       'Sprint with Shift, gallop on horseback',
+    ] },
+    es: { title: '24 correcciones', items: [
+      'Una pantalla de título con toda la historia tallada en una tablilla de piedra',
+      'El Juramento de la Serpiente, el Hilo del Destino y Alzamiento, que invoca a 20 espíritus',
+      'El viaje en barca con Caronte al inframundo, y la puerta de Hades se abre',
+      '12 pueblos, 35 misiones secundarias y diez veces más monstruos',
+      'Esprintar con Shift, galopar a caballo',
     ] },
   },
   {
@@ -354,6 +492,13 @@ window.UPDATES = [
       'Levels, EXP and mana, 20 weapons and 13 skills',
       '20 side quests in 12 cities',
     ] },
+    es: { title: 'Un mundo abierto', items: [
+      'Una hora a pie de punta a punta, mares que se cruzan en barco y caballos que domar',
+      'Un mapa (M) con todas las ciudades y una estrella en el siguiente objetivo',
+      'El prólogo y los capítulos 1 a 3 dentro del mundo',
+      'Niveles, EXP y maná, 20 armas y 13 habilidades',
+      '20 misiones secundarias en 12 ciudades',
+    ] },
   },
   {
     v: '2–4', date: '2026-10-14',
@@ -371,6 +516,13 @@ window.UPDATES = [
       'Sharper combat: a white flash, sparks and knockback',
       'Living faces for every character, and a portrait on every line of dialogue',
     ] },
+    es: { title: 'Aspecto y sensación', items: [
+      'Se acabaron los bloques: suelo, hierba, agua y contornos suaves',
+      'Una cámara en diagonal, como en los juegos MMO',
+      'Una pantalla de cómo jugar y un diamante dorado que indica adónde ir',
+      'Combate más nítido: un destello blanco, chispas y retroceso',
+      'Caras con vida para cada personaje, y un retrato en cada línea de diálogo',
+    ] },
   },
   {
     v: '1', date: '2026-10-14',
@@ -387,6 +539,13 @@ window.UPDATES = [
       "Chapter 1 at Athena's temple, and chapter 2 in the valley with Philon and Charon",
       '8 original 8-bit themes',
       'Keyboard and mouse on PC, an on-screen joystick on phone',
+    ] },
+    es: { title: 'La primera versión', items: [
+      'Hebreo o inglés',
+      'El prólogo: la noche en que desaparecen las estrellas, y el rapto de Rain',
+      'El capítulo 1 en el templo de Atenea, y el capítulo 2 en el valle con Filón y Caronte',
+      '8 melodías originales de 8 bits',
+      'Teclado y ratón en PC, un joystick en pantalla en el móvil',
     ] },
   },
 ];

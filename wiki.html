@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;700&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="lang.css">
 <style>
 /* The wiki, in the same language as the home page (index.html): night sky, bronze frames, parchment, pixel sprites.
    Its data and pictures come from the game itself (tools/site/wiki-gen.mjs in the game repo writes wiki/data.json and wiki/img/). */
@@ -32,7 +33,7 @@
   --gut: max(16px, env(safe-area-inset-left, 0px));
   color-scheme: dark;
 }
-html[lang="en"] { --font-title: "Pixelify Sans", "Rubik", system-ui, sans-serif; }
+html:not([lang="he"]) { --font-title: "Pixelify Sans", "Rubik", system-ui, sans-serif; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 120px; -webkit-text-size-adjust: 100%; }
 html, body { cursor: var(--cur-arrow); }
@@ -62,8 +63,6 @@ button { font: inherit; color: inherit; }
 .bar nav a.wikilink { color: var(--gold); box-shadow: inset 0 -3px 0 var(--bronze-hi); }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; font: 600 16px/1.2 var(--font-body); color: var(--parch-hi); background: var(--leather); border: 2px solid var(--night); box-shadow: inset 0 0 0 2px var(--bronze); text-decoration: none; }
 .chip:hover { background: var(--leather-2); color: var(--gold); }
-#lang { margin-inline-start: 6px; }
-#lang[lang="en"] { font-family: "Pixelify Sans", sans-serif; }
 
 /* ---------- wiki head: title, band and the search tablet ---------- */
 .whead { position: relative; display: grid; justify-items: center; gap: 12px; padding: 34px var(--gut) 26px; text-align: center; }
@@ -263,7 +262,14 @@ footer p { margin: 0; }
     <a href="index.html#updates" data-t="nav_upd"></a>
     <a href="wiki.html" class="wikilink" aria-current="page" data-t="nav_wiki"></a>
   </nav>
-  <button class="chip" id="lang" type="button"></button>
+  <div class="langw">
+    <button class="chip globe-btn" id="lang" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu"><svg viewBox="0 0 13 13" aria-hidden="true"><path d="M4 0h5v1h-5zM2 1h2v1h-2zM6 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM0 6h13v1h-13zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM6 11h1v1h-1zM9 11h2v1h-2zM4 12h5v1h-5z"/></svg></button>
+    <div class="lmenu" id="lang-menu" role="menu" hidden>
+      <button type="button" role="menuitemradio" class="lopt" data-l="he" lang="he">עברית</button>
+      <button type="button" role="menuitemradio" class="lopt" data-l="en" lang="en">English</button>
+      <button type="button" role="menuitemradio" class="lopt" data-l="es" lang="es">Español</button>
+    </div>
+  </div>
 </header>
 
 <section class="whead">
@@ -290,11 +296,12 @@ footer p { margin: 0; }
 
 <dialog id="dlg" aria-labelledby="dlgt"><div class="dlg parch"><button class="x" type="button" data-a="close">×</button><div class="in" id="dlgin"></div></div></dialog>
 
+<script src="lang.js"></script>
 <script>
 // ------------------------------------------------------------------------------------------------ texts
 const T = {
   he: {
-    nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_upd: 'עדכונים', nav_wiki: 'ויקי', lang: 'English',
+    nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_upd: 'עדכונים', nav_wiki: 'ויקי',
     lead: 'כל מה שצריך בדרך: מפלצות, נשקים ושריונות, כישורים, רכובים, אנשים, ערים ומבוכים. הכל נלקח ישר מהמשחק.',
     search_lbl: 'חיפוש בוויקי', search_ph: 'חיפוש: זאב, חרב, הרמס, דלפי…', hint: 'אפשר לחפש בעברית או באנגלית. מקש <kbd>/</kbd> קופץ לחיפוש.',
     overview: 'הכל', monsters: 'מפלצות', gear: 'נשקים ושריונות', skills: 'כישורים', mounts: 'רכובים', people: 'אנשים וערים', places: 'מקומות ומבוכים', quests: 'משימות',
@@ -327,7 +334,7 @@ const T = {
     foot: 'הוויקי נבנה אוטומטית מתוך המשחק עצמו, כך שהמספרים תמיד מעודכנים.', home: 'חזרה לדף הבית', built: 'עודכן', loaderr: 'לא הצלחנו לטעון את הוויקי. נסו לרענן.',
   },
   en: {
-    nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', nav_wiki: 'Wiki', lang: 'עברית',
+    nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', nav_wiki: 'Wiki',
     lead: "Everything you need on the road: monsters, weapons and armour, skills, mounts, people, towns and dungeons. All of it read straight from the game.",
     search_lbl: 'Search the wiki', search_ph: 'Search: wolf, sword, Hermes, Delphi…', hint: 'Search in English or Hebrew. Press <kbd>/</kbd> to jump to the search.',
     overview: 'Everything', monsters: 'Monsters', gear: 'Weapons & armour', skills: 'Skills', mounts: 'Mounts', people: 'People & towns', places: 'Places & dungeons', quests: 'Quests',
@@ -359,6 +366,39 @@ const T = {
     m_places: 'Towns', m_landmark: 'Landmarks', m_cave: 'Caves', m_waystone: 'Waystones',
     foot: 'The wiki is built automatically from the game itself, so the numbers are always current.', home: 'Back to the home page', built: 'Updated', loaderr: 'The wiki could not load. Try refreshing.',
   },
+  es: {
+    nav_run: 'Descargar y jugar', nav_about: 'El juego', nav_upd: 'Novedades', nav_wiki: 'Wiki',
+    lead: 'Todo lo que necesitas en el camino: monstruos, armas y armaduras, habilidades, monturas, gente, ciudades y mazmorras. Todo sacado directamente del juego.',
+    search_lbl: 'Buscar en la wiki', search_ph: 'Buscar: wolf, sword, Hermes, Delphi…', hint: 'Los datos del juego están en inglés y hebreo: busca en inglés o en hebreo. La tecla <kbd>/</kbd> salta a la búsqueda.',
+    overview: 'Todo', monsters: 'Monstruos', gear: 'Armas y armaduras', skills: 'Habilidades', mounts: 'Monturas', people: 'Gente y ciudades', places: 'Lugares y mazmorras', quests: 'Misiones',
+    d_monsters: 'Todas las criaturas del mundo: dónde viven, cuánta fuerza tienen en cada nivel y qué dejan.',
+    d_gear: 'Conjuntos, armas y armaduras, niveles, rarezas y bonificaciones de conjunto.',
+    d_skills: 'Cada habilidad: qué hace, su maná, su tiempo de recarga y cómo aprenderla.',
+    d_mounts: 'Caballos, gallos y dragones: velocidad, nivel y cómo conseguirlos.',
+    d_people: 'Quién vive en cada ciudad, qué vende y qué misiones da. Y los personajes de la historia.',
+    d_places: 'El mapa del mundo, sus regiones y su peligro, cuevas y reinos.',
+    d_quests: 'Todas las misiones: quién las da, a qué nivel y qué se obtiene.',
+    all: 'Todos', lv: 'Nv', lvl_range: 'Niveles', hp: 'Vida', blow: 'Golpe', exp: 'EXP', speed: 'Velocidad', range: 'Alcance', aggro: 'Te detecta a',
+    stats_lvl: 'Fuerza por nivel', where: 'Dónde encontrarlo', drops: 'Qué deja', traits: 'Comportamiento', about: 'Descripción', more: 'Más detalles',
+    day: 'Día', night: 'Noche', only_night: 'Solo de noche', share: 'Parte de las manadas', pack: 'Tamaño de manada', region: 'Región', biome: 'Terreno', chance: 'Probabilidad', qty: 'Cantidad',
+    elite_in: 'Aparece como élite en', realm_where: 'Solo en', no_where: 'Solo aparece en la historia o en eventos especiales.', boss: 'Jefe', elite: 'Élite', story: 'Historia',
+    weapon_n: 'Arma', armor_n: 'Armadura', shield_n: 'Escudo', normal: 'Normal', epic: 'Épico', legendary: 'Legendario', at_level: 'a nivel {n}',
+    in_range: 'Se resaltan los niveles en los que aparece en el mundo.', big_hint: 'Cifras antes del endurecimiento que traen muchas muertes, y sin la bonificación nocturna.',
+    sets: 'Conjuntos', standalone: 'Objetos sueltos', families: 'Familias de armas', weapon_types: 'Tipos de arma y armadura', rarities: 'Rarezas', heirlooms: 'Recuerdos de la historia',
+    pieces: 'Piezas', set_bonus: 'Bonificación de conjunto', set_pkg: 'Paquete completo (100%)', pieces_worn: 'piezas', passive: 'Pasiva', family: 'Familia', level_window: 'Niveles del objeto',
+    power: 'Poder', atkSpeed: 'Velocidad de ataque', crit: 'Prob. de crítico', defense: 'Defensa', move: 'Velocidad de movimiento', block: 'Bloqueo', dps: 'Daño/seg', unlock: 'Se desbloquea a', hands: 'Manos',
+    tempo: 'Ritmo', reach: 'Alcance', cleave: 'Enemigos por golpe', handling: 'Manejo', mult: 'Multiplicador', wings_set: 'con alas',
+    mana: 'Maná', cd: 'Recarga', sec: ' s', how_get: 'Cómo conseguirla', requires: 'Requiere', ult: 'Definitiva', ults: 'Definitivas', reg_skills: 'Habilidades', story_gift: 'Regalo de la historia', branch: 'Rama',
+    species: 'Tipo', walk: 'Paso', trot: 'Trote', canter: 'Medio galope', gallop: 'Galope', sprint: 'Esprint', flies: 'Vuela', water: 'Camina sobre el agua', wade: 'Vadea hasta',
+    towns: 'Ciudades y pueblos', characters: 'Los personajes de la historia', trades: 'Oficios', residents: 'Gente', gives_quests: 'Da misiones', inside_temple: 'dentro del templo',
+    coords: 'Posición en el mapa', near: 'cerca de', danger: 'Nivel de peligro', world_map: 'Mapa del mundo', regions: 'Regiones', dungeons: 'Cuevas y mazmorras', realms: 'Reinos', places_n: 'Lugares',
+    kinds_here: 'Quién vive aquí', density: 'Densidad', cave: 'Cueva', realm: 'Reino', den: 'Guarida',
+    giver: 'Lo da', reward: 'Recompensa', steps: 'Pasos', after: 'Después de', lvl_short: 'Nv',
+    results: 'Resultados para «{q}»', none: 'No se encontró nada. Prueba otra palabra.', open: 'Abrir', close: 'Cerrar',
+    kind_city: 'Ciudad', kind_town: 'Villa', kind_village: 'Pueblo', kind_home: 'Ciudad natal', kind_landmark: 'Lugar destacado', kind_sea: 'Mar',
+    m_places: 'Ciudades', m_landmark: 'Lugares destacados', m_cave: 'Cuevas', m_waystone: 'Piedras de camino',
+    foot: 'La wiki se genera automáticamente a partir del propio juego, así que las cifras están siempre al día. Los nombres y textos del juego aparecen en inglés.', home: 'Volver a la página principal', built: 'Actualizado', loaderr: 'No se pudo cargar la wiki. Prueba a recargar la página.',
+  },
 };
 const CATS = [
   ['overview', 'M3 3h7v7H3zm9 0h7v7h-7zM3 12h7v7H3zm9 0h7v7h-7z'],
@@ -385,9 +425,7 @@ let PL = {}, BI = {}, RG = {}, CL = {}, FAM = {}, WT = {}, ROLE = {}, TOWN = {};
 
 // ------------------------------------------------------------------------------------------------ boot
 async function boot() {
-  const q = new URLSearchParams(location.search).get('lang');
-  let saved = null; try { saved = localStorage.getItem('so-lang'); } catch (e) { /* storage off */ }
-  L = q === 'en' || q === 'he' ? q : saved === 'he' ? 'he' : 'en';
+  L = SoLang.pick(); // lang.js: ?lang=he|en|es, the visitor's last choice, the browser's, English
   chrome();
   try { const r = await fetch('wiki/data.json'); if (!r.ok) throw new Error(r.status); D = await r.json(); }
   catch (e) { $('#view').innerHTML = `<p class="empty">${esc(t('loaderr'))}</p>`; return; }
@@ -395,13 +433,12 @@ async function boot() {
   readHash(); render();
 }
 function chrome() {
-  const h = document.documentElement; h.lang = L; h.dir = L === 'he' ? 'rtl' : 'ltr';
+  SoLang.show(L);
   $$('[data-t]').forEach((e) => { e.textContent = t(e.dataset.t); });
   $('#q').placeholder = t('search_ph'); $('#hint').innerHTML = t('hint');
-  const lb = $('#lang'); lb.textContent = t('lang'); lb.lang = L === 'he' ? 'en' : 'he'; lb.setAttribute('aria-label', L === 'he' ? 'Switch to English' : 'מעבר לעברית');
-  $('#qx').setAttribute('aria-label', L === 'he' ? 'ניקוי החיפוש' : 'Clear the search');
+  $('#qx').setAttribute('aria-label', { he: 'ניקוי החיפוש', en: 'Clear the search', es: 'Borrar la búsqueda' }[L]);
   $('#dlg .x').setAttribute('aria-label', t('close'));
-  document.title = (L === 'he' ? 'ויקי' : 'Wiki') + " · The Serpent's Oath";
+  document.title = t('nav_wiki') + " · The Serpent's Oath";
 }
 function rail() {
   const n = { monsters: D?.monsters?.length, gear: (D?.sets || []).reduce((s, x) => s + x.pieces.length, 0) + (D?.standalone?.length || 0), skills: D?.skills?.length, mounts: D?.mounts?.length,
@@ -733,7 +770,7 @@ $('#q').addEventListener('input', (e) => {
 $('#q').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); $('#view').scrollIntoView({ block: 'start' }); } if (e.key === 'Escape') { e.target.value = ''; e.target.dispatchEvent(new Event('input')); } });
 $('#qx').addEventListener('click', () => { const i = $('#q'); i.value = ''; i.dispatchEvent(new Event('input')); i.focus(); });
 document.addEventListener('keydown', (e) => { if (e.key === '/' && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName) && !$('#dlg').open) { e.preventDefault(); $('#q').focus(); } });
-$('#lang').addEventListener('click', () => { L = L === 'he' ? 'en' : 'he'; try { localStorage.setItem('so-lang', L); } catch (e) { /* */ } chrome(); IDX = null; if (D) { render(); if (route.id) openItem(route.cat, route.id); } });
+SoLang.mount((l) => { L = l; chrome(); IDX = null; if (D) { render(); if (route.id) openItem(route.cat, route.id); } });
 boot();
 </script>
 </body>
