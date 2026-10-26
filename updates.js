@@ -1,7 +1,9 @@
 // The Serpent's Oath site: the download and the updates board.
 // The site hands out the LAUNCHER only: the launcher installs the game, keeps it up to date and starts it, so a new
 // game release needs no change here (the launcher reads the release's signed game-manifest.json from GitHub).
-//   - LAUNCHER_URL / MAC_*: the launcher packages on the latest GitHub release ("latest" always serves the newest one);
+//   - LAUNCHER_URL / MAC_*: the launcher packages on the latest GitHub release ("latest" always serves the newest one).
+//     Windows: the setup program SerpentsOath-Setup.exe (the portable SerpentsOath-Launcher.zip stays on the release
+//     but is not linked);
 //     change them only if the file names change. *_MB are the download sizes shown on the buttons.
 //   - set MAC_URL to '' to hide the Mac button (e.g. if a Mac build is not attached to the release).
 //   - news: add one entry at the TOP of UPDATES (newest first). upcoming: true shows it as "coming soon" and keeps it
@@ -9,8 +11,8 @@
 // Each entry: v (version, optional), date (YYYY-MM-DD), he/en/es: { title, items: [one plain line per change] }.
 // (es: the site's Spanish; the game and the launcher are Hebrew and English, and the launcher reads he/en only.)
 window.SITE = {
-  LAUNCHER_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher.zip',
-  LAUNCHER_MB: 132,
+  LAUNCHER_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Setup.exe',
+  LAUNCHER_MB: 93,
   MAC_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac.zip',
   MAC_INTEL_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac-Intel.zip',
   MAC_MB: 104,
