@@ -1,0 +1,125 @@
+/* The Serpent's Oath site: the shared look of every page (index.html, wiki.html; the language globe is in lang.css).
+   Its design language is the game's satchel (v31b, Roy's choice: option 4 "Side Satchel"): dark plum panels with a
+   thin bronze line inside a near-black edge, softly rounded corners, gold Pixelify titles, Rubik text, Silkscreen
+   numbers, item slots with a rarity ring, a gold ring and glow on hover, and hover cards like the item tooltip.
+   Tokens follow the game's style.css (--parch*, --gold, --bronze*) and the satchel's own colours. */
+:root {
+  /* the game's tokens */
+  --parch: #e9dec4; --parch-hi: #f5ecd6; --parch-2: #d9caa8; --parch-3: #b9a27f;
+  --gold: #f6d67a; --bronze: #ad7430; --bronze-hi: #e2ad48; --bronze-dk: #6b4024; --teal: #34d1bf; --teal-dk: #1d8c80;
+  /* the satchel's materials */
+  --night: #1a0f17;                 /* the page, behind everything */
+  --edge: #0d070b;                  /* the outer edge round every panel */
+  --ring-dk: #150c11;               /* the dark ring inside a slot's rarity ring */
+  --panel-a: #2a1b22; --panel-b: #1b1117; /* a panel's top-to-bottom gradient */
+  --card: #24161e; --card-2: #2e1d25;
+  --slot: #33232a; --slot-2: #2c1d24; --well: #140c11;
+  --tip: rgba(30, 19, 26, .97);     /* the hover card */
+  --tab-a: #4a3322; --tab-b: #3a281c; /* a chosen tab / quiet button */
+  --line: rgba(226, 173, 72, .28); --line-lo: rgba(226, 173, 72, .16); --line-mid: rgba(226, 173, 72, .35); --line-hi: rgba(226, 173, 72, .55);
+  --tx: #f1e6cc; --tx-2: #c9b896; --tx-3: #9c8a72;
+  --up: #8fe07a; --down: #ff8a7a; --set: #e2c8ff; --set-bg: rgba(180, 108, 255, .1); --set-line: rgba(180, 108, 255, .35);
+  --r-common: #7b6450; --r-normal: #7b6450; --r-epic: #b46cff; --r-legendary: #ffb22e; --r-quest: #5fd0b0;
+  --rad-panel: 16px; --rad-box: 12px; --rad-slot: 10px; --rad-btn: 9px; --rad-chip: 7px; --rad-key: 5px;
+  --sh-panel: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-hi), inset 0 1px 0 1px rgba(255, 228, 160, .1), 0 16px 40px rgba(0, 0, 0, .5);
+  --sh-card: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-mid), 0 8px 22px rgba(0, 0, 0, .38);
+  --sh-glow: 0 0 0 2px rgba(246, 214, 122, .4), 0 0 14px rgba(246, 214, 122, .35);
+  --font-title: "Pixelify Sans", "Rubik", system-ui, sans-serif;
+  --font-body: "Rubik", "Pixelify Sans", system-ui, sans-serif;
+  --font-num: "Silkscreen", "Pixelify Sans", ui-monospace, monospace;
+  --cur-arrow: url(assets/cur-arrow.png) 1 1, default;
+  --cur-hand: url(assets/cur-hand.png) 1 1, pointer;
+  --gut: max(16px, env(safe-area-inset-left, 0px));
+  color-scheme: dark;
+}
+html[lang="he"] { --font-title: "Rubik", "Pixelify Sans", system-ui, sans-serif; } /* (as the game: Hebrew titles in Rubik) */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html, body { cursor: var(--cur-arrow); }
+body { position: relative; margin: 0; min-height: 100vh; overflow-x: hidden; background: var(--night); color: var(--tx); font: 400 16px/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }
+a, button, summary, label, [role="button"] { cursor: var(--cur-hand); }
+a { color: var(--gold); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: #ffe9a8; }
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; }
+bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+::selection { background: rgba(226, 173, 72, .4); color: #fff; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* the night behind the satchel: plum dusk with the menu's twinkling stars, faint. It spans the whole page (not the
+   window), so the night at the top meets the hero's foot without a seam and the dusk glows behind the foot. */
+.sky { position: absolute; inset: 0; z-index: -2; overflow: hidden; background: radial-gradient(ellipse 1500px 900px at 50% 100%, #3a2430 0%, #241620 40%, var(--night) 75%) var(--night); }
+.sky::before, .sky::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(#f6d67a 1.4px, transparent 1.5px), radial-gradient(#e9dec4 1px, transparent 1.2px);
+  background-size: 90px 70px, 57px 43px; background-position: 0 0, 20px 30px; opacity: .28; animation: tw 3.2s steps(2) infinite; }
+.sky::after { background-size: 131px 97px, 77px 61px; background-position: 40px 12px, 9px 50px; opacity: .18; animation-delay: -1.6s; }
+@keyframes tw { 50% { opacity: .1; } }
+
+/* ---------- the top bar: the satchel's head ---------- */
+.bar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 14px; min-height: 58px; padding: 8px var(--gut);
+  background: linear-gradient(180deg, rgba(42, 27, 34, .94), rgba(27, 17, 23, .94)); box-shadow: inset 0 -1px 0 var(--line), 0 1px 0 var(--edge), 0 8px 24px rgba(0, 0, 0, .35);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--gold); text-decoration: none; font: 700 19px/1 "Pixelify Sans", sans-serif; letter-spacing: .05em; white-space: nowrap; direction: ltr; text-shadow: 0 2px 0 #000; }
+.brand:hover { color: #ffe9a8; }
+.brand img { width: 32px; height: 32px; image-rendering: pixelated; }
+.bar nav { display: flex; gap: 4px; margin-inline-start: auto; align-items: center; padding: 3px; border-radius: var(--rad-box); background: rgba(0, 0, 0, .25); }
+.bar nav a { display: flex; align-items: center; height: 34px; padding: 0 12px; border-radius: var(--rad-btn); color: var(--tx-2); text-decoration: none; font: 600 14.5px/1 var(--font-body); white-space: nowrap; }
+.bar nav a:hover { color: var(--parch-hi); background: rgba(255, 255, 255, .05); }
+.bar nav a[aria-current="page"] { color: var(--parch-hi); background: linear-gradient(var(--tab-a), var(--tab-b)); box-shadow: inset 0 0 0 1px var(--line-hi); }
+
+/* ---------- panels: the satchel drawer itself ---------- */
+.panel, .parch { color: var(--tx); border-radius: var(--rad-panel); background: linear-gradient(180deg, var(--panel-a), var(--panel-b)); box-shadow: var(--sh-panel); }
+.parch a { color: var(--gold); }
+.parch b { color: var(--parch-hi); }
+
+/* a section's head: the satchel's gold title between two fine bronze lines */
+.sech { display: flex; align-items: center; gap: 14px; margin: 0; font: 700 26px/1.15 var(--font-title); color: var(--gold); letter-spacing: .04em; text-shadow: 0 2px 0 #000; }
+html[lang="he"] .sech { letter-spacing: 0; }
+.sech::before, .sech::after { content: ""; flex: 1 1 0; min-width: 18px; height: 7px;
+  background: linear-gradient(var(--line-hi), var(--line-hi)) 0 50% / 100% 1px no-repeat; }
+.sech::before { -webkit-mask: linear-gradient(to right, transparent, #000 70%); mask: linear-gradient(to right, transparent, #000 70%); }
+.sech::after { -webkit-mask: linear-gradient(to left, transparent, #000 70%); mask: linear-gradient(to left, transparent, #000 70%); }
+[dir="rtl"] .sech::before { -webkit-mask: linear-gradient(to left, transparent, #000 70%); mask: linear-gradient(to left, transparent, #000 70%); }
+[dir="rtl"] .sech::after { -webkit-mask: linear-gradient(to right, transparent, #000 70%); mask: linear-gradient(to right, transparent, #000 70%); }
+.sech > span { position: relative; flex: none; max-width: 86%; padding: 0 18px; text-align: center; text-wrap: balance; }
+.sech > span::before, .sech > span::after { content: ""; position: absolute; top: 50%; width: 7px; height: 7px; margin-top: -4px; border-radius: 2px; background: var(--bronze-hi); transform: rotate(45deg); box-shadow: 0 0 0 2px var(--edge); }
+.sech > span::before { inset-inline-start: 0; } .sech > span::after { inset-inline-end: 0; }
+
+/* buttons: the gold one says "do this"; the tab-brown one is everything else */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 10px 18px; border: 0; border-radius: var(--rad-box); text-decoration: none;
+  font: 600 16px/1.15 var(--font-body); color: var(--parch-hi); background: linear-gradient(var(--tab-a), var(--tab-b));
+  box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-hi), inset 0 1px 0 1px rgba(255, 228, 160, .08), 0 6px 16px rgba(0, 0, 0, .35); transition: transform .12s ease-out, box-shadow .12s ease-out, filter .12s; }
+.btn:hover { color: #fff6dc; transform: translateY(-1px); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--gold), var(--sh-glow); }
+.btn:active { transform: translateY(1px); }
+.btn.gold { color: #1a0f17; background: linear-gradient(180deg, #f8dd8c 0%, var(--bronze-hi) 52%, #c28a38 100%);
+  box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px rgba(255, 244, 205, .55), inset 0 -3px 0 rgba(107, 64, 36, .35), 0 8px 22px rgba(0, 0, 0, .45); }
+.btn.gold:hover { color: #1a0f17; filter: brightness(1.06); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px #fff4cd, inset 0 -3px 0 rgba(107, 64, 36, .35), var(--sh-glow); }
+
+/* small things: a key cap, a pill, a chip with an icon */
+.key, kbd { display: inline-block; min-width: 22px; padding: 1px 7px; border-radius: var(--rad-key); text-align: center; font: 600 .86em/1.4 var(--font-body); color: var(--parch-hi);
+  background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px var(--line-mid); white-space: nowrap; direction: ltr; unicode-bidi: isolate; }
+kbd { font: 400 11px/1.3 var(--font-num); padding: 3px 6px 2px; vertical-align: 1px; }
+.pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font: 600 12px/1.35 var(--font-body); color: var(--parch-hi); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px var(--line); white-space: nowrap; }
+.pill.gold { color: #1a0f17; background: var(--gold); box-shadow: none; }
+.pill.teal { color: #06302c; background: var(--teal); box-shadow: none; }
+.pill.red { color: #fff; background: #a8302e; box-shadow: inset 0 0 0 1px #e8604f; }
+
+/* the foot of every page */
+footer { margin-top: 56px; padding: 0 var(--gut) 34px; display: grid; justify-items: center; gap: 10px; text-align: center; color: var(--tx-3); font-size: 14px; }
+footer .fline { width: 100%; max-width: 1100px; height: 1px; margin-bottom: 18px; background: linear-gradient(to right, transparent, var(--line-hi), transparent); }
+footer p { margin: 0; }
+footer .brandline { font: 700 18px/1 "Pixelify Sans", sans-serif; letter-spacing: .05em; color: var(--gold); direction: ltr; text-shadow: 0 2px 0 #000; }
+
+/* thin bronze scrollbars, as in the satchel */
+* { scrollbar-width: thin; scrollbar-color: rgba(226, 173, 72, .35) transparent; }
+
+@media (max-width: 720px) {
+  .bar nav a:not([aria-current="page"]):not(.wikilink) { display: none; }
+  .bar nav { padding: 2px; }
+  .sech { font-size: 22px; gap: 10px; }
+}
+@media (max-width: 420px) { .brand span { font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

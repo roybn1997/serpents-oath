@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Wiki · The Serpent's Oath</title>
 <meta name="description" content="The Serpent's Oath wiki: every monster, weapon, armour set, skill, mount, town, person and dungeon of the game, in English and Hebrew.">
-<meta name="theme-color" content="#160e08">
+<meta name="theme-color" content="#1a0f17">
 <meta property="og:title" content="The Serpent's Oath · Wiki">
 <meta property="og:description" content="Every monster, weapon, set, skill, mount, person and place in the game.">
 <meta property="og:image" content="assets/hero.jpg">
@@ -13,176 +13,151 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;700&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="lang.css">
 <style>
-/* The wiki, in the same language as the home page (index.html): night sky, bronze frames, parchment, pixel sprites.
+/* The wiki, in the satchel's language (site.css holds the shared tokens, bar, panels, buttons and foot): every card is
+   an item slot with its rarity ring, every detail opens as the satchel's hover card.
    Its data and pictures come from the game itself (tools/site/wiki-gen.mjs in the game repo writes wiki/data.json and wiki/img/). */
-:root {
-  --parch: #e7ddc4; --parch-hi: #f2e9d3; --parch-2: #d9cba6; --parch-3: #bea877;
-  --ink: #2b1a0e; --ink-2: #4a3220; --night: #160e08; --leather: #2b1d13; --leather-2: #3b291b; --leather-3: #4a3524;
-  --bronze: #a8742c; --bronze-hi: #d9a441; --bronze-dk: #6a4518; --gold: #f2cf72; --teal: #34d1bf; --teal-dk: #1d8c80;
-  --r-normal: #c8c2b0; --r-epic: #b46cff; --r-legendary: #ffb22e; --hp: #bd2b2b; --mp: #2f6dff;
-  --fr-lg: inset 0 0 0 2px var(--bronze-hi), inset 0 0 0 4px var(--bronze), inset 0 0 0 6px var(--night), inset 0 0 0 10px rgba(140, 100, 50, .15), 0 4px 0 0 rgba(10, 6, 3, .5);
-  --fr-sm: inset 0 0 0 2px var(--bronze-hi), inset 0 0 0 3px var(--bronze-dk), 0 3px 0 0 rgba(10, 6, 3, .5);
-  --tex: url(assets/tex-parch.png);
-  --font-title: "Rubik", "Pixelify Sans", system-ui, sans-serif;
-  --font-body: "Rubik", system-ui, sans-serif;
-  --font-num: "Silkscreen", "Pixelify Sans", ui-monospace, monospace;
-  --cur-arrow: url(assets/cur-arrow.png) 1 1, default;
-  --cur-hand: url(assets/cur-hand.png) 1 1, pointer;
-  --gut: max(16px, env(safe-area-inset-left, 0px));
-  color-scheme: dark;
-}
-html:not([lang="he"]) { --font-title: "Pixelify Sans", "Rubik", system-ui, sans-serif; }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 120px; -webkit-text-size-adjust: 100%; }
-html, body { cursor: var(--cur-arrow); }
-body { margin: 0; min-height: 100vh; overflow-x: hidden; background: var(--night); color: var(--parch-hi); font: 400 16px/1.55 var(--font-body); }
+html { scroll-padding-top: 124px; }
 a, button, summary, label, .card, [role="button"] { cursor: var(--cur-hand); }
-a { color: var(--gold); }
-img { max-width: 100%; display: block; }
 .px { image-rendering: pixelated; }
-.ltr { direction: ltr; unicode-bidi: isolate; }
-:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-button { font: inherit; color: inherit; }
+.bar { box-shadow: 0 1px 0 var(--edge); } /* (the rail below carries the line) */
 
-.sky { position: fixed; inset: 0; z-index: -2; background: radial-gradient(ellipse at 50% 120%, #3b291b 0%, #160e08 60%); }
-.sky::before, .sky::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(#f2cf72 1.5px, transparent 1.6px), radial-gradient(#e7ddc4 1px, transparent 1.2px); background-size: 90px 70px, 57px 43px; background-position: 0 0, 20px 30px; opacity: .45; animation: tw 3.2s steps(2) infinite; }
-.sky::after { background-size: 131px 97px, 77px 61px; background-position: 40px 12px, 9px 50px; opacity: .3; animation-delay: -1.6s; }
-@keyframes tw { 50% { opacity: .15; } }
-
-/* ---------- top bar (as on the home page) ---------- */
-.bar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 14px; min-height: 56px; padding: 6px var(--gut);
-  background: rgba(22, 14, 8, .94); box-shadow: inset 0 -2px 0 var(--bronze-dk), 0 2px 0 rgba(0, 0, 0, .35); backdrop-filter: blur(4px); }
-.brand { display: flex; align-items: center; gap: 10px; color: var(--gold); text-decoration: none; font: 600 20px/1 "Pixelify Sans", sans-serif; white-space: nowrap; direction: ltr; text-shadow: 2px 2px 0 #000; }
-.brand img { width: 32px; height: 32px; image-rendering: pixelated; }
-.bar nav { display: flex; gap: 4px; margin-inline-start: auto; align-items: center; }
-.bar nav a { padding: 6px 10px; color: var(--parch-2); text-decoration: none; font-weight: 500; font-size: 16px; }
-.bar nav a:hover { color: var(--gold); }
-.bar nav a.wikilink { color: var(--gold); box-shadow: inset 0 -3px 0 var(--bronze-hi); }
-.chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; font: 600 16px/1.2 var(--font-body); color: var(--parch-hi); background: var(--leather); border: 2px solid var(--night); box-shadow: inset 0 0 0 2px var(--bronze); text-decoration: none; }
-.chip:hover { background: var(--leather-2); color: var(--gold); }
-
-/* ---------- wiki head: title, band and the search tablet ---------- */
-.whead { position: relative; display: grid; justify-items: center; gap: 12px; padding: 34px var(--gut) 26px; text-align: center; }
-.whead h1 { margin: 0; font: 700 clamp(40px, 7vw, 72px)/1.1 var(--font-title); color: var(--gold);
-  text-shadow: 3px 0 0 #1a110b, -3px 0 0 #1a110b, 0 3px 0 #1a110b, 0 -3px 0 #1a110b, 3px 3px 0 #1a110b, -3px 3px 0 #1a110b, 3px -3px 0 #1a110b, -3px -3px 0 #1a110b, 0 7px 0 #6a4518, 0 10px 0 #1a110b; }
-.band { width: min(520px, 84vw); height: 30px; image-rendering: pixelated;
-  background: url(assets/emblem.png) center / 54px 22px no-repeat, linear-gradient(var(--night), var(--night)) center / 84px 30px no-repeat, url(assets/mz-gold.png) 0 50% / 20px 26px repeat-x; }
-.whead p { margin: 0; max-width: 64ch; color: var(--parch-2); text-wrap: balance; }
+/* ---------- wiki head: title and the search field ---------- */
+.whead { position: relative; display: grid; justify-items: center; gap: 12px; padding: 36px var(--gut) 24px; text-align: center; }
+.whead h1 { margin: 0; font: 700 clamp(40px, 7vw, 68px)/1.1 var(--font-title); color: var(--gold); letter-spacing: .03em;
+  text-shadow: 3px 0 0 #1a0f17, -3px 0 0 #1a0f17, 0 3px 0 #1a0f17, 0 -3px 0 #1a0f17, 3px 3px 0 #1a0f17, -3px 3px 0 #1a0f17, 3px -3px 0 #1a0f17, -3px -3px 0 #1a0f17, 0 7px 0 #6b4024, 0 10px 0 #1a0f17; }
+html[lang="he"] .whead h1 { letter-spacing: 0; }
+.whead .hline { width: min(420px, 70vw); height: 1px; background: linear-gradient(to right, transparent, var(--line-hi), transparent); }
+.whead p { margin: 0; max-width: 64ch; color: var(--tx-2); text-wrap: balance; }
 .search { position: relative; width: min(640px, 100%); margin-top: 6px; }
-.search input { width: 100%; min-height: 52px; padding: 12px 52px 12px 18px; padding-inline: 18px 52px; font: 500 18px/1.2 var(--font-body); color: var(--ink);
-  background: var(--parch-hi) var(--tex) 0 0 / 128px; image-rendering: pixelated; border: 3px solid var(--night); border-radius: 0; box-shadow: inset 0 0 0 2px var(--bronze-hi), 0 4px 0 0 var(--night); -webkit-appearance: none; appearance: none; }
-.search input::placeholder { color: #7a6448; }
+.search input { width: 100%; min-height: 52px; padding: 12px 18px; padding-inline: 48px 52px; font: 500 17px/1.2 var(--font-body); color: var(--parch-hi);
+  background: linear-gradient(180deg, rgba(20, 12, 17, .9), rgba(30, 19, 26, .9)); border: 0; border-radius: var(--rad-box);
+  box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-hi), inset 0 2px 6px rgba(0, 0, 0, .4); -webkit-appearance: none; appearance: none; transition: box-shadow .14s; }
+.search input:focus { outline: none; box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--gold), var(--sh-glow); }
+.search input::placeholder { color: var(--tx-3); }
 .search input::-webkit-search-cancel-button { display: none; }
-.search .mag { position: absolute; inset-inline-end: 16px; top: 50%; width: 22px; height: 22px; margin-top: -11px; pointer-events: none; color: var(--bronze-dk); }
-.search .clear { position: absolute; inset-inline-end: 10px; top: 50%; transform: translateY(-50%); display: none; width: 34px; height: 34px; border: 0; background: var(--leather); color: var(--parch-hi); box-shadow: inset 0 0 0 2px var(--bronze); font-size: 18px; line-height: 1; }
-.search.has .clear { display: block; } .search.has .mag { display: none; }
-.hint { font-size: 14px; color: var(--parch-3); }
-.hint kbd { font: 400 12px/1 var(--font-num); padding: 2px 5px; background: var(--leather); box-shadow: inset 0 0 0 1px var(--bronze); color: var(--gold); }
+.search .mag { position: absolute; inset-inline-start: 16px; top: 50%; width: 20px; height: 20px; margin-top: -10px; pointer-events: none; color: var(--bronze-hi); }
+.search .clear { position: absolute; inset-inline-end: 10px; top: 50%; transform: translateY(-50%); display: none; width: 32px; height: 32px; padding: 0; border: 0; border-radius: var(--rad-btn);
+  background: rgba(255, 255, 255, .06); color: var(--parch-hi); box-shadow: inset 0 0 0 1px var(--line-mid); font-size: 18px; line-height: 1; }
+.search .clear:hover { background: rgba(255, 255, 255, .12); }
+.search.has .clear { display: block; }
+.hint { font-size: 13.5px; color: var(--tx-3); }
 
-/* ---------- the category rail (sticky under the bar) ---------- */
-.rail { position: sticky; top: 56px; z-index: 25; display: flex; gap: 6px; padding: 8px var(--gut); overflow-x: auto; scrollbar-width: none; background: rgba(22, 14, 8, .92); box-shadow: inset 0 -2px 0 rgba(106, 69, 24, .6); justify-content: safe center; }
+/* ---------- the category rail: the satchel's section tabs (sticky under the bar) ---------- */
+.rail { position: sticky; top: 58px; z-index: 25; display: flex; gap: 4px; padding: 6px var(--gut) 8px; overflow-x: auto; scrollbar-width: none; justify-content: safe center;
+  background: linear-gradient(180deg, rgba(27, 17, 23, .94), rgba(27, 17, 23, .9)); box-shadow: inset 0 -1px 0 var(--line), 0 6px 18px rgba(0, 0, 0, .3); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .rail::-webkit-scrollbar { display: none; }
-.rail a { flex: none; display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; text-decoration: none; color: var(--parch-2); font-weight: 600; font-size: 15px; background: var(--leather); border: 2px solid var(--night); box-shadow: inset 0 0 0 2px var(--bronze-dk); white-space: nowrap; }
-.rail a:hover { color: var(--gold); box-shadow: inset 0 0 0 2px var(--bronze); }
-.rail a[aria-current="page"] { color: var(--ink); background: var(--parch-hi) var(--tex) 0 0 / 128px; box-shadow: inset 0 0 0 2px var(--bronze-hi); }
-.rail a b { font: 400 11px/1 var(--font-num); color: var(--bronze-hi); }
-.rail a[aria-current="page"] b { color: var(--bronze-dk); }
-.rail svg { width: 18px; height: 18px; flex: none; }
+.rail a { flex: none; display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 12px; border-radius: var(--rad-btn); text-decoration: none; color: var(--tx-2); font: 600 14px/1 var(--font-body); white-space: nowrap; background: rgba(0, 0, 0, .25); }
+.rail a:hover { color: var(--parch-hi); background: rgba(255, 255, 255, .06); }
+.rail a[aria-current="page"] { color: var(--parch-hi); background: linear-gradient(var(--tab-a), var(--tab-b)); box-shadow: inset 0 0 0 1px var(--line-hi); }
+.rail a b { font: 400 9px/1 var(--font-num); color: var(--tx-3); }
+.rail a[aria-current="page"] b { color: var(--gold); }
+.rail svg { width: 17px; height: 17px; flex: none; color: var(--bronze-hi); opacity: .75; }
+.rail a[aria-current="page"] svg { opacity: 1; color: var(--gold); }
 
 /* ---------- sections ---------- */
-main { width: 100%; max-width: 1200px; margin: 0 auto; padding: 28px var(--gut) 40px; display: grid; gap: 34px; min-height: 60vh; }
-.sech { display: flex; align-items: center; margin: 0; font: 700 24px/1.15 var(--font-title); color: var(--ink); }
-.sech::before, .sech::after { content: ""; flex: 1 1 0; min-width: 14px; height: 19px; image-rendering: pixelated; background: url(assets/mz-gold.png) 0 3px / 10px 13px repeat-x, var(--leather); border-block: 2px solid var(--bronze-dk); }
-.sech > span { flex: none; max-width: 86%; padding: 7px 18px 6px; text-align: center; background: var(--parch-hi) var(--tex) 0 0 / 128px; image-rendering: pixelated; border: 3px solid var(--night); box-shadow: inset 0 0 0 2px var(--bronze-hi), inset 0 0 0 3px var(--bronze-dk), 0 3px 0 rgba(0, 0, 0, .45); }
-.sub { display: grid; gap: 14px; }
-.sub > h3 { margin: 0; display: flex; align-items: baseline; gap: 10px; font: 700 20px/1.2 var(--font-title); color: var(--gold); text-shadow: 2px 2px 0 #000; }
-.sub > h3 small { font: 400 13px/1 var(--font-num); color: var(--parch-3); }
-.lead { margin: 0; color: var(--parch-2); max-width: 75ch; }
-.parch { color: var(--ink); background-color: var(--parch); image-rendering: pixelated;
-  background-image: var(--tex), radial-gradient(ellipse at 50% 42%, rgba(255, 250, 235, 0) 52%, rgba(150, 110, 55, .22) 100%); background-size: 128px 128px, 100% 100%;
-  border: 3px solid var(--night); box-shadow: var(--fr-lg); }
-.parch a { color: var(--bronze-dk); font-weight: 700; }
+main { width: 100%; max-width: 1200px; margin: 0 auto; padding: 30px var(--gut) 40px; display: grid; gap: 36px; min-height: 60vh; }
+.sub { display: grid; gap: 14px; min-width: 0; }
+.sub > h3 { margin: 0; display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; font: 700 19px/1.2 var(--font-title); color: var(--gold); letter-spacing: .03em; text-shadow: 0 2px 0 #000; border-bottom: 1px solid var(--line-lo); }
+html[lang="he"] .sub > h3 { letter-spacing: 0; }
+.sub > h3 small { padding: 3px 6px 2px; border-radius: var(--rad-key); font: 400 10px/1 var(--font-num); color: var(--parch-2); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px var(--line); text-shadow: none; letter-spacing: 0; }
+.lead { margin: 0; color: var(--tx-2); max-width: 75ch; }
+.parch a { color: var(--gold); font-weight: 600; }
 
-/* filter chips */
+/* filter chips: the satchel's sort pill */
 .filters { display: flex; flex-wrap: wrap; gap: 6px; }
-.filters button { padding: 4px 11px; font-size: 14px; font-weight: 600; color: var(--parch-2); background: var(--leather); border: 2px solid var(--night); box-shadow: inset 0 0 0 2px var(--bronze-dk); }
-.filters button[aria-pressed="true"] { color: var(--ink); background: var(--gold); box-shadow: inset 0 0 0 2px var(--bronze-hi); }
-.filters button b { font: 400 11px/1 var(--font-num); opacity: .8; }
+.filters button { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border: 0; border-radius: 999px; font: 600 13px/1 var(--font-body); color: var(--tx-2);
+  background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px var(--line); }
+.filters button:hover { color: var(--parch-hi); background: rgba(255, 255, 255, .1); }
+.filters button[aria-pressed="true"] { color: var(--parch-hi); background: linear-gradient(var(--tab-a), var(--tab-b)); box-shadow: inset 0 0 0 1px var(--gold); }
+.filters button b { font: 400 9px/1 var(--font-num); opacity: .8; }
 
-/* ---------- cards ---------- */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 12px; }
+/* ---------- cards: an item slot (rarity ring, dark inner ring) over its name, on a small satchel panel ---------- */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 14px; }
 .grid.wide { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
-.grid.small { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 10px; }
-.card { position: relative; display: grid; grid-template-rows: auto 1fr; padding: 0; text-align: start; color: var(--ink); background: var(--parch) var(--tex) 0 0 / 128px; image-rendering: pixelated;
-  border: 3px solid var(--night); box-shadow: var(--fr-sm); transition: transform .08s steps(2); text-decoration: none; }
-.card:hover, .card:focus-visible { transform: translateY(-3px); }
-.card .well { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; margin: 5px 5px 0; overflow: hidden;
-  background: radial-gradient(ellipse at 50% 80%, #4a3524 0%, #2b1d13 55%, #1d130c 100%); box-shadow: inset 0 0 0 2px var(--bronze-dk), inset 0 -10px 18px rgba(0, 0, 0, .35); }
-.card .well::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(#f2cf72 1px, transparent 1.2px); background-size: 37px 29px; opacity: .25; }
+.grid.small { grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)); gap: 12px; }
+.card { --rc: var(--r-common); position: relative; display: grid; grid-template-rows: auto 1fr; padding: 6px; text-align: start; color: var(--tx); text-decoration: none;
+  border-radius: 14px; background: linear-gradient(180deg, var(--card-2), var(--card)); box-shadow: var(--sh-card); transition: transform .14s ease-out, box-shadow .14s ease-out; }
+.card:hover, .card:focus-visible { transform: translateY(-2px); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--gold), var(--sh-glow), 0 10px 26px rgba(0, 0, 0, .45); outline: none; }
+.card.r-epic { --rc: var(--r-epic); } .card.r-legendary { --rc: var(--r-legendary); } .card.r-quest { --rc: var(--r-quest); }
+.card .well { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--rad-slot);
+  background: radial-gradient(ellipse 70% 60% at 50% 58%, color-mix(in srgb, var(--rc) 22%, transparent), transparent 75%), radial-gradient(ellipse at 50% 85%, #3f2a33 0%, var(--slot) 55%, #241820 100%);
+  box-shadow: inset 0 0 0 2px var(--rc), inset 0 0 0 3px var(--ring-dk), inset 0 -12px 18px rgba(0, 0, 0, .25); }
+.card:hover .well { box-shadow: inset 0 0 0 2px var(--gold), inset 0 0 0 3px var(--ring-dk), inset 0 -12px 18px rgba(0, 0, 0, .25); }
 .card .well img { position: relative; width: 96px; height: 96px; image-rendering: pixelated; filter: drop-shadow(0 3px 0 rgba(0, 0, 0, .35)); }
 .card .well img.ico { width: 72px; height: 72px; }
-.card .well .ph { position: relative; width: 44px; height: 44px; color: var(--bronze); opacity: .45; } /* no picture yet: the category's pixel sign */
+.card .well.lineup { display: flex; justify-content: center; align-items: center; } /* a town's people, side by side at their true pixel size */
+.card .well.lineup img { flex: none; width: 36px; height: 96px; object-fit: none; margin-inline: -1px; }
+.card .well .ph { position: relative; width: 40px; height: 40px; color: var(--bronze-hi); opacity: .35; } /* no picture: the category's pixel sign */
 .card .well .ph svg { width: 100%; height: 100%; }
-.card .well .lv { position: absolute; inset-inline-start: 6px; top: 6px; padding: 1px 6px 2px; font: 400 11px/1.3 var(--font-num); color: var(--gold); background: rgba(22, 14, 8, .85); box-shadow: inset 0 0 0 1px var(--bronze); direction: ltr; }
-.card .well .tag { position: absolute; inset-inline-end: 6px; top: 6px; padding: 1px 6px 2px; font-size: 11px; font-weight: 700; color: var(--night); background: var(--gold); }
-.card .well .tag.boss { background: #e04848; color: #fff; }
-.card .well .tag.elite { background: var(--gold); }
-.card .txt { display: grid; align-content: start; gap: 2px; padding: 8px 10px 10px; }
-.card .nm { font: 700 15px/1.25 var(--font-title); color: var(--ink); }
-.card .mt { font-size: 13px; color: var(--ink-2); line-height: 1.35; }
-.card .rr { position: absolute; inset-inline: 5px; bottom: 5px; height: 3px; }
-.card.r-epic { box-shadow: inset 0 0 0 2px var(--r-epic), inset 0 0 0 3px #5a2a8a, 0 3px 0 0 rgba(10, 6, 3, .5); }
-.card.r-legendary { box-shadow: inset 0 0 0 2px var(--r-legendary), inset 0 0 0 3px #8a5a10, 0 3px 0 0 rgba(10, 6, 3, .5); }
-.icons { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
-.icons img { width: 32px; height: 32px; image-rendering: pixelated; background: var(--leather); box-shadow: inset 0 0 0 1px var(--bronze-dk); }
-.swatch { display: flex; height: 6px; margin-top: 5px; } .swatch i { flex: 1; }
+.card .well .lv { position: absolute; inset-inline-start: 6px; top: 6px; padding: 3px 5px 2px; border-radius: var(--rad-key); font: 400 9.5px/1.2 var(--font-num); color: var(--parch-hi); background: rgba(13, 7, 11, .78); box-shadow: inset 0 0 0 1px var(--line-mid); direction: ltr; }
+.card .well .tag { position: absolute; inset-inline-end: 6px; top: 6px; padding: 2px 6px; border-radius: 5px; font: 700 11px/1.3 var(--font-body); color: #1a0f17; background: var(--gold); }
+.card .well .tag.boss { background: #c23a33; color: #fff; box-shadow: inset 0 0 0 1px #ff8a7a; }
+.card .txt { display: grid; align-content: start; gap: 3px; padding: 9px 6px 4px; }
+.card .nm { font: 700 15px/1.25 var(--font-body); color: var(--parch-hi); }
+.card.r-epic .nm, .card.r-legendary .nm { color: var(--rc); }
+.card .mt { font-size: 12.5px; color: var(--tx-2); line-height: 1.4; }
+.icons { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.icons img { width: 32px; height: 32px; image-rendering: pixelated; border-radius: 6px; background: var(--slot); box-shadow: inset 0 0 0 1px var(--line-mid); }
+.swatch { display: flex; height: 6px; margin-top: 6px; border-radius: 3px; overflow: hidden; } .swatch i { flex: 1; }
 
-/* rows (people, quests, dungeons) */
-.rows { display: grid; gap: 8px; }
-.row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 8px 12px; text-align: start; color: var(--ink); background: var(--parch) var(--tex) 0 0 / 128px; border: 3px solid var(--night); box-shadow: var(--fr-sm); }
-.row img { width: 48px; height: 48px; image-rendering: pixelated; background: var(--leather); box-shadow: inset 0 0 0 1px var(--bronze-dk); }
-.row .nm { font: 700 16px/1.25 var(--font-title); }
-.row .mt { font-size: 13px; color: var(--ink-2); }
-.row .end { font: 400 12px/1.4 var(--font-num); color: var(--bronze-dk); text-align: end; direction: ltr; }
-.pill { display: inline-block; padding: 0 7px; font-size: 12px; font-weight: 700; color: var(--parch-hi); background: var(--leather); box-shadow: inset 0 0 0 1px var(--bronze); white-space: nowrap; }
-.pill.gold { color: var(--ink); background: var(--gold); box-shadow: none; }
-.pill.teal { color: #06302c; background: var(--teal); box-shadow: none; }
-.pill.red { color: #fff; background: #b8323a; box-shadow: none; }
-.rar { font-weight: 700; } .rar.normal { color: #6a6458; } .rar.epic { color: #7a2ad0; } .rar.legendary { color: #b06a00; }
-.dot { display: inline-block; width: 10px; height: 10px; vertical-align: -1px; margin-inline-end: 4px; box-shadow: 0 0 0 1px var(--night); }
+/* rows (people, quests, families): the satchel's quest list */
+.rows { display: grid; gap: 6px; }
+.row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 8px 12px 8px 8px; padding-inline: 8px 12px; text-align: start; color: var(--tx);
+  border-radius: var(--rad-box); background: rgba(255, 255, 255, .03); box-shadow: inset 0 0 0 1px var(--line-lo); }
+.row > img { width: 52px; height: 52px; padding: 2px; image-rendering: pixelated; border-radius: var(--rad-slot); background: radial-gradient(circle at 50% 60%, #3f2a33, var(--slot) 70%); box-shadow: inset 0 0 0 2px var(--r-common), inset 0 0 0 3px var(--ring-dk); }
+/* a townsperson's own portrait at its true pixel size (the figure is tall: the slot crops the empty sides) */
+.row.face > img { width: 72px; height: 96px; padding: 0; object-fit: none; background: radial-gradient(ellipse 60% 45% at 50% 62%, rgba(255, 206, 120, .14), transparent 75%), radial-gradient(ellipse at 50% 85%, #3f2a33 0%, var(--slot) 60%); }
+.row .nm { font: 700 15px/1.25 var(--font-body); color: var(--parch-hi); }
+.row .mt { font-size: 13px; color: var(--tx-2); }
+.row .end { font: 400 10px/1.4 var(--font-num); color: var(--tx-3); text-align: end; direction: ltr; }
+.rar { font-weight: 700; } .rar.normal { color: var(--parch-2); } .rar.epic { color: #c79bff; } .rar.legendary { color: var(--r-legendary); }
+.dot { display: inline-block; width: 10px; height: 10px; vertical-align: -1px; margin-inline-end: 4px; border-radius: 3px; box-shadow: 0 0 0 2px var(--ring-dk); }
+.row > .dot { border-radius: var(--rad-slot); }
 
-/* the overview: one tablet per category */
-.cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
-.cat { display: grid; grid-template-columns: 84px 1fr; gap: 12px; align-items: center; padding: 14px 16px; text-decoration: none; }
-.cat .pics { position: relative; width: 84px; height: 84px; background: radial-gradient(ellipse at 50% 80%, #4a3524 0%, #2b1d13 60%); box-shadow: inset 0 0 0 2px var(--bronze-dk); display: grid; place-items: center; }
+/* the overview: one satchel panel per category, its picture in a slot */
+.cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+.cat { display: grid; grid-template-columns: 84px 1fr; gap: 14px; align-items: center; padding: 14px 16px 14px 14px; padding-inline: 14px 16px; text-decoration: none; transition: transform .14s ease-out, box-shadow .14s ease-out; }
+.cat:hover { transform: translateY(-2px); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--gold), var(--sh-glow), 0 12px 30px rgba(0, 0, 0, .45); }
+.cat .pics { position: relative; width: 84px; height: 84px; display: grid; place-items: center; border-radius: var(--rad-slot);
+  background: radial-gradient(circle at 50% 58%, rgba(255, 178, 46, .2), transparent 70%), var(--slot); box-shadow: inset 0 0 0 2px var(--r-legendary), inset 0 0 0 3px var(--ring-dk); }
 .cat .pics img { width: 72px; height: 72px; image-rendering: pixelated; }
-.cat h3 { margin: 0; font: 700 21px/1.15 var(--font-title); color: var(--ink); }
-.cat p { margin: 2px 0 0; font-size: 14px; color: var(--ink-2); line-height: 1.4; }
-.cat b.n { font: 400 13px/1 var(--font-num); color: var(--bronze-dk); }
+.cat h3 { margin: 0; font: 700 19px/1.15 var(--font-title); color: var(--gold); letter-spacing: .03em; text-shadow: 0 2px 0 #000; }
+html[lang="he"] .cat h3 { letter-spacing: 0; }
+.cat p { margin: 3px 0 0; font-size: 13.5px; color: var(--tx-2); line-height: 1.45; }
 
-/* tables */
-.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
-.tbl th, .tbl td { padding: 5px 8px; text-align: start; border-bottom: 1px solid rgba(106, 69, 24, .35); vertical-align: top; }
-.tbl th { font-weight: 700; color: var(--ink); background: rgba(190, 168, 119, .35); white-space: nowrap; }
+/* tables: the hover card's stat rows */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.tbl th, .tbl td { padding: 5px 8px; text-align: start; border-bottom: 1px solid var(--line-lo); vertical-align: top; }
+.tbl th { font: 600 12px/1.3 var(--font-body); color: var(--tx-3); white-space: nowrap; }
+.tbl td { color: var(--tx); }
 .tbl td.n, .tbl th.n { text-align: right; font-variant-numeric: tabular-nums; }
-.tbl td.n { direction: ltr; unicode-bidi: isolate; }
+.tbl td.n { direction: ltr; unicode-bidi: isolate; font: 400 11px/1.6 var(--font-num); color: var(--parch-hi); }
 [dir="rtl"] .tbl td.n, [dir="rtl"] .tbl th.n { text-align: left; } /* (numbers line up on the reading end, headers with them) */
-.tbl tr.on td { background: rgba(242, 207, 114, .45); font-weight: 600; }
-.tblwrap { overflow-x: auto; }
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl tr.on td { background: rgba(246, 214, 122, .1); color: var(--gold); }
+.tbl tr.on td:first-child { box-shadow: inset 2px 0 0 var(--gold); }
+[dir="rtl"] .tbl tr.on td:first-child { box-shadow: inset -2px 0 0 var(--gold); }
+.tblwrap { overflow-x: auto; max-width: 100%; border-radius: 8px; background: rgba(255, 255, 255, .03); box-shadow: inset 0 0 0 1px var(--line); }
+.tblbox { padding: 6px; }
+.setbox { display: grid; gap: 8px; padding: 10px 12px; border-radius: 8px; background: var(--set-bg); box-shadow: inset 0 0 0 1px var(--set-line); }
+.setbox .tbl th { color: #d8c0ff; } .setbox .tbl td, .setbox .tbl th { border-bottom-color: rgba(180, 108, 255, .2); }
+.setbox .tblwrap { background: none; box-shadow: none; }
 
 /* bars (mount speeds, set package) */
-.bars { display: grid; gap: 4px; }
-.bars div { display: grid; grid-template-columns: 74px 1fr 46px; gap: 8px; align-items: center; font-size: 13px; }
-.bars i { height: 10px; background: var(--leather); box-shadow: inset 0 0 0 1px var(--night); position: relative; }
-.bars i::after { content: ""; position: absolute; inset: 2px; width: calc(var(--v) * (100% - 4px)); background: linear-gradient(var(--gold), var(--bronze)); }
-.bars span:last-child { text-align: end; font: 400 11px/1 var(--font-num); direction: ltr; }
+.bars { display: grid; gap: 6px; }
+.bars div { display: grid; grid-template-columns: 74px 1fr 50px; gap: 8px; align-items: center; font-size: 13px; color: var(--tx-2); }
+.bars i { position: relative; height: 10px; border-radius: 999px; background: rgba(0, 0, 0, .35); box-shadow: inset 0 0 0 1px var(--line); }
+.bars i::after { content: ""; position: absolute; inset: 2px auto 2px 2px; width: calc(var(--v) * (100% - 4px)); border-radius: 999px; background: linear-gradient(90deg, var(--bronze), var(--gold)); box-shadow: 0 0 6px rgba(246, 214, 122, .35); }
+[dir="rtl"] .bars i::after { inset: 2px 2px 2px auto; background: linear-gradient(-90deg, var(--bronze), var(--gold)); }
+.bars span:last-child { text-align: end; font: 400 10px/1 var(--font-num); color: var(--parch-hi); direction: ltr; }
 
-/* the world map */
-.map { position: relative; width: 100%; aspect-ratio: 1; background: #cdbb8e center / 100% 100% no-repeat; image-rendering: pixelated; border: 3px solid var(--night); box-shadow: var(--fr-lg); overflow: hidden; }
-.map .mk { position: absolute; transform: translate(-50%, -50%); width: 12px; height: 12px; padding: 0; border: 2px solid var(--night); background: var(--gold); }
+/* the world map in a slot frame */
+.map { position: relative; width: 100%; aspect-ratio: 1; background: #cdbb8e center / 100% 100% no-repeat; image-rendering: pixelated; border-radius: var(--rad-box); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-hi), 0 12px 30px rgba(0, 0, 0, .45); overflow: hidden; }
+.map .mk { position: absolute; transform: translate(-50%, -50%); width: 12px; height: 12px; padding: 0; border: 2px solid var(--night); border-radius: 3px; background: var(--gold); }
+.map .mk:hover { box-shadow: 0 0 0 2px var(--gold), 0 0 10px var(--gold); }
 .map .mk.city, .map .mk.home { width: 16px; height: 16px; background: #e04848; }
 .map .mk.town { width: 14px; height: 14px; background: #e8a33a; }
 .map .mk.village { background: #f2e6c4; }
@@ -190,66 +165,72 @@ main { width: 100%; max-width: 1200px; margin: 0 auto; padding: 28px var(--gut) 
 .map .mk.cave { width: 10px; height: 10px; background: #4a3524; box-shadow: 0 0 0 1px var(--parch-3); border-radius: 50% 50% 0 0; }
 .map .mk.waystone { width: 9px; height: 9px; background: var(--teal); }
 .map .mk.realm { background: #7af0dc; border-radius: 50%; }
-.map .lb { position: absolute; transform: translate(-50%, 9px); padding: 0 4px; font: 700 11px/1.35 var(--font-body); color: var(--ink); background: rgba(242, 233, 211, .88); box-shadow: 0 0 0 1px var(--night); white-space: nowrap; pointer-events: none; }
+.map .lb { position: absolute; transform: translate(-50%, 9px); padding: 1px 5px; border-radius: 4px; font: 600 11px/1.35 var(--font-body); color: var(--parch-hi); background: rgba(30, 19, 26, .88); box-shadow: 0 0 0 1px var(--edge); white-space: nowrap; pointer-events: none; }
 .map .pin { position: absolute; width: 18px; height: 26px; transform: translate(-50%, -100%); background: #e04848; clip-path: polygon(50% 100%, 0 40%, 0 15%, 15% 0, 85% 0, 100% 15%, 100% 40%); box-shadow: 0 0 0 2px var(--night); filter: drop-shadow(0 2px 0 var(--night)); animation: bob 1s steps(2) infinite alternate; }
 @keyframes bob { to { margin-top: -3px; } }
-.minimap { position: relative; width: 100%; aspect-ratio: 4 / 3; image-rendering: pixelated; border: 3px solid var(--night); box-shadow: var(--fr-sm); background-color: #cdbb8e; background-repeat: no-repeat; overflow: hidden; }
+.minimap { position: relative; width: 100%; aspect-ratio: 4 / 3; image-rendering: pixelated; border-radius: var(--rad-slot); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-hi); background-color: #cdbb8e; background-repeat: no-repeat; overflow: hidden; }
 .minimap .pin { position: absolute; left: 50%; top: 50%; width: 16px; height: 22px; transform: translate(-50%, -100%); background: #e04848; clip-path: polygon(50% 100%, 0 40%, 0 15%, 15% 0, 85% 0, 100% 15%, 100% 40%); }
-.minimap .d { position: absolute; width: 8px; height: 8px; transform: translate(-50%, -50%); background: var(--gold); box-shadow: 0 0 0 2px var(--night); }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--parch-2); }
+.minimap .d { position: absolute; width: 8px; height: 8px; transform: translate(-50%, -50%); border-radius: 2px; background: var(--gold); box-shadow: 0 0 0 2px var(--night); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--tx-2); }
 .legend label { display: inline-flex; align-items: center; gap: 6px; }
 .legend input { accent-color: var(--bronze-hi); }
 
-/* ---------- the detail tablet (a dialog) ---------- */
-dialog { width: min(900px, calc(100vw - 24px)); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); padding: 0; color: var(--ink); background: transparent; border: 0; overflow: visible; }
-dialog::backdrop { background: rgba(10, 6, 3, .72); }
-.dlg { position: relative; display: grid; max-height: inherit; overflow: hidden; }
-.dlg .in { overflow-y: auto; padding: 26px 28px 26px; display: grid; gap: 16px; overscroll-behavior: contain; }
-.dlg .x { position: absolute; inset-inline-end: 12px; top: 12px; z-index: 2; width: 40px; height: 40px; border: 3px solid var(--night); background: var(--leather); color: var(--gold); box-shadow: inset 0 0 0 2px var(--bronze); font: 700 20px/1 var(--font-body); }
-.dhead { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; padding-inline-end: 44px; }
-.dhead .big { display: grid; place-items: center; width: 168px; height: 168px; background: radial-gradient(ellipse at 50% 80%, #4a3524 0%, #2b1d13 60%, #1d130c 100%); box-shadow: inset 0 0 0 3px var(--bronze-dk); }
+/* ---------- the detail: the satchel's hover card, a size up (a dialog) ---------- */
+dialog { width: min(900px, calc(100vw - 24px)); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); padding: 0; color: var(--tx); background: transparent; border: 0; overflow: visible; }
+dialog::backdrop { background: rgba(13, 7, 11, .72); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+dialog[open] .dlg { animation: dlgin .16s ease-out; }
+@keyframes dlgin { from { opacity: 0; transform: translateY(6px) scale(.985); } }
+.dlg { position: relative; display: grid; max-height: inherit; overflow: hidden; border-radius: var(--rad-panel); background: var(--tip); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--bronze), 0 20px 60px rgba(0, 0, 0, .6); }
+.dlg .in { overflow-y: auto; padding: 22px 24px 24px; display: grid; gap: 16px; overscroll-behavior: contain; }
+.dlg .x { position: absolute; inset-inline-end: 14px; top: 14px; z-index: 2; width: 34px; height: 34px; padding: 0; border: 0; border-radius: var(--rad-btn); display: grid; place-items: center;
+  background: rgba(255, 255, 255, .06); color: var(--parch-hi); box-shadow: inset 0 0 0 1px var(--line-mid); font: 500 20px/1 var(--font-body); }
+.dlg .x:hover { background: rgba(255, 255, 255, .12); color: var(--gold); }
+.dhead { --rc: var(--r-legendary); display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; padding-inline-end: 44px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.dhead .big { display: grid; place-items: center; width: 160px; height: 160px; border-radius: 14px;
+  background: radial-gradient(circle at 50% 55%, color-mix(in srgb, var(--rc) 24%, transparent), transparent 70%), var(--well); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--rc) 70%, #000), inset 0 0 0 3px var(--ring-dk); }
 .dhead .big img { width: 144px; height: 144px; image-rendering: pixelated; }
 .dhead .big img.ico { width: 96px; height: 96px; }
-.dhead h2 { margin: 0; font: 700 28px/1.1 var(--font-title); color: var(--ink); }
-.dhead .sub2 { margin: 4px 0 0; font-size: 15px; color: var(--ink-2); }
-.dhead .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
-.dsec { display: grid; gap: 8px; }
-.dsec h4 { margin: 0; font: 700 17px/1.2 var(--font-title); color: var(--bronze-dk); display: flex; align-items: center; gap: 8px; }
-.dsec h4::after { content: ""; flex: 1; height: 3px; background: url(assets/mz-gold.png) 0 50% / 8px 10px repeat-x; opacity: .7; }
-.dsec p { margin: 0; }
-.quote { margin: 0; padding: 8px 14px; font-style: italic; color: var(--ink-2); border-inline-start: 4px solid var(--bronze); background: rgba(190, 168, 119, .25); }
-.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.dhead h2 { margin: 0; font: 700 26px/1.15 var(--font-title); color: var(--gold); letter-spacing: .02em; text-shadow: 0 2px 0 #000; }
+html[lang="he"] .dhead h2 { letter-spacing: 0; }
+.dhead .sub2 { margin: 5px 0 0; font-size: 14px; color: var(--tx-2); }
+.dhead .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.dsec { display: grid; gap: 8px; min-width: 0; }
+.dsec h4 { margin: 4px 0 0; display: flex; align-items: center; gap: 10px; font: 600 12px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--tx-3); }
+html[lang="he"] .dsec h4 { letter-spacing: 0; font-size: 13px; }
+.dsec h4::after { content: ""; flex: 1; height: 1px; background: var(--line-lo); }
+.dsec p { margin: 0; color: var(--tx); }
+.dsec p b { color: var(--gold); }
+.quote { margin: 0; padding: 10px 14px; border-radius: 8px; font-style: italic; color: var(--tx-2); background: rgba(255, 255, 255, .04); box-shadow: inset 2px 0 0 var(--bronze-hi); }
+[dir="rtl"] .quote { font-style: normal; box-shadow: inset -2px 0 0 var(--bronze-hi); }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
 .cols > * { display: grid; align-content: start; gap: 10px; }
-.kv { display: grid; grid-template-columns: auto 1fr; gap: 3px 14px; font-size: 14px; margin: 0; }
-.kv dt { color: var(--ink-2); } .kv dd { margin: 0; font-weight: 600; }
-.seg { display: inline-flex; border: 2px solid var(--night); }
-.seg button { padding: 3px 10px; border: 0; font-size: 13px; font-weight: 700; background: var(--parch-2); color: var(--ink-2); }
-.seg button[aria-pressed="true"] { background: var(--leather); color: var(--gold); }
-.empty { padding: 30px; text-align: center; color: var(--parch-2); }
-.loading { padding: 60px 20px; text-align: center; color: var(--parch-2); font: 400 14px/1.6 var(--font-num); }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; font-size: 13.5px; margin: 0; }
+.kv dt { color: var(--tx-2); } .kv dd { margin: 0; font-weight: 600; color: var(--parch-hi); }
+.seg { display: inline-flex; gap: 3px; padding: 3px; border-radius: var(--rad-box); background: rgba(0, 0, 0, .3); }
+.seg button { height: 30px; padding: 0 12px; border: 0; border-radius: 8px; font: 700 13px/1 var(--font-body); background: transparent; }
+.seg button:hover { background: rgba(255, 255, 255, .05); }
+.seg button[aria-pressed="true"] { background: linear-gradient(var(--tab-a), var(--tab-b)); box-shadow: inset 0 0 0 1px var(--line-hi); }
+.empty { padding: 30px; text-align: center; color: var(--tx-2); }
+.loading { padding: 60px 20px; text-align: center; color: var(--tx-3); font: 400 13px/1.6 var(--font-num); }
 .res h3 { margin: 6px 0 0; }
-
-footer { margin-top: 30px; padding: 0 var(--gut) 34px; display: grid; justify-items: center; gap: 10px; text-align: center; color: var(--parch-3); font-size: 14px; }
-footer .band { width: 100%; max-width: 1100px; }
-footer p { margin: 0; }
 
 @media (max-width: 900px) { .cols { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 720px) {
-  .bar nav a:not(.wikilink) { display: none; }
-  .whead { padding-top: 22px; }
+  html { scroll-padding-top: 116px; }
+  .whead { padding-top: 24px; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
   .card .well img { width: 72px; height: 72px; } .card .well img.ico { width: 56px; height: 56px; }
-  main { padding-top: 20px; gap: 26px; }
-  .sech { font-size: 20px; }
+  .card .well.lineup img { width: 32px; height: 96px; }
+  main { padding-top: 22px; gap: 28px; }
   dialog { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; margin: 0; }
-  .dlg { height: 100%; max-height: 100%; } .dlg .in { padding: 20px 16px 28px; }
-  .dhead { grid-template-columns: 1fr; justify-items: center; text-align: center; padding-inline-end: 0; padding-top: 22px; }
+  .dlg { height: 100%; max-height: 100%; border-radius: 0; } .dlg .in { padding: 18px 16px 28px; }
+  .dhead { grid-template-columns: 1fr; justify-items: center; text-align: center; padding-inline-end: 0; padding-top: 24px; }
   .dhead .tags { justify-content: center; }
-  .dhead .big { width: 140px; height: 140px; } .dhead .big img { width: 120px; height: 120px; }
-  .row { grid-template-columns: auto 1fr; } .row .end { grid-column: 2; text-align: start; }
+  .dhead .big { width: 136px; height: 136px; } .dhead .big img { width: 120px; height: 120px; }
+  .row { grid-template-columns: auto minmax(0, 1fr); } .row .end { grid-column: 2; text-align: start; }
+  .cat { grid-template-columns: 72px 1fr; } .cat .pics { width: 72px; height: 72px; } .cat .pics img { width: 60px; height: 60px; }
 }
-@media (max-width: 420px) { .brand span { font-size: 17px; } .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+@media (max-width: 420px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>
 </head>
 <body>
@@ -274,7 +255,7 @@ footer p { margin: 0; }
 
 <section class="whead">
   <h1 data-t="nav_wiki">Wiki</h1>
-  <div class="band" aria-hidden="true"></div>
+  <div class="hline" aria-hidden="true"></div>
   <p data-t="lead"></p>
   <div class="search" id="sbox">
     <label class="sr" for="q" data-t="search_lbl"></label>
@@ -289,12 +270,12 @@ footer p { margin: 0; }
 <main id="view"><p class="loading" id="loading">LOADING…</p></main>
 
 <footer>
-  <div class="band" aria-hidden="true"></div>
+  <div class="fline" aria-hidden="true"></div>
   <p data-t="foot"></p>
   <p><a href="index.html" data-t="home"></a></p>
 </footer>
 
-<dialog id="dlg" aria-labelledby="dlgt"><div class="dlg parch"><button class="x" type="button" data-a="close">×</button><div class="in" id="dlgin"></div></div></dialog>
+<dialog id="dlg" aria-labelledby="dlgt"><div class="dlg"><button class="x" type="button" data-a="close">×</button><div class="in" id="dlgin"></div></div></dialog>
 
 <script src="lang.js"></script>
 <script>
@@ -472,7 +453,7 @@ function go(cat, id) { const h = '#' + cat + (id ? '/' + encodeURIComponent(id) 
 
 // ------------------------------------------------------------------------------------------------ cards
 const card = (o) => `<a class="card${o.r ? ' r-' + o.r : ''}" href="#${o.cat}/${encodeURIComponent(o.id)}" data-open="${o.cat}|${esc(o.id)}">
-  <span class="well">${o.img ? `<img${o.ico ? ' class="ico"' : ''} src="${img(o.img)}" alt="" loading="lazy" width="96" height="96">` : `<span class="ph">${icon((CATS.find((c) => c[0] === o.cat) || CATS[0])[1])}</span>`}${o.lv ? `<span class="lv">${esc(o.lv)}</span>` : ''}${o.tag ? `<span class="tag ${o.tagc || ''}">${esc(o.tag)}</span>` : ''}</span>
+  <span class="well${o.lineup ? ' lineup' : ''}">${o.lineup ? o.lineup.map((f) => `<img src="${img(f)}" alt="" loading="lazy" width="96" height="96">`).join('') : o.img ? `<img${o.ico ? ' class="ico"' : ''} src="${img(o.img)}" alt="" loading="lazy" width="96" height="96">` : `<span class="ph">${icon((CATS.find((c) => c[0] === o.cat) || CATS[0])[1])}</span>`}${o.lv ? `<span class="lv">${esc(o.lv)}</span>` : ''}${o.tag ? `<span class="tag ${o.tagc || ''}">${esc(o.tag)}</span>` : ''}</span>
   <span class="txt"><span class="nm">${esc(o.name)}</span>${o.meta ? `<span class="mt">${o.meta}</span>` : ''}${o.extra || ''}</span></a>`;
 const sec = (title, body, id) => `<section class="sub"${id ? ` id="${id}"` : ''}><h2 class="sech"><span>${esc(title)}</span></h2>${body}</section>`;
 const subh = (title, n) => `<h3>${esc(title)}${n != null ? ` <small>${n}</small>` : ''}</h3>`;
@@ -517,10 +498,10 @@ function monDetail(m) {
     <div class="tags">${m.boss ? `<span class="pill red">${esc(t('boss'))}</span>` : ''}${m.elite ? `<span class="pill gold">${esc(t('elite'))}</span>` : ''}${(m.traits || []).map((x) => `<span class="pill">${esc(tx(x))}</span>`).join('')}</div></div></div>
     ${m.info ? `<div class="dsec"><h4>${esc(t('about'))}</h4><p>${esc(tx(m.info))}</p></div>` : ''}
     <div class="cols"><div class="dsec"><h4>${esc(t('stats_lvl'))}</h4><div class="tblwrap"><table class="tbl"><tr><th class="n">${esc(t('lv'))}</th><th class="n">${esc(t('hp'))}</th><th class="n">${esc(t('blow'))}</th><th class="n">${esc(t('exp'))}</th></tr>${rows}</table></div>
-      <p class="hint" style="color:var(--ink-2)">${esc(m.levelRange ? t('in_range') + ' ' : '')}${esc(t('big_hint'))}</p>
+      <p class="hint">${esc(m.levelRange ? t('in_range') + ' ' : '')}${esc(t('big_hint'))}</p>
       <dl class="kv"><dt>${esc(t('speed'))}</dt><dd class="ltr">${m.base?.speed ?? '–'}</dd><dt>${esc(t('range'))}</dt><dd class="ltr">${m.base?.range ?? '–'} m</dd><dt>${esc(t('aggro'))}</dt><dd class="ltr">${m.base?.aggro ?? '–'} m</dd>${m.ranged ? `<dt>${esc(t('range'))}</dt><dd>${esc(tx(m.ranged))}</dd>` : ''}</dl></div>
     <div class="dsec"><h4>${esc(t('where'))}</h4>${wh.join('')}
-      ${drops.length ? `<h4>${esc(t('drops'))}</h4><div class="tblwrap"><table class="tbl"><tr><th></th><th class="n">${esc(t('chance'))}</th><th class="n">${esc(t('qty'))}</th></tr>${drops.map((d) => `<tr><td>${dn(d)}</td><td class="n">${pct(d.chance, d.chance < .01 ? 2 : 1)}</td><td class="n">${d.qty ? '~' + d.qty : ''}</td></tr>`).join('')}</table></div>${drops[0]?.atLevel ? `<p class="hint" style="color:var(--ink-2)">${esc(t('at_level', { n: drops[0].atLevel }))}</p>` : ''}` : ''}</div></div>
+      ${drops.length ? `<h4>${esc(t('drops'))}</h4><div class="tblwrap"><table class="tbl"><tr><th></th><th class="n">${esc(t('chance'))}</th><th class="n">${esc(t('qty'))}</th></tr>${drops.map((d) => `<tr><td>${dn(d)}</td><td class="n">${pct(d.chance, d.chance < .01 ? 2 : 1)}</td><td class="n">${d.qty ? '~' + d.qty : ''}</td></tr>`).join('')}</table></div>${drops[0]?.atLevel ? `<p class="hint">${esc(t('at_level', { n: drops[0].atLevel }))}</p>` : ''}` : ''}</div></div>
     ${db ? `<div class="dsec"><h4>${esc(t('more'))}</h4><dl class="kv">${db}</dl></div>` : ''}`;
 }
 
@@ -533,13 +514,13 @@ const itemCard = (p) => card({ cat: 'gear', id: 'item:' + p.id, img: p.img, ico:
 function gear() {
   const rar = (D.rarities || []).map((r) => `<div class="row"><span class="dot" style="background:var(--r-${r.id});width:28px;height:28px"></span><div><div class="nm rar ${r.id}">${esc(tx(r.name))}</div><div class="mt">${r.mult ? `${esc(t('power'))} ×${r.mult.power} · ${esc(t('atkSpeed'))} ×${r.mult.atkSpeed} · ${esc(t('crit'))} ×${r.mult.crit}` : ''}</div></div></div>`).join('');
   const wts = (D.weaponTypes || []).map((w) => `<tr><td><b>${esc(tx(w.name))}</b></td><td class="n">${w.unlock ?? ''}</td><td class="n">${w.hands === 'pair' ? '2×' : w.hands === 'off' ? '½' : w.hands ?? ''}</td><td class="n">${w.tempo ?? ''}</td><td class="n">${w.reach ? w.reach + ' m' : ''}</td><td>${esc(tx(w.handling))}</td></tr>`).join('');
-  const fams = (D.families || []).map((f) => `<div class="row"><span class="swatch" style="flex-direction:column;width:16px;height:40px">${(f.colors || []).map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span><div><div class="nm">${esc(tx(f.name))}${f.passive ? ` · <span style="color:var(--bronze-dk)">${esc(tx(f.passive.name))}</span>` : ''}</div><div class="mt">${esc(tx(f.passive?.desc))}</div></div></div>`).join('');
+  const fams = (D.families || []).map((f) => `<div class="row"><span class="swatch" style="flex-direction:column;width:16px;height:40px">${(f.colors || []).map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span><div><div class="nm">${esc(tx(f.name))}${f.passive ? ` · <span style="color:var(--gold)">${esc(tx(f.passive.name))}</span>` : ''}</div><div class="mt">${esc(tx(f.passive?.desc))}</div></div></div>`).join('');
   return sec(t('gear'), `<p class="lead">${esc(t('d_gear'))}</p>`) +
     (D.sets ? `<section class="sub">${subh(t('sets'), D.sets.length)}<div class="grid wide">${D.sets.map(setCard).join('')}</div></section>` : '') +
     (D.standalone ? `<section class="sub">${subh(t('standalone'), D.standalone.length)}<div class="grid">${D.standalone.map(itemCard).join('')}</div></section>` : '') +
     (D.heirlooms?.length ? `<section class="sub">${subh(t('heirlooms'), D.heirlooms.length)}<div class="grid small">${D.heirlooms.map((p) => card({ cat: 'gear', id: 'heir:' + p.id, img: p.img, ico: true, name: tx(p.name), meta: esc(catName(p.cat)) })).join('')}</div></section>` : '') +
     (rar ? `<section class="sub">${subh(t('rarities'))}<div class="rows">${rar}</div></section>` : '') +
-    (wts ? `<section class="sub">${subh(t('weapon_types'))}<div class="parch" style="padding:10px"><div class="tblwrap"><table class="tbl"><tr><th></th><th class="n">${esc(t('unlock'))}</th><th class="n">${esc(t('hands'))}</th><th class="n">${esc(t('tempo'))}</th><th class="n">${esc(t('reach'))}</th><th>${esc(t('handling'))}</th></tr>${wts}</table></div></div></section>` : '') +
+    (wts ? `<section class="sub">${subh(t('weapon_types'))}<div class="tblwrap tblbox"><table class="tbl"><tr><th></th><th class="n">${esc(t('unlock'))}</th><th class="n">${esc(t('hands'))}</th><th class="n">${esc(t('tempo'))}</th><th class="n">${esc(t('reach'))}</th><th>${esc(t('handling'))}</th></tr>${wts}</table></div></section>` : '') +
     (fams ? `<section class="sub">${subh(t('families'), D.families.length)}<div class="rows">${fams}</div></section>` : '');
 }
 const STAT_KEYS = ['power', 'atkSpeed', 'crit', 'defense', 'hp', 'move', 'block', 'dps'];
@@ -554,12 +535,12 @@ const rarSeg = () => `<span class="seg" role="group">${(D.rarities || [{ id: 'no
 function setDetail(s) {
   const pkg = s.pkg ? `<div class="bars">${['power', 'atkSpeed', 'crit', 'defense'].map((k) => `<div><span>${esc(t(k))}</span><i style="--v:${Math.min(1, (s.pkg[k] || 0) / .25)}"></i><span>+${pct(s.pkg[k])}</span></div>`).join('')}</div>` : '';
   const stages = s.passive ? `<table class="tbl"><tr><th class="n">${esc(t('pieces'))}</th><th class="n">%</th><th>${esc(tx(s.passive.name))}</th></tr>${s.passive.stages.map((x) => `<tr><td class="n">${x.pieces}</td><td class="n">${x.pct != null ? pct(x.pct, 0) : ''}</td><td>${esc(tx(x.text))}</td></tr>`).join('')}</table>` : '';
-  const pieces = s.pieces.map((p) => `<div class="dsec"><div class="row" style="box-shadow:none;border-width:2px"><img src="${img(p.img)}" alt=""><div><div class="nm">${esc(tx(p.name))}</div><div class="mt">${esc(catName(p.cat))} · ${esc(t('level_window'))} <span class="ltr">${lvr([p.lvl, p.max])}</span></div></div></div>${statTable(p)}</div>`).join('');
+  const pieces = s.pieces.map((p) => `<div class="dsec"><div class="row"><img src="${img(p.img)}" alt=""><div><div class="nm">${esc(tx(p.name))}</div><div class="mt">${esc(catName(p.cat))} · ${esc(t('level_window'))} <span class="ltr">${lvr([p.lvl, p.max])}</span></div></div></div>${statTable(p)}</div>`).join('');
   return `<div class="dhead"><span class="big">${s.pieces[0]?.img ? `<img class="ico" src="${img((s.pieces.find((p) => p.cat === 'sword1') || s.pieces[0]).img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(s.name))}</h2>
     <p class="sub2">${esc(t('lv'))} ${s.lvl} · ${esc(tx(FAM[s.family]?.name) || '')}${s.wings ? ' · ' + esc(t('wings_set')) : ''}</p>
     ${s.colors ? `<span class="swatch" style="height:10px;max-width:220px">${s.colors.map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span>` : ''}</div></div>
     <div class="dsec"><p>${esc(tx(s.theme))}</p></div>
-    <div class="cols"><div class="dsec"><h4>${esc(t('set_bonus'))}</h4>${stages}</div><div class="dsec"><h4>${esc(t('set_pkg'))}</h4>${pkg}
+    <div class="cols"><div class="dsec"><h4>${esc(t('set_bonus'))}</h4>${stages ? `<div class="setbox"><div class="tblwrap">${stages}</div></div>` : ''}</div><div class="dsec"><h4>${esc(t('set_pkg'))}</h4>${pkg}
       ${FAM[s.family]?.passive ? `<h4>${esc(t('family'))}: ${esc(tx(FAM[s.family].name))}</h4><p><b>${esc(tx(FAM[s.family].passive.name))}</b>: ${esc(tx(FAM[s.family].passive.desc))}</p>` : ''}</div></div>
     <div class="dsec"><h4>${esc(t('pieces'))} (${s.pieces.length})</h4><div>${rarSeg()}</div></div>${pieces}`;
 }
@@ -589,9 +570,9 @@ function skills() {
 }
 function skDetail(s) {
   const sk = by(D.skills);
-  return `<div class="dhead"><span class="big" style="${s.color ? `box-shadow: inset 0 0 0 3px ${esc(s.color)}` : ''}">${s.img ? `<img class="ico" src="${img(s.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(s.name))}</h2>
+  return `<div class="dhead"><span class="big" style="${s.color ? `--rc:${esc(s.color)}` : ''}">${s.img ? `<img class="ico" src="${img(s.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(s.name))}</h2>
     <p class="sub2">${s.ult ? esc(t('ult')) + ' · ' : ''}${esc(t('unlock'))} ${s.unlock}${s.branch && D.branches ? ' · ' + esc(tx(D.branches.find((b) => b.id === s.branch)?.name)) : ''}</p>
-    <div class="tags">${s.mana != null ? `<span class="pill" style="background:#22356a">${esc(t('mana'))} ${s.mana}</span>` : ''}${s.cd != null ? `<span class="pill">${esc(t('cd'))} ${s.cd}${esc(t('sec'))}</span>` : ''}${s.story ? `<span class="pill gold">${esc(t('story_gift'))}</span>` : ''}</div></div></div>
+    <div class="tags">${s.mana != null ? `<span class="pill" style="background:#22356a;box-shadow:inset 0 0 0 1px #5b7cff">${esc(t('mana'))} ${s.mana}</span>` : ''}${s.cd != null ? `<span class="pill">${esc(t('cd'))} ${s.cd}${esc(t('sec'))}</span>` : ''}${s.story ? `<span class="pill gold">${esc(t('story_gift'))}</span>` : ''}</div></div></div>
     <div class="dsec"><p>${esc(tx(s.desc))}</p></div>
     <div class="cols"><div class="dsec"><h4>${esc(t('how_get'))}</h4><p>${esc(tx(s.source) || '–')}</p>${s.req?.length ? `<p><b>${esc(t('requires'))}:</b> ${s.req.map((r) => `<a href="#skills/${r}" data-open="skills|${r}">${esc(tx(sk[r]?.name) || r)}</a>`).join(', ')}</p>` : ''}</div>
     <div class="dsec"><h4>${esc(t('more'))}</h4><dl class="kv">${s.power != null ? `<dt>${esc(t('power'))}</dt><dd class="ltr">×${s.power}</dd>` : ''}${s.range != null ? `<dt>${esc(t('range'))}</dt><dd class="ltr">${s.range} m</dd>` : ''}${s.affinity ? `<dt>${esc(t('weapon_n'))}</dt><dd>${esc(catName(s.affinity))}</dd>` : ''}</dl></div></div>`;
@@ -612,7 +593,17 @@ function mtDetail(m) {
 
 // ------------------------------------------------------------------------------------------------ people and towns
 const kindName = (k) => t('kind_' + k);
-const townCard = (s) => card({ cat: 'people', id: 'town:' + s.id, img: s.people.find((p) => ['priest', 'weaponsmith', 'elder'].includes(p.role)) ? D.rolePics?.[s.people.find((p) => ['elder', 'priest', 'weaponsmith'].includes(p.role)).role] : null,
+// every person has their own portrait, drawn from their own rig in the game (wiki/img/npc-<id>.png); the trade's
+// face (rolePics) is only the fallback for older data. A town shows its elder.
+const facePic = (p) => p?.img || D.rolePics?.[p?.role] || null;
+const townPic = (s) => s.img || facePic(s.people.find((p) => p.role === 'elder') || s.people[0]);
+const giverPerson = (q) => q.giver && TOWN[q.giver.place]?.people.find((p) => p.role === q.giver.role);
+// a town's card: a few of its own people side by side (its elder, a merchant, whoever works there), so no two look alike
+const LINEUP = ['merchant', 'elder', 'fisher', 'shepherd', 'farmer', 'scholar', 'smith', 'guard', 'alchemist'];
+const lineup = (s) => { const out = [], seen = new Set();
+  for (const r of LINEUP) for (const p of s.people) if (p.role === r && facePic(p) && out.length < 4 && !(seen.has(r) && r !== 'merchant')) { out.push(facePic(p)); seen.add(r); if (r !== 'merchant') break; }
+  return out.length > 1 ? [out[1], out[0], ...out.slice(2)] : out; };
+const townCard = (s) => card({ cat: 'people', id: 'town:' + s.id, img: townPic(s), lineup: lineup(s).length > 1 ? lineup(s) : null,
   name: tx(s.name), lv: s.level ? `${t('lv')} ${s.level}` : '', meta: `${esc(kindName(s.kind))} · ${s.people.length} ${esc(t('residents'))}` });
 const charCard = (c) => card({ cat: 'people', id: 'char:' + c.key, img: c.img, name: tx(c.name), meta: c.quote ? `“${esc(tx(c.quote).slice(0, 60))}${tx(c.quote).length > 60 ? '…' : ''}”` : '' });
 function people() {
@@ -631,9 +622,9 @@ function miniMap(x, z, dots = [], span = 520) {
 const qGiven = (place, role) => (D.quests || []).filter((q) => q.giver?.place === place && q.giver?.role === role);
 function townDetail(s) {
   const peeps = s.people.map((p) => { const qs = qGiven(s.id, p.role);
-    return `<div class="row"><img src="${img(D.rolePics?.[p.role])}" alt=""><div><div class="nm">${esc(tx(p.name))}</div><div class="mt">${esc(tx(ROLE[p.role]?.name) || p.role)}${p.inside ? ' · ' + esc(t('inside_temple')) : ''}${s.trades.find((x) => x.role === p.role)?.text ? ' · ' + esc(tx(s.trades.find((x) => x.role === p.role).text)) : ''}</div>
+    return `<div class="row face">${facePic(p) ? `<img src="${img(facePic(p))}" alt="" loading="lazy" width="96" height="96">` : '<span></span>'}<div><div class="nm">${esc(tx(p.name))}</div><div class="mt">${esc(tx(ROLE[p.role]?.name) || p.role)}${p.inside ? ' · ' + esc(t('inside_temple')) : ''}${s.trades.find((x) => x.role === p.role)?.text ? ' · ' + esc(tx(s.trades.find((x) => x.role === p.role).text)) : ''}</div>
       ${qs.length ? `<div class="mt">${esc(t('gives_quests'))}: ${qs.map((q) => `<a href="#quests/${q.id}" data-open="quests|${q.id}">${esc(tx(q.title))}</a>`).join(', ')}</div>` : ''}</div><span class="end">${p.x}, ${p.z}</span></div>`; }).join('');
-  return `<div class="dhead"><span class="big">${D.rolePics?.elder ? `<img src="${img(D.rolePics.elder)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(s.name))}</h2><p class="sub2">${esc(kindName(s.kind))}${s.sub ? ' · ' + esc(tx(s.sub)) : ''}</p>
+  return `<div class="dhead"><span class="big">${townPic(s) ? `<img src="${img(townPic(s))}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(s.name))}</h2><p class="sub2">${esc(kindName(s.kind))}${s.sub ? ' · ' + esc(tx(s.sub)) : ''}</p>
     <div class="tags">${s.level ? `<span class="pill">${esc(t('danger'))} ${s.level}</span>` : ''}<span class="pill ltr">${s.x}, ${s.z}</span></div></div></div>
     <div class="cols"><div class="dsec"><h4>${esc(t('coords'))}</h4>${miniMap(s.x, s.z, s.people.map((p) => ({ x: p.x, z: p.z, title: tx(p.name) })), 420)}</div>
     <div class="dsec"><h4>${esc(t('trades'))}</h4><div class="rows">${s.trades.map((tr) => `<div class="mt"><b>${esc(tx(ROLE[tr.role]?.name) || tr.role)}</b>: ${esc(tx(tr.text))}</div>`).join('') || '–'}</div></div></div>
@@ -694,7 +685,7 @@ function quests() {
 }
 function questDetail(q) {
   const QB = by(D.quests);
-  return `<div class="dhead"><span class="big">${q.giver && D.rolePics?.[q.giver.role] ? `<img src="${img(D.rolePics[q.giver.role])}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(q.title))}</h2><p class="sub2">${esc(t('lv'))} ${q.lvl ?? '?'} · ${giverOf(q)}</p></div></div>
+  return `<div class="dhead"><span class="big">${facePic(giverPerson(q)) ? `<img src="${img(facePic(giverPerson(q)))}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(q.title))}</h2><p class="sub2">${esc(t('lv'))} ${q.lvl ?? '?'} · ${giverOf(q)}</p></div></div>
     ${q.offer ? `<blockquote class="quote">“${esc(tx(q.offer))}”</blockquote>` : ''}
     <div class="cols"><div class="dsec"><h4>${esc(t('steps'))}</h4><ol style="margin:0;padding-inline-start:20px">${q.steps.map((s) => `<li>${esc(tx(s))}</li>`).join('')}</ol>${q.after?.length ? `<p><b>${esc(t('after'))}:</b> ${q.after.map((a) => `<a href="#quests/${a}" data-open="quests|${a}">${esc(tx(QB[a]?.title) || a)}</a>`).join(', ')}</p>` : ''}</div>
     <div class="dsec"><h4>${esc(t('reward'))}</h4><ul style="margin:0;padding-inline-start:20px">${(q.reward?.items || []).map((i) => `<li>${esc(tx(i.name))}${i.n > 1 ? ' ×' + i.n : ''}</li>`).join('')}${q.reward?.exp ? `<li>${q.reward.exp} EXP</li>` : ''}${q.reward?.drachma ? `<li>${q.reward.drachma} ₯</li>` : ''}</ul>

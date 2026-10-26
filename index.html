@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Serpent's Oath</title>
 <meta name="description" content="The Serpent's Oath: המסע של Val להחזיר את Roye הביתה. משחק הרפתקאות בעולם פתוח של יוון המיתולוגית, ל-Windows. מורידים את המשגר, והוא מתקין ומעדכן את המשחק.">
-<meta name="theme-color" content="#160e08">
+<meta name="theme-color" content="#1a0f17">
 <meta property="og:title" content="The Serpent's Oath">
 <meta property="og:description" content="Val's journey to bring Roye home. An open-world adventure in mythic Greece, for Windows. Download the launcher; it installs and updates the game.">
 <meta property="og:image" content="assets/hero.jpg">
@@ -13,73 +13,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;700&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="lang.css">
 <style>
-/* The Serpent's Oath site, in the game's own menu language: night sky, bronze frames, parchment, pixel sprites.
-   Colours, frames and the title treatment are the game's style.css tokens. Every path is relative (GitHub Pages). */
-:root {
-  --parch: #e7ddc4; --parch-hi: #f2e9d3; --parch-2: #d9cba6; --parch-3: #bea877;
-  --ink: #2b1a0e; --ink-2: #4a3220; --night: #160e08; --leather: #2b1d13; --leather-2: #3b291b;
-  --bronze: #a8742c; --bronze-hi: #d9a441; --bronze-dk: #6a4518; --gold: #f2cf72; --teal: #34d1bf; --teal-dk: #1d8c80;
-  --fr-lg: inset 0 0 0 2px var(--bronze-hi), inset 0 0 0 4px var(--bronze), inset 0 0 0 6px var(--night), inset 0 0 0 10px rgba(140, 100, 50, .15), 0 4px 0 0 rgba(10, 6, 3, .5);
-  --fr-sm: inset 0 0 0 2px var(--bronze-hi), inset 0 0 0 3px var(--bronze-dk), 0 3px 0 0 rgba(10, 6, 3, .5);
-  --tex: url(assets/tex-parch.png);
-  --mz-gold: url(assets/mz-gold.png);
-  --emblem: url(assets/emblem.png);
-  --font-title: "Rubik", "Pixelify Sans", system-ui, sans-serif;
-  --font-body: "Rubik", system-ui, sans-serif;
-  --font-num: "Silkscreen", "Pixelify Sans", ui-monospace, monospace;
-  --cur-arrow: url(assets/cur-arrow.png) 1 1, default;
-  --cur-hand: url(assets/cur-hand.png) 1 1, pointer;
-  --gut: max(16px, env(safe-area-inset-left, 0px));
-  color-scheme: dark;
-}
-html:not([lang="he"]) { --font-title: "Pixelify Sans", "Rubik", system-ui, sans-serif; }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 64px; -webkit-text-size-adjust: 100%; }
-html, body { cursor: var(--cur-arrow); }
-body { margin: 0; min-height: 100vh; overflow-x: hidden; background: var(--night); color: var(--parch-hi); font: 400 17px/1.6 var(--font-body); }
-a, button, summary, label { cursor: var(--cur-hand); }
-a { color: var(--gold); }
-img { max-width: 100%; display: block; }
-bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
-:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+/* The home page, in the satchel's language (site.css holds the shared tokens, bar, panels, buttons and foot).
+   Every path is relative (GitHub Pages). */
+html { scroll-padding-top: 66px; }
+body { font-size: 17px; }
 
-/* the night sky behind everything, with the menu's twinkling pixel stars */
-.sky { position: fixed; inset: 0; z-index: -2; background: radial-gradient(ellipse at 50% 120%, #3b291b 0%, #160e08 60%); }
-.sky::before, .sky::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(#f2cf72 1.5px, transparent 1.6px), radial-gradient(#e7ddc4 1px, transparent 1.2px); background-size: 90px 70px, 57px 43px; background-position: 0 0, 20px 30px; opacity: .45; animation: tw 3.2s steps(2) infinite; }
-.sky::after { background-size: 131px 97px, 77px 61px; background-position: 40px 12px, 9px 50px; opacity: .3; animation-delay: -1.6s; }
-@keyframes tw { 50% { opacity: .15; } }
-
-/* ---------- top bar ---------- */
-.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 14px; min-height: 56px; padding: 6px var(--gut);
-  background: rgba(22, 14, 8, .9); box-shadow: inset 0 -2px 0 var(--bronze-dk), 0 2px 0 rgba(0, 0, 0, .35); backdrop-filter: blur(4px); }
-.brand { display: flex; align-items: center; gap: 10px; color: var(--gold); text-decoration: none; font: 600 20px/1 "Pixelify Sans", sans-serif; white-space: nowrap; direction: ltr; text-shadow: 2px 2px 0 #000; }
-.brand img { width: 32px; height: 32px; image-rendering: pixelated; }
-.bar nav { display: flex; gap: 4px; margin-inline-start: auto; }
-.bar nav a { padding: 6px 10px; color: var(--parch-2); text-decoration: none; font-weight: 500; font-size: 16px; }
-.bar nav a:hover { color: var(--gold); }
-.chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; font: 600 16px/1.2 var(--font-body); color: var(--parch-hi); background: var(--leather); border: 2px solid var(--night); box-shadow: inset 0 0 0 2px var(--bronze); }
-.chip:hover { background: var(--leather-2); color: var(--gold); }
-
-/* ---------- hero: Athens from above, the town held still while the camera drifts ---------- */
-.hero { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: min(88vh, 860px); min-height: min(88svh, 860px); padding: 48px var(--gut) 96px;
-  background: #2b1d13 url(assets/hero.jpg) center / cover no-repeat; }
+/* ---------- hero: Athens from above under the satchel's dusk, the town held still while the camera drifts ---------- */
+.hero { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: min(88vh, 860px); min-height: min(88svh, 860px); padding: 48px var(--gut) 104px;
+  background: #24161e url(assets/hero.jpg) center / cover no-repeat; }
 .hero video { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(ellipse 60% 52% at 50% 46%, rgba(14, 9, 5, .55) 0%, rgba(14, 9, 5, 0) 100%),
-              linear-gradient(to top, rgba(14, 9, 5, .95) 0%, rgba(14, 9, 5, .6) 22%, rgba(14, 9, 5, 0) 50%),
-              linear-gradient(to bottom, rgba(14, 9, 5, .75) 0%, rgba(14, 9, 5, 0) 30%); }
-.hero-in { display: grid; justify-items: center; gap: 16px; text-align: center; max-width: 900px; }
+  background: radial-gradient(ellipse 60% 52% at 50% 46%, rgba(16, 8, 14, .58) 0%, rgba(16, 8, 14, 0) 100%),
+              linear-gradient(to top, var(--night) 0%, rgba(26, 15, 23, .72) 20%, rgba(16, 8, 14, 0) 50%),
+              linear-gradient(to bottom, rgba(16, 8, 14, .75) 0%, rgba(16, 8, 14, 0) 30%); }
+.hero-in { display: grid; justify-items: center; gap: 16px; text-align: center; max-width: 920px; }
 .logo { position: relative; padding-inline: 78px; }
 .logo h1 { margin: 0; font: 700 clamp(44px, 8.2vw, 100px)/.98 "Pixelify Sans", sans-serif; color: var(--gold); letter-spacing: .02em; direction: ltr; text-wrap: balance;
-  text-shadow: 3px 0 0 #1a110b, -3px 0 0 #1a110b, 0 3px 0 #1a110b, 0 -3px 0 #1a110b, 3px 3px 0 #1a110b, -3px 3px 0 #1a110b, 3px -3px 0 #1a110b, -3px -3px 0 #1a110b, 0 7px 0 #6a4518, 3px 7px 0 #1a110b, -3px 7px 0 #1a110b, 0 10px 0 #1a110b; }
+  text-shadow: 3px 0 0 #1a0f17, -3px 0 0 #1a0f17, 0 3px 0 #1a0f17, 0 -3px 0 #1a0f17, 3px 3px 0 #1a0f17, -3px 3px 0 #1a0f17, 3px -3px 0 #1a0f17, -3px -3px 0 #1a0f17, 0 7px 0 #6b4024, 3px 7px 0 #1a0f17, -3px 7px 0 #1a0f17, 0 10px 0 #1a0f17; }
 .logo h1 span { display: inline-block; animation: drop .6s steps(6) both; }
 @keyframes drop { from { transform: translateY(-40px); opacity: 0; } }
-/* the title's underline: a gold meander band with the bat-wing skull on a night block */
+/* the title's underline: the game's gold meander with the bat-wing skull (its title art) */
 .band { width: min(560px, 84vw); height: 30px; image-rendering: pixelated;
-  background: var(--emblem) center / 54px 22px no-repeat, linear-gradient(var(--night), var(--night)) center / 84px 30px no-repeat, var(--mz-gold) 0 50% / 20px 26px repeat-x; }
-.tag { margin: 0; font-size: clamp(18px, 2.3vw, 23px); font-weight: 500; color: var(--parch-hi); text-shadow: 2px 2px 0 #000; text-wrap: balance; }
+  background: url(assets/emblem.png) center / 54px 22px no-repeat, linear-gradient(var(--night), var(--night)) center / 84px 30px no-repeat, url(assets/mz-gold.png) 0 50% / 20px 26px repeat-x; }
+.tag { margin: 0; font-size: clamp(18px, 2.3vw, 23px); font-weight: 500; color: var(--parch-hi); text-shadow: 0 2px 0 #000, 0 0 18px rgba(0, 0, 0, .6); text-wrap: balance; }
 
 /* torches either side of the title, as in the menu */
 .torch { position: absolute; top: 50%; width: 18px; height: 66px; margin-top: -24px; pointer-events: none; image-rendering: pixelated;
@@ -89,32 +48,25 @@ bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
 .torch::before { content: ""; position: absolute; left: 3px; top: 0; width: 12px; height: 21px; background: linear-gradient(#ffe08a, #ffe08a) 3px 9px / 6px 12px no-repeat, #ff9a2e;
   clip-path: polygon(25% 0, 75% 0, 75% 15%, 100% 15%, 100% 100%, 0 100%, 0 15%, 25% 15%); animation: fl .36s steps(2) infinite alternate; transform-origin: 50% 100%; }
 .torch::after { content: ""; position: absolute; left: 50%; top: 10px; width: 170px; height: 170px; margin: -85px 0 0 -85px; border-radius: 50%; z-index: -1;
-  background: radial-gradient(circle, rgba(255, 170, 60, .32) 0%, rgba(255, 140, 40, .1) 40%, rgba(255, 140, 40, 0) 70%); animation: glow .72s steps(3) infinite alternate; }
+  background: radial-gradient(circle, rgba(255, 170, 60, .3) 0%, rgba(255, 140, 40, .1) 40%, rgba(255, 140, 40, 0) 70%); animation: glow .72s steps(3) infinite alternate; }
 @keyframes fl { to { transform: scaleY(.78); background-color: #ffb22e; } }
 @keyframes glow { to { opacity: .7; transform: scale(.93); } }
 
-/* the download tablet: the game's .slab, a size up */
-.slab { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-width: 176px; min-height: 52px; padding: 11px 24px; text-decoration: none;
-  font: 700 25px/1.1 var(--font-body); color: var(--ink); background: var(--parch-hi) var(--tex) 0 0 / 128px; image-rendering: pixelated; border: 3px solid var(--night);
-  box-shadow: inset 0 0 0 2px var(--bronze-hi), inset 0 -5px 0 2px rgba(120, 85, 40, .28), 0 4px 0 0 var(--night); transition: transform .06s steps(2); }
-html:not([lang="he"]) .slab { font-family: "Pixelify Sans", sans-serif; font-weight: 600; }
-.slab:hover { transform: translateY(-2px); background-color: #fff6df; }
-.slab:active { transform: translateY(3px); box-shadow: inset 0 0 0 2px var(--bronze-hi), 0 1px 0 0 var(--night); }
-.slab.big { min-height: 70px; padding: 14px 34px 16px; font-size: clamp(22px, 3vw, 29px); }
-.dlrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; width: min(880px, 100%); }
-.slab .lbl > span { white-space: nowrap; }
-.slab .lbl { display: grid; gap: 3px; text-align: start; }
-.slab small { font: 500 15px/1.2 var(--font-body); color: var(--ink-2); letter-spacing: .02em; }
-.macnote { max-width: 62ch; margin: 24px auto 0; text-align: center; line-height: 1.7; }
-.slab .dl { flex: none; width: 21px; height: 24px; background: currentColor; clip-path: polygon(33% 0, 67% 0, 67% 42%, 100% 42%, 50% 88%, 0 42%, 33% 42%); }
-.meta { margin: 2px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; font-size: 15px; color: var(--parch-2); text-shadow: 2px 2px 0 #000; }
-.meta b { font: 400 14px/1.6 var(--font-num); color: var(--gold); letter-spacing: .02em; direction: ltr; unicode-bidi: isolate; }
-.meta .sep { color: var(--bronze); }
-.req { margin: 0; font-size: 15px; color: var(--parch-2); text-shadow: 2px 2px 0 #000; }
-.req a { color: var(--gold); }
+/* the downloads: the gold button for Windows, the tab-brown one for the Mac */
+.dlrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; width: min(860px, 100%); margin-top: 4px; }
+.btn.big { min-height: 72px; padding: 13px 26px 14px; gap: 14px; border-radius: 14px; font: 700 clamp(20px, 2.6vw, 25px)/1.1 var(--font-title); letter-spacing: .02em; }
+html[lang="he"] .btn.big { letter-spacing: 0; }
+.btn .lbl { display: grid; gap: 4px; text-align: start; }
+.btn .lbl > span { white-space: nowrap; }
+.btn small { font: 500 14px/1.2 var(--font-body); letter-spacing: 0; opacity: .82; }
+.btn .dl { flex: none; width: 20px; height: 23px; background: currentColor; clip-path: polygon(33% 0, 67% 0, 67% 42%, 100% 42%, 50% 88%, 0 42%, 33% 42%); }
+.meta { margin: 4px 0 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 12px; font-size: 14.5px; color: var(--tx-2); text-shadow: 0 2px 0 #000; }
+.meta b { font: 400 13px/1.6 var(--font-num); color: var(--gold); letter-spacing: .02em; direction: ltr; unicode-bidi: isolate; }
+.meta .sep { width: 5px; height: 5px; border-radius: 1px; background: var(--bronze-hi); transform: rotate(45deg); font-size: 0; }
+.req { margin: 0; font-size: 14.5px; color: var(--tx-2); text-shadow: 0 2px 0 #000; }
 
-/* the snake that slithers along the bottom of the hero, over the meander */
-.trail { position: absolute; left: 0; right: 0; bottom: 30px; height: 30px; z-index: 1; overflow: hidden; pointer-events: none; direction: ltr; }
+/* the snake that slithers along the hero's foot */
+.trail { position: absolute; left: 0; right: 0; bottom: 22px; height: 30px; z-index: 1; overflow: hidden; pointer-events: none; direction: ltr; }
 [dir="rtl"] .trail { transform: scaleX(-1); }
 .snake { position: absolute; left: -260px; bottom: 3px; display: flex; align-items: flex-end; animation: slither 28s linear infinite; }
 .snake i { flex: none; width: 12px; height: 12px; margin-right: -1px; background: var(--teal); box-shadow: inset 0 -3px 0 var(--teal-dk), inset 0 0 0 2px #0b3f3a;
@@ -122,103 +74,94 @@ html:not([lang="he"]) .slab { font-family: "Pixelify Sans", sans-serif; font-wei
 .snake i:nth-child(3n) { background: #c9aa3a; box-shadow: inset 0 -3px 0 #8a6a1e, inset 0 0 0 2px #0b3f3a; }
 .snake i:first-child { width: 8px; height: 6px; }
 .snake i:nth-child(2) { width: 10px; height: 9px; }
-.snake .hd { position: relative; width: 20px; height: 15px; background: var(--teal) linear-gradient(#160e08, #160e08) 12px 3px / 3px 3px no-repeat; box-shadow: inset 0 -3px 0 var(--teal-dk), inset 0 0 0 2px #0b3f3a; }
+.snake .hd { position: relative; width: 20px; height: 15px; background: var(--teal) linear-gradient(#1a0f17, #1a0f17) 12px 3px / 3px 3px no-repeat; box-shadow: inset 0 -3px 0 var(--teal-dk), inset 0 0 0 2px #0b3f3a; }
 .snake .hd::after { content: ""; position: absolute; right: -7px; top: 8px; width: 7px; height: 2px; background: #d8343b; animation: tongue .9s steps(1) infinite; }
 @keyframes wave { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 @keyframes slither { to { left: calc(100% + 30px); } }
 @keyframes tongue { 50% { width: 0; } }
-.rule { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; z-index: 1; image-rendering: pixelated; background: var(--emblem) center / 54px 22px no-repeat, linear-gradient(var(--night), var(--night)) center / 84px 30px no-repeat, var(--mz-gold) 0 50% / 20px 26px repeat-x, var(--night); }
+/* the hero's foot: a fine bronze line, fading at both ends */
+.rule { position: absolute; left: 0; right: 0; bottom: 18px; height: 1px; z-index: 1; background: linear-gradient(to right, transparent, var(--line-hi) 20%, var(--line-hi) 80%, transparent); }
 
 /* ---------- sections ---------- */
-main { display: grid; gap: 72px; padding: 56px 0 24px; }
+main { display: grid; gap: 76px; padding: 52px 0 24px; }
 .sec { width: 100%; max-width: 1100px; margin: 0 auto; padding-inline: var(--gut); display: grid; gap: 22px; }
-/* section header from the equipment sheet: a framed parchment plate between two meander bands */
-.sech { display: flex; align-items: center; margin: 0; font: 700 26px/1.15 var(--font-title); color: var(--ink); }
-.sech::before, .sech::after { content: ""; flex: 1 1 0; min-width: 14px; height: 19px; image-rendering: pixelated;
-  background: url(assets/mz-gold.png) 0 3px / 10px 13px repeat-x, var(--leather); border-block: 2px solid var(--bronze-dk); }
-.sech > span { flex: none; max-width: 86%; padding: 8px 20px 7px; text-align: center; background: var(--parch-hi) var(--tex) 0 0 / 128px; image-rendering: pixelated; border: 3px solid var(--night);
-  box-shadow: inset 0 0 0 2px var(--bronze-hi), inset 0 0 0 3px var(--bronze-dk), 0 3px 0 rgba(0, 0, 0, .45); }
-.lead { margin: -6px auto 0; max-width: 62ch; text-align: center; color: var(--parch-2); text-wrap: balance; }
+.lead { margin: -8px auto 0; max-width: 62ch; text-align: center; color: var(--tx-2); text-wrap: balance; }
 
-.parch { color: var(--ink); background-color: var(--parch); image-rendering: pixelated;
-  background-image: var(--tex), radial-gradient(ellipse at 50% 42%, rgba(255, 250, 235, 0) 52%, rgba(150, 110, 55, .22) 100%); background-size: 128px 128px, 100% 100%;
-  border: 3px solid var(--night); box-shadow: var(--fr-lg); }
-.parch a { color: var(--bronze-dk); font-weight: 700; }
+/* how to run: three panels, each step's number in a satchel slot */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; counter-reset: none; }
+.step { position: relative; display: grid; align-content: start; gap: 8px; padding: 20px 22px 22px; }
+.num { width: 52px; height: 52px; display: grid; place-items: center; border-radius: var(--rad-slot); font: 400 20px/1 var(--font-num); color: var(--gold); text-shadow: 0 2px 0 #000;
+  background: radial-gradient(circle at 50% 55%, rgba(255, 178, 46, .26), transparent 72%), var(--slot); box-shadow: inset 0 0 0 2px var(--r-legendary), inset 0 0 0 3px var(--ring-dk); }
+.step h3 { margin: 6px 0 0; font: 700 20px/1.25 var(--font-title); color: var(--parch-hi); }
+.step p { margin: 0; color: var(--tx-2); font-size: 16px; }
+.file { display: inline-flex; align-items: center; gap: 6px; padding: 1px 8px 1px 6px; border-radius: var(--rad-chip); font-weight: 600; color: var(--parch-hi); background: rgba(255, 255, 255, .06);
+  box-shadow: inset 0 0 0 1px var(--line-mid); white-space: nowrap; direction: ltr; unicode-bidi: isolate; }
+.file img { width: 20px; height: 20px; image-rendering: pixelated; }
+.step h3 .file { font-size: .9em; white-space: normal; }
+.macnote { max-width: 62ch; margin: 2px auto 0; text-align: center; line-height: 1.7; color: var(--tx-2); }
+.macnote b { color: var(--parch-hi); }
 
-/* how to run: three tablets with the game's medal as the step number */
-.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
-.step { position: relative; display: grid; align-content: start; gap: 8px; padding: 26px 24px 24px; }
-.medal { width: 52px; height: 52px; display: grid; place-items: center; background: url(assets/medal.png) center / 100% 100% no-repeat; image-rendering: pixelated;
-  font: 400 20px/1 var(--font-num); color: var(--gold); text-shadow: 2px 2px 0 var(--night); }
-.step h3 { margin: 4px 0 0; font: 700 22px/1.25 var(--font-title); }
-.step p { margin: 0; color: var(--ink-2); }
-.file { display: inline-flex; align-items: center; gap: 6px; padding: 1px 8px 1px 6px; font-weight: 700; color: var(--ink); background: var(--parch-2); box-shadow: inset 0 0 0 2px var(--parch-3); white-space: nowrap; direction: ltr; unicode-bidi: isolate; }
-.file img { width: 22px; height: 22px; image-rendering: pixelated; }
-.step h3 .file { font-size: .92em; white-space: normal; }
-.key { display: inline-block; padding: 0 8px; font-weight: 700; color: var(--parch-hi); background: var(--leather); box-shadow: inset 0 0 0 2px var(--bronze); white-space: nowrap; direction: ltr; unicode-bidi: isolate; }
-
-.notes { padding: 24px 28px 22px; }
-.notes h3 { margin: 0 0 10px; font: 700 21px/1.2 var(--font-title); }
+.notes { padding: 20px 26px 22px; }
+.notes h3 { margin: 0 0 12px; padding-bottom: 10px; font: 700 19px/1.2 var(--font-title); color: var(--gold); letter-spacing: .03em; border-bottom: 1px solid var(--line-lo); text-shadow: 0 2px 0 #000; }
+html[lang="he"] .notes h3 { letter-spacing: 0; }
 .notes ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 30px; }
-.notes li { position: relative; padding-inline-start: 26px; color: var(--ink-2); }
-.notes li::before { content: ""; position: absolute; inset-inline-start: 0; top: 6px; width: 15px; height: 15px; background: url(assets/rivet.png) center / 100% 100% no-repeat; image-rendering: pixelated; }
-.notes li b { color: var(--ink); }
+.notes li { position: relative; padding-inline-start: 22px; color: var(--tx-2); font-size: 16px; }
+.notes li::before { content: ""; position: absolute; inset-inline-start: 2px; top: .62em; width: 7px; height: 7px; border-radius: 2px; background: var(--bronze-hi); transform: rotate(45deg); box-shadow: 0 0 0 2px var(--ring-dk); }
+.notes li b { color: var(--parch-hi); }
 .notes li.wide { grid-column: 1 / -1; }
-.path { font: 700 15px/1.6 ui-monospace, Consolas, monospace; color: var(--ink); direction: ltr; unicode-bidi: isolate; overflow-wrap: anywhere; }
+.path { font: 600 14.5px/1.6 ui-monospace, Consolas, monospace; color: var(--parch-hi); direction: ltr; unicode-bidi: isolate; overflow-wrap: anywhere; }
 
-/* about: the story in a paragraph, what's in it, and real screenshots in bronze frames */
-.about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 26px; align-items: start; }
-.about .txt { padding: 26px 28px 24px; display: grid; gap: 12px; }
-.about .txt p { margin: 0; }
-.feats { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; padding: 0; list-style: none; }
-.feats li { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px 4px 9px; font-weight: 500; font-size: 15px; color: var(--parch-hi); background: var(--leather); border: 2px solid var(--night); box-shadow: inset 0 0 0 2px var(--bronze); }
+/* about: the story, what's in it, and the clips and shots each in a satchel slot */
+.about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 22px; align-items: start; }
+.about .txt { padding: 22px 26px 24px; display: grid; gap: 12px; }
+.about .txt p { margin: 0; color: var(--tx); }
+.feats { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; padding: 14px 0 0; list-style: none; border-top: 1px solid var(--line-lo); }
+.feats li { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px 4px 7px; border-radius: var(--rad-btn); font-weight: 600; font-size: 14px; color: var(--parch-hi);
+  background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px var(--line); }
 .feats img { width: 22px; height: 22px; image-rendering: pixelated; }
 .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0; }
-.shot { margin: 0; display: grid; gap: 6px; }
-.shot a { display: block; padding: 6px; background: var(--leather); border: 3px solid var(--night); box-shadow: var(--fr-sm); }
-.shot img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; image-rendering: pixelated; background: var(--leather-2); }
-.shot figcaption { font-size: 14px; color: var(--parch-2); text-align: center; }
+.shot, .clip { margin: 0; display: grid; gap: 8px; align-content: start; }
+.shot a, .clip .fr { position: relative; display: block; padding: 4px; border-radius: var(--rad-box); background: var(--slot-2); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-mid), 0 8px 22px rgba(0, 0, 0, .35); transition: box-shadow .14s ease-out, transform .14s ease-out; }
+.shot a:hover { transform: translateY(-2px); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--gold), var(--sh-glow); }
+.shot img, .clip video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; image-rendering: pixelated; background: var(--card-2) center / cover no-repeat; }
+.shot figcaption, .clip figcaption { font-size: 13.5px; line-height: 1.4; color: var(--tx-2); text-align: center; }
 .about + .shots { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 22px; }
-/* the clips: real gameplay, 8 s loops, loaded only when they scroll into view; a pause chip on each */
 .clips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0; }
-.clip { margin: 0; display: grid; gap: 6px; align-content: start; }
-.clip .fr { position: relative; padding: 6px; background: var(--leather); border: 3px solid var(--night); box-shadow: var(--fr-sm); }
-.clip video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--leather-2) center / cover no-repeat; }
-.clip figcaption { font-size: 14px; color: var(--parch-2); text-align: center; }
-.clip .pp { position: absolute; inset-inline-end: 12px; bottom: 12px; width: 30px; height: 30px; padding: 0; border: 2px solid var(--night); background: rgba(26, 17, 11, .78); box-shadow: inset 0 0 0 2px var(--bronze); cursor: pointer; display: grid; place-items: center; opacity: .75; }
-.clip .pp:hover, .clip .pp:focus-visible { opacity: 1; }
-.clip .pp:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.clip .pp { position: absolute; inset-inline-end: 12px; bottom: 12px; width: 32px; height: 32px; padding: 0; border: 0; border-radius: var(--rad-btn); background: rgba(30, 19, 26, .82);
+  box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-hi); cursor: var(--cur-hand); display: grid; place-items: center; opacity: .8; transition: opacity .12s; }
+.clip .pp:hover, .clip .pp:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--gold); }
 .clip .pp i { width: 4px; height: 12px; background: var(--parch-hi); box-shadow: 6px 0 0 var(--parch-hi); transform: translateX(-3px); }
 .clip .pp[aria-pressed="false"] i { width: 0; height: 0; background: none; box-shadow: none; transform: translateX(1px); border: solid transparent; border-width: 7px 0 7px 11px; border-left-color: var(--parch-hi); }
-.wikiline { margin: 22px 0 0; display: flex; justify-content: center; }
-.wikiline .slab { gap: 10px; }
-.wikiline img { image-rendering: pixelated; }
+.wikiline { margin: 24px 0 0; display: flex; justify-content: center; }
+.wikiline .btn { min-height: 52px; padding-inline: 20px 22px; text-align: center; }
+.wikiline img { flex: none; image-rendering: pixelated; }
 
-/* the updates board: one parchment tablet per update, newest first */
-.log { display: grid; gap: 14px; }
-.upd { padding: 0; }
-.upd summary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 16px 22px 15px; list-style: none; }
+/* the updates board: the satchel's quest list, one entry per update, newest first and open */
+.log { display: grid; gap: 8px; max-width: 900px; width: 100%; margin: 0 auto; }
+.upd { border-radius: var(--rad-box); background: rgba(255, 255, 255, .03); box-shadow: inset 0 0 0 1px var(--line-lo); transition: background .12s; }
+.upd:hover { background: rgba(255, 255, 255, .05); }
+.upd[open] { background: linear-gradient(180deg, rgba(74, 51, 34, .5), rgba(42, 27, 34, .5)); box-shadow: inset 0 0 0 1px var(--line-hi), 0 8px 22px rgba(0, 0, 0, .3); }
+.upd summary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 12px 16px; border-radius: var(--rad-box); list-style: none; }
 .upd summary::-webkit-details-marker { display: none; }
-.upd summary::after { content: ""; margin-inline-start: auto; flex: none; width: 14px; height: 9px; background: var(--bronze-dk); clip-path: polygon(0 0, 100% 0, 50% 100%); transition: transform .1s steps(2); }
-.upd:not([open]) summary::after { transform: rotate(90deg); }
-[dir="rtl"] .upd:not([open]) summary::after { transform: rotate(-90deg); }
-.upd .dt { font: 400 15px/1.5 var(--font-num); color: var(--bronze-dk); direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
-.upd .v { padding: 1px 9px; font-size: 14px; font-weight: 700; color: var(--parch-hi); background: var(--leather); box-shadow: inset 0 0 0 2px var(--bronze); white-space: nowrap; }
-.upd .tt { font: 700 20px/1.3 var(--font-title); color: var(--ink); }
-.upd .soon { padding: 1px 9px; font-size: 14px; font-weight: 700; color: #06302c; background: var(--teal); box-shadow: inset 0 0 0 2px var(--teal-dk); white-space: nowrap; animation: pulse 1.6s steps(2) infinite; }
+.upd summary::after { content: ""; margin-inline-start: auto; flex: none; width: 8px; height: 8px; border: solid var(--tx-2); border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-2px, -2px); transition: transform .14s ease-out; }
+.upd:not([open]) summary::after { transform: rotate(-45deg); }
+[dir="rtl"] .upd:not([open]) summary::after { transform: rotate(135deg); }
+.upd .dt { font: 400 11px/1.5 var(--font-num); color: var(--tx-3); direction: ltr; unicode-bidi: isolate; white-space: nowrap; min-width: 92px; }
+.upd .v { padding: 3px 7px 2px; border-radius: var(--rad-key); font: 400 11px/1.3 var(--font-num); color: var(--parch-hi); background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px var(--line-mid); white-space: nowrap; }
+html[lang="he"] .upd .v { font: 600 12px/1.3 var(--font-body); }
+html[lang="he"] .upd .v .ltr { font: 400 11px/1 var(--font-num); }
+.upd .tt { flex: 1 1 260px; min-width: 0; font: 600 16px/1.3 var(--font-body); color: var(--parch); }
+.upd[open] .tt, .upd:first-child .tt { color: var(--gold); }
+.upd .soon { padding: 3px 8px; border-radius: 6px; font: 600 12px/1.2 var(--font-body); color: #06302c; background: var(--teal); white-space: nowrap; animation: pulse 1.6s steps(2) infinite; }
 @keyframes pulse { 50% { background: #74f0dc; } }
-.upd.up { box-shadow: inset 0 0 0 2px #74f0dc, inset 0 0 0 4px var(--teal-dk), inset 0 0 0 6px var(--night), inset 0 0 0 10px rgba(52, 209, 191, .12), 0 4px 0 0 rgba(10, 6, 3, .5); }
-.upd ul { margin: 0; padding: 0 22px 20px; list-style: none; display: grid; gap: 6px; }
-.upd li { position: relative; padding-inline-start: 20px; color: var(--ink-2); }
-.upd li::before { content: ""; position: absolute; inset-inline-start: 2px; top: .62em; width: 7px; height: 7px; background: var(--bronze); box-shadow: 0 0 0 1px var(--bronze-dk); transform: rotate(45deg); }
+.upd.up { box-shadow: inset 0 0 0 1px var(--r-quest), 0 0 0 2px rgba(95, 208, 176, .25); }
+.upd ul { margin: 0; padding: 2px 18px 16px; list-style: none; display: grid; gap: 5px; }
+.upd li { position: relative; padding-inline-start: 18px; color: var(--tx-2); font-size: 15px; line-height: 1.5; }
+.upd li::before { content: ""; position: absolute; inset-inline-start: 2px; top: .6em; width: 6px; height: 6px; border-radius: 2px; background: var(--bronze-hi); transform: rotate(45deg); }
 
-.cta { display: grid; justify-items: center; gap: 14px; text-align: center; }
-.cta h2 { margin: 0; font: 700 clamp(26px, 4vw, 38px)/1.15 var(--font-title); color: var(--gold); text-shadow: 3px 3px 0 #1a110b, 0 5px 0 #6a4518; }
-
-footer { margin-top: 56px; padding: 0 var(--gut) 34px; display: grid; justify-items: center; gap: 12px; text-align: center; color: var(--parch-3); font-size: 15px; }
-footer .band { width: 100%; max-width: 1100px; }
-footer p { margin: 0; }
-footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--gold); direction: ltr; }
+.cta { display: grid; justify-items: center; gap: 18px; text-align: center; }
+.cta h2 { margin: 0; font: 700 clamp(26px, 4vw, 38px)/1.15 var(--font-title); color: var(--gold); letter-spacing: .03em; text-shadow: 0 3px 0 #000; }
+html[lang="he"] .cta h2 { letter-spacing: 0; }
 
 @media (max-width: 900px) {
   .steps { grid-template-columns: minmax(0, 1fr); }
@@ -227,29 +170,27 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
   .dlrow { grid-template-columns: minmax(0, 1fr); width: min(440px, 100%); }
 }
 @media (max-width: 720px) {
-  .bar nav { display: none; }
   .logo { padding-inline: 34px; }
   .torch { transform: scale(.62); transform-origin: 50% 30%; }
   .torch.l { left: -2px; } .torch.r { right: -2px; }
-  .sech { font-size: 22px; }
   .shots, .clips { gap: 10px; }
-  .shot a, .clip .fr { padding: 4px; }
+  .shot a, .clip .fr { padding: 3px; border-radius: var(--rad-slot); } .shot img, .clip video { border-radius: 7px; }
   .about + .shots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .upd summary { padding: 14px 16px 13px; }
-  .upd ul { padding: 0 16px 18px; }
-  .notes, .about .txt { padding: 22px 20px 20px; }
-  .step { padding: 22px 20px 20px; }
-  main { gap: 56px; padding-top: 44px; }
+  .upd summary { padding: 12px 14px; }
+  .upd .dt { min-width: 0; }
+  .upd ul { padding: 0 14px 16px; }
+  .notes, .about .txt { padding: 18px 18px 20px; }
+  .step { padding: 18px 18px 20px; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center; }
+  .step .num { grid-row: span 1; width: 44px; height: 44px; font-size: 17px; }
+  .step h3 { margin: 0; } .step p { grid-column: 1 / -1; }
+  main { gap: 58px; padding-top: 40px; }
 }
 @media (max-width: 420px) {
-  .brand span { font-size: 17px; }
-  .slab.big { padding-inline: 22px; }
-  .slab .lbl > span { white-space: normal; }
+  .btn.big { padding-inline: 18px; }
+  .btn .lbl > span { white-space: normal; }
 }
 /* motion off: the still town instead of the video, and the snake, torches and stars hold still */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition: none !important; }
   .hero video { display: none; }
   .snake { left: 12%; }
 }
@@ -286,8 +227,8 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
     <div class="band" aria-hidden="true"></div>
     <p class="tag" data-t="tagline"></p>
     <div class="dlrow">
-      <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
-      <a class="slab big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small class="macsz"></small></span></a>
+      <a class="btn gold big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
+      <a class="btn big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small class="macsz"></small></span></a>
     </div>
     <p class="meta" id="meta"></p>
     <p class="req" data-h="req"></p>
@@ -301,9 +242,9 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
     <h2 class="sech" id="run-h"><span data-t="run_h"></span></h2>
     <p class="lead" data-t="run_sub"></p>
     <ol class="steps">
-      <li class="step parch"><div class="medal" aria-hidden="true">1</div><h3 data-t="s1_h"></h3><p data-h="s1_p"></p></li>
-      <li class="step parch"><div class="medal" aria-hidden="true">2</div><h3 data-t="s2_h"></h3><p data-h="s2_p"></p></li>
-      <li class="step parch"><div class="medal" aria-hidden="true">3</div><h3 data-t="s3_h"></h3><p data-h="s3_p"></p></li>
+      <li class="step parch"><div class="num" aria-hidden="true">1</div><h3 data-t="s1_h"></h3><p data-h="s1_p"></p></li>
+      <li class="step parch"><div class="num" aria-hidden="true">2</div><h3 data-t="s2_h"></h3><p data-h="s2_p"></p></li>
+      <li class="step parch"><div class="num" aria-hidden="true">3</div><h3 data-t="s3_h"></h3><p data-h="s3_p"></p></li>
     </ol>
       <p class="macnote" data-h="mac_p"></p>
     <div class="notes parch">
@@ -335,7 +276,7 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
       <div class="clips" id="clips"></div>
     </div>
     <div class="shots" id="shots"></div>
-    <p class="wikiline"><a class="slab" href="wiki.html"><img src="assets/pi-scroll.png" alt="" width="22" height="22"><span data-t="wiki_cta"></span></a></p>
+    <p class="wikiline"><a class="btn" href="wiki.html"><img src="assets/pi-scroll.png" alt="" width="22" height="22"><span data-t="wiki_cta"></span></a></p>
   </section>
 
   <section class="sec" id="updates" aria-labelledby="upd-h">
@@ -347,14 +288,14 @@ footer .brandline { font: 600 18px/1 "Pixelify Sans", sans-serif; color: var(--g
   <section class="sec cta" aria-labelledby="cta-h">
     <h2 id="cta-h" data-t="cta_h"></h2>
     <div class="dlrow">
-      <a class="slab big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
-      <a class="slab big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small class="macsz"></small></span></a>
+      <a class="btn gold big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
+      <a class="btn big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small class="macsz"></small></span></a>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="band" aria-hidden="true"></div>
+  <div class="fline" aria-hidden="true"></div>
   <p class="brandline">The Serpent's Oath</p>
   <p data-t="foot"></p>
   <p><a href="#top" data-t="top"></a></p>
