@@ -6,6 +6,9 @@
 //     but is not linked);
 //     change them only if the file names change. *_MB are the download sizes shown on the buttons.
 //   - set MAC_URL to '' to hide the Mac button (e.g. if a Mac build is not attached to the release).
+//   - SUPABASE_URL / ANON_KEY: the online beta's Supabase project and its public key, for the hall of fame on the home
+//     page (#heroes: the top 5 characters by level, from the read-only RPC leaderboard_top). While either is empty,
+//     or the call fails (e.g. the RPC isn't there yet), the section says the online beta opens soon.
 //   - news: add one entry at the TOP of UPDATES (newest first). upcoming: true shows it as "coming soon" and keeps it
 //     out of the version line under the download button. The launcher reads this list too (as data, never run).
 // Each entry: v (version, optional), date (YYYY-MM-DD), he/en/es: { title, items: [one plain line per change] }.
@@ -16,6 +19,8 @@ window.SITE = {
   MAC_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac.zip',
   MAC_INTEL_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac-Intel.zip',
   MAC_MB: 104,
+  SUPABASE_URL: 'https://exyixhjorhrzunnrxqjs.supabase.co',
+  ANON_KEY: 'sb_publishable_aR8BdNa0VGdx3DL6hlOKfA_kso_gZV_', // the public publishable (anon) key; never a secret/service key
 };
 
 window.UPDATES = [
