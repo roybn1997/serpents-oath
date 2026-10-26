@@ -20,6 +20,48 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '31', date: '2026-10-26',
+    he: { title: 'גרסה 31: מסך בית חדש, לאנצ\'ר חדש ו-BETA ONLINE', items: [
+      'מסך בית חדש: נמל עתיק בתנועה שעוקב אחרי השעה במחשב (בוקר, צהריים, ערב או לילה), ו-VAL עומדת עם הגב אלינו ומביטה אל השמש או הירח',
+      '"המשך" פותח בחירה מאיזו שמירה להמשיך, יש עד 3 שמירות נפרדות, וכל ההגדרות נפתחות ישר ממסך הבית',
+      'השפה נבחרת בלאנצ\'ר, והמשחק עובר אליה לבד',
+      'מראה חדש ללאנצ\'ר, ו-BETA ONLINE בחץ שליד ONLINE: בינתיים רק מסך כניסה (שם משתמש וסיסמה), משחק הרשת עוד בדרך',
+      'ב-Windows מורידים מהאתר תוכנת התקנה (SerpentsOath-Setup.exe) שמתקינה את הלאנצ\'ר ישירות',
+      'התיק: מגירת חפצים חדשה שמראה רק את החפצים עצמם, וכל הפרטים מופיעים במעבר עכבר',
+      'חלון הכישורים בעיצוב חדש, באותו סגנון של התיק',
+      'כל החלונות, הדיאלוגים ומסגרות הכישורים עם פינות מעוגלות',
+      'במוות: רוח הרפאים של VAL מרחפת ליד קבר עד שלוחצים להמשיך',
+      'סמן עכבר חדש: חרב מעל מפלצות ובועת דיבור מעל אנשים',
+      'ניצוצות קטנים יותר כשמפלצת מתה, חפצים שנופלים גדולים יותר, והטבעת של Roye שוכבת על הקרקע',
+    ] },
+    en: { title: 'Version 31: a new home screen, a new launcher and BETA ONLINE', items: [
+      'A new home screen: a living harbour that follows your computer\'s clock (morning, noon, evening or night), with VAL, her back to us, facing the sun or the moon',
+      'Continue opens a picker for which save to carry on from, there are up to 3 separate saves, and all the settings open straight from the home screen',
+      'The language is chosen in the launcher, and the game follows it',
+      'A new look for the launcher, and BETA ONLINE behind the arrow next to ONLINE: for now only a sign-in screen (username and password), online play is coming',
+      'On Windows the site now gives a setup program (SerpentsOath-Setup.exe) that installs the launcher directly',
+      'The satchel: a new items drawer that shows just the items, with every detail on hover',
+      'The skills window restyled to match the satchel',
+      'Rounded corners on every window, dialog and skill frame',
+      'On death: VAL\'s ghost hovers by a grave until you press continue',
+      'A new cursor: a sword over monsters and a speech bubble over people',
+      'Smaller sparks when a monster dies, bigger dropped items, and Roye\'s ring lies flat on the ground',
+    ] },
+    es: { title: 'Versión 31: una pantalla de inicio nueva, un launcher nuevo y BETA ONLINE', items: [
+      'Una pantalla de inicio nueva: un puerto vivo que sigue el reloj de tu ordenador (mañana, mediodía, tarde o noche), con VAL de espaldas mirando al sol o a la luna',
+      'Continuar abre un selector para elegir desde qué partida seguir, hay hasta 3 partidas guardadas separadas, y todos los ajustes se abren directamente desde la pantalla de inicio',
+      'El idioma se elige en el launcher, y el juego lo sigue',
+      'Un aspecto nuevo para el launcher, y BETA ONLINE tras la flecha junto a ONLINE: por ahora solo una pantalla de acceso (usuario y contraseña), el juego en línea llegará pronto',
+      'En Windows la web ofrece ahora un instalador (SerpentsOath-Setup.exe) que instala el launcher directamente',
+      'La bolsa: un cajón de objetos nuevo que muestra solo los objetos, con todos los detalles al pasar el ratón',
+      'La ventana de habilidades rediseñada a juego con la bolsa',
+      'Esquinas redondeadas en todas las ventanas, diálogos y marcos de habilidades',
+      'Al morir: el fantasma de VAL flota junto a una tumba hasta que pulsas continuar',
+      'Un cursor nuevo: una espada sobre los monstruos y un bocadillo sobre las personas',
+      'Chispas más pequeñas cuando muere un monstruo, objetos caídos más grandes, y el anillo de Roye queda tumbado en el suelo',
+    ] },
+  },
+  {
     v: '30', date: '2026-10-24',
     he: { title: 'גרסה 30: מראה חדש לכל המשחק, ולאנצ\'ר', items: [
       'לאנצ\'ר חדש: מורידים אותו פעם אחת, והוא מתקין את המשחק, מעדכן אותו אוטומטית (רק את הקבצים שהשתנו) ופותח אותו',
