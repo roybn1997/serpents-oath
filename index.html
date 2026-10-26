@@ -639,7 +639,7 @@ async function loadHeroes() {
       method: 'POST', cache: 'no-store', signal: ac?.signal,
       // a publishable key (sb_publishable_...) goes in apikey alone; a legacy anon key (a JWT) also as the bearer
       headers: { apikey: key, ...(/^eyJ/.test(key) ? { Authorization: 'Bearer ' + key } : {}), 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ limit: 5 }),
+      body: JSON.stringify({ p_limit: 5 }),
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
