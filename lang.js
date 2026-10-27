@@ -1,6 +1,7 @@
 // The site's language menu (Roy, 24.10): a pixel globe in the top bar opens a small menu, עברית / English / Español.
 // Used by index.html and wiki.html. The choice is kept in localStorage 'so-lang'. Hebrew is right-to-left, the others
-// left-to-right. Order: ?lang=he|en|es, the visitor's last choice, the browser's language, English.
+// left-to-right. Order: ?lang=he|en|es, the visitor's last choice, else English
+// (the browser's language is not consulted: English is the default, Roy 27.10).
 (() => {
   const CODES = ['he', 'en', 'es'];
   const ARIA = { he: 'שפה: עברית', en: 'Language: English', es: 'Idioma: español' };
@@ -9,11 +10,6 @@
     const q = ok(new URLSearchParams(location.search).get('lang'));
     if (q) return q;
     try { const s = ok(localStorage.getItem('so-lang')); if (s) return s; } catch (e) { /* storage off */ }
-    for (const n of [...(navigator.languages || []), navigator.language || '']) {
-      const c = String(n).slice(0, 2).toLowerCase();
-      if (c === 'iw') return 'he';
-      if (ok(c)) return c;
-    }
     return 'en';
   }
   // wires the globe (#lang) and its menu (#lang-menu); onChange(L) redraws the page in the chosen language
