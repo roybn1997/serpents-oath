@@ -25,6 +25,48 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '32', date: '2026-10-27',
+    he: { title: 'גרסה 32: משחק הרשת נפתח (BETA ONLINE)', items: [
+      'BETA ONLINE: נרשמים, יוצרים דמות ונכנסים לעולם משותף עם שחקנים אחרים',
+      'מקדש הגיבורים: עד 5 דמויות שעומדות במקדש בתנוחות משלהן, וכשבוחרים דמות היא נכנסת לעמידת קרב',
+      'יצירת דמות בחלון צף: גוף, תסרוקת, צבע שיער, עור, בגדים ונשק',
+      'צ\'אט, לחישות ותפריט קליק ימני על שחקנים',
+      'פארטי, גילדה עם סמל שמציירים בעצמכם, ורשימת חברים. חברי הפארטי מופיעים על המפה',
+      'מסך סטטיסטיקות (O) לחלוקת נקודות, ומפלצות לפי רמה בכל אזור',
+      'מוזיקה חדשה לכל עיר, אזור ומקום מיוחד, ורחש של המון בערים',
+      'כל החלונות וההגדרות בעיצוב אחיד חדש',
+      'אפקט פגיעה עדין בנקודת המכה, ומפלצות שמגיבות למכות חזקות',
+      'דיווח על באג ישר מההגדרות',
+      'אנגלית היא שפת ברירת המחדל, ואפשר להחליף בלאנצ\'ר',
+    ] },
+    en: { title: 'Version 32: online play opens (BETA ONLINE)', items: [
+      'BETA ONLINE: sign up, create a hero and enter a shared world with other players',
+      'The heroes\' temple: up to 5 heroes stand in the temple in their own poses, and the one you pick drops into a fighting stance',
+      'Hero creation in a floating window: body, hairstyle, hair colour, skin, clothes and weapon',
+      'Chat, whispers and a right-click menu on players',
+      'Parties, guilds with an emblem you draw yourself, and a friends list. Party members show on the map',
+      'A stats window (O) to spend points, and monsters by level in every region',
+      'New music for every town, region and landmark, and the murmur of crowds in towns',
+      'Every window and setting in one new design',
+      'A delicate hit effect where the blow lands, and monsters that react to hard hits',
+      'Report a bug straight from the settings',
+      'English is the default language, and you can switch it in the launcher',
+    ] },
+    es: { title: 'Versión 32: se abre el juego en línea (BETA ONLINE)', items: [
+      'BETA ONLINE: regístrate, crea un héroe y entra en un mundo compartido con otros jugadores',
+      'El templo de los héroes: hasta 5 héroes esperan en el templo con su propia pose, y el que eliges se pone en guardia',
+      'Creación de héroe en una ventana flotante: cuerpo, peinado, color de pelo, piel, ropa y arma',
+      'Chat, susurros y un menú con clic derecho sobre los jugadores',
+      'Grupos, gremios con un emblema que dibujas tú mismo y una lista de amigos. Los miembros del grupo aparecen en el mapa',
+      'Una ventana de estadísticas (O) para repartir puntos, y monstruos por nivel en cada región',
+      'Música nueva para cada ciudad, región y lugar destacado, y el murmullo de la gente en las ciudades',
+      'Todas las ventanas y ajustes con un diseño nuevo y unificado',
+      'Un efecto de golpe sutil donde impacta el arma, y monstruos que reaccionan a los golpes fuertes',
+      'Informa de un error directamente desde los ajustes',
+      'El inglés es el idioma por defecto, y puedes cambiarlo en el launcher',
+    ] },
+  },
+  {
     v: '31', date: '2026-10-26',
     he: { title: 'גרסה 31: מסך בית חדש, לאנצ\'ר חדש ו-BETA ONLINE', items: [
       'מסך בית חדש: נמל עתיק בתנועה שעוקב אחרי השעה במחשב (בוקר, צהריים, ערב או לילה), ו-VAL עומדת עם הגב אלינו ומביטה אל השמש או הירח',
