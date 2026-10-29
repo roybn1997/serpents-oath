@@ -213,6 +213,13 @@ html[lang="he"] .dsec h4 { letter-spacing: 0; font-size: 13px; }
 .empty { padding: 30px; text-align: center; color: var(--tx-2); }
 .loading { padding: 60px 20px; text-align: center; color: var(--tx-3); font: 400 13px/1.6 var(--font-num); }
 .res h3 { margin: 6px 0 0; }
+/* BETA ONLINE (the jobs, the online bestiary): a teal mark on everything that exists only online */
+.pill.online, .card .well .tag.online { color: #06302c; background: var(--teal); box-shadow: none; font-weight: 700; }
+.oband { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 14px; border-radius: var(--rad-box); background: rgba(122, 240, 220, .07); box-shadow: inset 0 0 0 1px rgba(122, 240, 220, .35); color: var(--tx); font-size: 14px; }
+a.row.face { text-decoration: none; } /* (a hall's person: the whole row opens them) */
+.tier { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 6px; font: 400 10px/1 var(--font-num); color: #1a0f17; background: var(--gold); direction: ltr; }
+.tbl td .sk { display: inline-flex; align-items: center; gap: 6px; color: var(--parch-hi); text-decoration: none; } .tbl td .sk:hover { color: var(--gold); }
+.tbl td .sk img { width: 28px; height: 28px; image-rendering: pixelated; border-radius: 5px; background: var(--slot); box-shadow: inset 0 0 0 1px var(--line-mid); }
 
 @media (max-width: 900px) { .cols { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 720px) {
@@ -313,6 +320,16 @@ const T = {
     kind_city: 'עיר', kind_town: 'עיירה', kind_village: 'כפר', kind_home: 'עיר הבית', kind_landmark: 'אתר', kind_sea: 'ים',
     m_places: 'ערים', m_landmark: 'אתרים', m_cave: 'מערות', m_waystone: 'אבני דרך',
     foot: 'הוויקי נבנה אוטומטית מתוך המשחק עצמו, כך שהמספרים תמיד מעודכנים.', home: 'חזרה לדף הבית', built: 'עודכן', loaderr: 'לא הצלחנו לטעון את הוויקי. נסו לרענן.',
+    jobs: 'מקצועות', d_jobs: 'רק באונליין: ארבעת המקצועות וחמש העבודות שלהם, כל הכישורים, ההיכלים והמדריכים, המשימות, הנשקים והסטים.',
+    online_tag: 'אונליין', online_badge: 'בטא אונליין בלבד', online_only: 'כל מה שבעמוד הזה קיים רק בבטא אונליין. בקמפיין אין מקצועות, והוא נשאר כמו שהוא.',
+    campaign: 'קמפיין', online_mons: 'מפלצות האונליין', online_mons_lead: 'באונליין לכל מפלצת רמה אחת קבועה, והיא חיה רק באזור שלה. נקודות החיים שלהן ×{m} לעומת הקמפיין.',
+    hp_note: 'כולל את ×{m} של האונליין בנקודות החיים (בלי: {b}).', level: 'רמה', home_region: 'אזור הבית', size: 'גודל', body: 'מבוסס על', moves: 'מהלכים', cave_dweller: 'חי במערות',
+    hum_bonus: 'דמוי אדם: מהירות +{s}%, מכות +{d}%', tiers: 'העבודות', tier_n: 'עבודה {n}', path_hecate: 'דרך הקטה', path_asclepius: 'דרך אסקלפיוס', both_paths: 'שתי הדרכים',
+    primary: 'סטאט ראשי', secondary: 'סטאט משני', adv_need: 'לקידום', halls: 'ההיכלים והאנשים שבהם', hall: 'היכל', chiron: 'כירון', where_stand: 'איפה הוא עומד', shop: 'חנות',
+    needs_w: 'דורש', basic_spell: 'כישוף בסיס', qk_paths: 'לפני המקצוע', qk_job: 'קידום בעבודה', qk_ult: 'ניסיון האולטימייט', qk_second: 'השבועה השנייה', qk_arrows: 'משימת חצים', qk_later: 'עוד לא במשחק',
+    job_weapons: 'נשקים ויד שנייה', job_sets: 'סטים של המקצועות', weapon_kinds: 'סוגי הנשק של המקצועות', starter: 'פריט התחלה', oath_reward: 'פרס שבועת האלים', stub: 'האפקט עוד לא במשחק',
+    common: 'רגיל', rare: 'נדיר', second_oath: 'ברמה {n} נשבעים שבועה שנייה ומקבלים מקצוע שני; הוא מקבל {p}% מהניסיון של המקצוע הפעיל. מחליפים ביניהם ב־Switch Main.',
+    job_of: 'מקצוע', hidden_hall: 'נסתר: מופיע במפה אחרי שכירון מספר עליו', anchor: 'רמת האזור', people_n: 'אנשים', job_skills_n: 'כישורים', of_job: 'של',
   },
   en: {
     nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', nav_wiki: 'Wiki',
@@ -346,6 +363,16 @@ const T = {
     kind_city: 'City', kind_town: 'Town', kind_village: 'Village', kind_home: 'Home town', kind_landmark: 'Landmark', kind_sea: 'Sea',
     m_places: 'Towns', m_landmark: 'Landmarks', m_cave: 'Caves', m_waystone: 'Waystones',
     foot: 'The wiki is built automatically from the game itself, so the numbers are always current.', home: 'Back to the home page', built: 'Updated', loaderr: 'The wiki could not load. Try refreshing.',
+    jobs: 'Jobs', d_jobs: 'Online only: the four jobs and their five tiers, every skill, the halls and their masters, the quests, weapons and sets.',
+    online_tag: 'Online', online_badge: 'BETA ONLINE only', online_only: 'Everything on this page exists only in the BETA ONLINE. The campaign has no jobs and stays as it is.',
+    campaign: 'Campaign', online_mons: 'Online monsters', online_mons_lead: 'Online every monster has one fixed level and lives only in its own region. Their hit points are ×{m} of the campaign’s.',
+    hp_note: 'Includes the online ×{m} hit points (without it: {b}).', level: 'Level', home_region: 'Home region', size: 'Size', body: 'Built on', moves: 'Moves', cave_dweller: 'Lives in caves',
+    hum_bonus: 'Humanoid: speed +{s}%, blows +{d}%', tiers: 'Job tiers', tier_n: 'Job {n}', path_hecate: 'Path of Hecate', path_asclepius: 'Path of Asclepius', both_paths: 'Both paths',
+    primary: 'Primary stat', secondary: 'Secondary stat', adv_need: 'To advance', halls: 'The halls and their people', hall: 'Hall', chiron: 'Chiron', where_stand: 'Where to find him', shop: 'Shop',
+    needs_w: 'Needs', basic_spell: 'Basic spell', qk_paths: 'Before the job', qk_job: 'Advancement', qk_ult: 'Ultimate trial', qk_second: 'The Second Oath', qk_arrows: 'Arrow quest', qk_later: 'Not in the game yet',
+    job_weapons: 'Weapons and off hands', job_sets: 'Job sets', weapon_kinds: 'The jobs’ weapon kinds', starter: 'Starter item', oath_reward: 'Oath of the Gods reward', stub: 'Effect not in the game yet',
+    common: 'Common', rare: 'Rare', second_oath: 'At level {n} a second oath gives a second job; it gets {p}% of the EXP the active job earns. Switch Main swaps between them.',
+    job_of: 'Job', hidden_hall: 'Hidden: on the map once Chiron has told of it', anchor: 'Area level', people_n: 'People', job_skills_n: 'Skills', of_job: 'of',
   },
   es: {
     nav_run: 'Descargar y jugar', nav_about: 'El juego', nav_upd: 'Novedades', nav_wiki: 'Wiki',
@@ -379,6 +406,16 @@ const T = {
     kind_city: 'Ciudad', kind_town: 'Villa', kind_village: 'Pueblo', kind_home: 'Ciudad natal', kind_landmark: 'Lugar destacado', kind_sea: 'Mar',
     m_places: 'Ciudades', m_landmark: 'Lugares destacados', m_cave: 'Cuevas', m_waystone: 'Piedras de camino',
     foot: 'La wiki se genera automáticamente a partir del propio juego, así que las cifras están siempre al día. Los nombres y textos del juego aparecen en inglés.', home: 'Volver a la página principal', built: 'Actualizado', loaderr: 'No se pudo cargar la wiki. Prueba a recargar la página.',
+    jobs: 'Clases', d_jobs: 'Solo online: las cuatro clases y sus cinco trabajos, cada habilidad, los salones y sus maestros, las misiones, armas y conjuntos.',
+    online_tag: 'Online', online_badge: 'Solo BETA ONLINE', online_only: 'Todo en esta página existe solo en la BETA ONLINE. La campaña no tiene clases y sigue igual.',
+    campaign: 'Campaña', online_mons: 'Monstruos online', online_mons_lead: 'Online cada monstruo tiene un único nivel fijo y vive solo en su región. Su vida es ×{m} la de la campaña.',
+    hp_note: 'Incluye el ×{m} de vida del modo online (sin él: {b}).', level: 'Nivel', home_region: 'Región', size: 'Tamaño', body: 'Basado en', moves: 'Movimientos', cave_dweller: 'Vive en cuevas',
+    hum_bonus: 'Humanoide: velocidad +{s}%, golpes +{d}%', tiers: 'Trabajos', tier_n: 'Trabajo {n}', path_hecate: 'Senda de Hécate', path_asclepius: 'Senda de Asclepio', both_paths: 'Ambas sendas',
+    primary: 'Atributo principal', secondary: 'Atributo secundario', adv_need: 'Para ascender', halls: 'Los salones y su gente', hall: 'Salón', chiron: 'Quirón', where_stand: 'Dónde está', shop: 'Tienda',
+    needs_w: 'Requiere', basic_spell: 'Hechizo básico', qk_paths: 'Antes de la clase', qk_job: 'Ascenso', qk_ult: 'Prueba de la definitiva', qk_second: 'El segundo juramento', qk_arrows: 'Misión de flechas', qk_later: 'Aún no en el juego',
+    job_weapons: 'Armas y mano secundaria', job_sets: 'Conjuntos de clase', weapon_kinds: 'Tipos de arma de las clases', starter: 'Objeto inicial', oath_reward: 'Premio del Juramento de los Dioses', stub: 'Efecto aún no en el juego',
+    common: 'Común', rare: 'Raro', second_oath: 'A nivel {n} un segundo juramento da una segunda clase; recibe el {p}% de la EXP de la clase activa. Switch Main cambia entre ellas.',
+    job_of: 'Clase', hidden_hall: 'Oculto: aparece en el mapa cuando Quirón habla de él', anchor: 'Nivel de la zona', people_n: 'Gente', job_skills_n: 'Habilidades', of_job: 'de',
   },
 };
 const CATS = [
@@ -390,8 +427,9 @@ const CATS = [
   ['people', 'M8 2h6v6H8zM5 10h12v2h2v8H3v-8h2z'],
   ['places', 'M2 4l6-2 6 2 6-2v16l-6 2-6-2-6 2zm6 0v12l6 2V6z'],
   ['quests', 'M5 2h11l3 3v15H5zm3 5v2h8V7zm0 4v2h8v-2zm0 4v2h5v-2z'],
+  ['jobs', 'M10 1h2v2h2v2h-2v3h5v2h2v2h-2v2h-2v-2h-3v9h-2v-9H7v2H5v-2H3v-2h2V8h5V5H8V3h2z'], // BETA ONLINE: the jobs (data.online)
 ];
-let L = 'en', D = null, IDX = null, route = { cat: 'overview' }, mFilter = 'all', gRar = 'normal';
+let L = 'en', D = null, IDX = null, route = { cat: 'overview' }, mFilter = 'all', gRar = 'normal', mMode = 'campaign';
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const t = (k, o) => { let s = T[L][k] ?? T.en[k] ?? k; if (o) for (const [a, b] of Object.entries(o)) s = s.replace('{' + a + '}', b); return s; };
@@ -410,7 +448,7 @@ async function boot() {
   chrome();
   try { const r = await fetch('wiki/data.json'); if (!r.ok) throw new Error(r.status); D = await r.json(); }
   catch (e) { $('#view').innerHTML = `<p class="empty">${esc(t('loaderr'))}</p>`; return; }
-  PL = by(D.places); BI = by(D.biomes); RG = by(D.regions); CL = by(D.monsterClasses); FAM = by(D.families); WT = by(D.weaponTypes); ROLE = by(D.roles); TOWN = by(D.towns);
+  _jobi = null; PL = by(D.places); BI = by(D.biomes); RG = by(D.regions); CL = by(D.monsterClasses); FAM = by(D.families); WT = by(D.weaponTypes); ROLE = by(D.roles); TOWN = by(D.towns);
   readHash(); render();
 }
 function chrome() {
@@ -423,7 +461,7 @@ function chrome() {
 }
 function rail() {
   const n = { monsters: D?.monsters?.length, gear: (D?.sets || []).reduce((s, x) => s + x.pieces.length, 0) + (D?.standalone?.length || 0), skills: D?.skills?.length, mounts: D?.mounts?.length,
-    people: (D?.towns || []).reduce((s, x) => s + x.people.length, 0) + (D?.characters?.length || 0), places: (D?.places?.length || 0) + (D?.dungeons?.length || 0), quests: D?.quests?.length };
+    people: (D?.towns || []).reduce((s, x) => s + x.people.length, 0) + (D?.characters?.length || 0), places: (D?.places?.length || 0) + (D?.dungeons?.length || 0), quests: D?.quests?.length, jobs: D?.online?.jobs?.length };
   $('#rail').innerHTML = CATS.filter(([c]) => c === 'overview' || n[c]).map(([c, p]) => `<a href="#${c}"${route.cat === c && !route.q ? ' aria-current="page"' : ''}>${icon(p)}<span>${esc(t(c))}</span>${n[c] ? `<b>${n[c]}</b>` : ''}</a>`).join('');
 }
 
@@ -433,6 +471,7 @@ function readHash() {
   if (h.startsWith('s=')) { route = { cat: 'search', q: h.slice(2) }; $('#q').value = route.q; $('#sbox').classList.toggle('has', !!route.q); return; }
   const [cat, ...rest] = h.split('/');
   route = { cat: CATS.some(([c]) => c === cat) ? cat : 'overview', id: rest.join('/') || null };
+  if (route.cat === 'monsters' && route.id?.startsWith('o:')) mMode = 'online';
 }
 window.addEventListener('hashchange', () => { const was = route.cat; readHash(); if (route.cat !== was || route.cat === 'search') render(); if (route.id) openItem(route.cat, route.id); else closeDlg(true); });
 
@@ -440,13 +479,14 @@ function render() {
   rail();
   const v = $('#view');
   if (route.cat === 'search') { v.innerHTML = searchView(route.q); bindCards(v); return; }
-  v.innerHTML = ({ overview, monsters, gear, skills, mounts, people, places, quests })[route.cat]();
+  v.innerHTML = ({ overview, monsters, gear, skills, mounts, people, places, quests, jobs })[route.cat]();
   bindCards(v);
   if (route.id) openItem(route.cat, route.id);
 }
 function bindCards(root) {
   $$('[data-open]', root).forEach((e) => e.addEventListener('click', (ev) => { ev.preventDefault(); const [c, id] = e.dataset.open.split('|'); go(c, id); }));
   $$('[data-filter]', root).forEach((b) => b.addEventListener('click', () => { mFilter = b.dataset.filter; render(); }));
+  $$('[data-mmode]', root).forEach((b) => b.addEventListener('click', () => { mMode = b.dataset.mmode; render(); }));
   $$('[data-mk]', root).forEach((b) => b.addEventListener('change', () => { $('#wmap')?.classList.toggle('no-' + b.dataset.mk, !b.checked); $$(`#wmap .mk.${b.dataset.mk}, #wmap .lb.${b.dataset.mk}`).forEach((e) => { e.hidden = !b.checked; }); }));
 }
 function go(cat, id) { const h = '#' + cat + (id ? '/' + encodeURIComponent(id) : ''); if (location.hash === h) openItem(cat, id); else location.hash = h; }
@@ -462,10 +502,10 @@ function overview() {
   const pick = (list, f) => (list || []).find(f) || (list || [])[0];
   const pic = {
     monsters: pick(D.monsters, (m) => m.id === 'cyclops')?.img, gear: pick(D.sets?.[2]?.pieces, (p) => p.cat === 'sword1')?.img, skills: pick(D.skills, (s) => s.id === 'thunder')?.img,
-    mounts: pick(D.mounts, (m) => m.species === 'dragon')?.img, people: D.characters?.find((c) => c.img)?.img || D.rolePics?.priest, places: null, quests: null,
+    jobs: D.online?.jobs?.find((j) => j.img)?.img, mounts: pick(D.mounts, (m) => m.species === 'dragon')?.img, people: D.characters?.find((c) => c.img)?.img || D.rolePics?.priest, places: null, quests: null,
   };
-  const tiles = CATS.slice(1).filter(([c]) => c !== 'places' || D.places).map(([c, p]) => `<a class="cat parch" href="#${c}"><span class="pics">${pic[c] ? `<img src="${img(pic[c])}" alt="">` : `<span style="color:var(--gold);width:48px;height:48px">${icon(p)}</span>`}</span>
-    <span><h3>${esc(t(c))}</h3><p>${esc(t('d_' + c))}</p></span></a>`).join('');
+  const tiles = CATS.slice(1).filter(([c]) => (c !== 'places' || D.places) && (c !== 'jobs' || D.online?.jobs)).map(([c, p]) => `<a class="cat parch" href="#${c}"><span class="pics">${pic[c] ? `<img src="${img(pic[c])}" alt="">` : `<span style="color:var(--gold);width:48px;height:48px">${icon(p)}</span>`}</span>
+    <span><h3>${esc(t(c))}${c === 'jobs' ? ` <span class="pill online">${esc(t('online_tag'))}</span>` : ''}</h3><p>${esc(t('d_' + c))}</p></span></a>`).join('');
   const feat = (D.monsters || []).filter((m) => m.img && !m.boss).slice(0, 12);
   return sec(t('overview'), `<div class="cats">${tiles}</div>`) +
     (feat.length ? sec(t('monsters'), `<div class="grid small">${feat.map(monCard).join('')}</div>`) : '') +
@@ -478,8 +518,34 @@ const monCard = (m) => card({ cat: 'monsters', id: m.id, img: m.img, name: tx(m.
 function monsters() {
   const list = D.monsters || [], cnt = {}; for (const m of list) cnt[m.cls] = (cnt[m.cls] || 0) + 1;
   const shown = list.filter((m) => mFilter === 'all' || m.cls === mFilter);
+  if (mMode === 'online' && D.onlineMonsters?.length) return onlineMonsters();
   const chips = `<div class="filters" role="group"><button data-filter="all" aria-pressed="${mFilter === 'all'}">${esc(t('all'))} <b>${list.length}</b></button>${(D.monsterClasses || []).filter((c) => cnt[c.id]).map((c) => `<button data-filter="${c.id}" aria-pressed="${mFilter === c.id}">${esc(tx(c.name))} <b>${cnt[c.id]}</b></button>`).join('')}</div>`;
-  return sec(t('monsters'), `<p class="lead">${esc(t('d_monsters'))}</p>${chips}<div class="grid">${shown.map(monCard).join('')}</div>`);
+  return sec(t('monsters'), `<p class="lead">${esc(t('d_monsters'))}</p>${monSeg()}${chips}<div class="grid">${shown.map(monCard).join('')}</div>`);
+}
+// BETA ONLINE bestiary (data.onlineMonsters: each species at its one level in its home region, its hit points x1.5): its own tab
+const monSeg = () => (D.onlineMonsters?.length ? `<div><span class="seg" role="group"><button type="button" data-mmode="campaign" aria-pressed="${mMode === 'campaign'}">${esc(t('campaign'))} <b>${(D.monsters || []).length}</b></button><button type="button" data-mmode="online" aria-pressed="${mMode === 'online'}">${esc(t('online_mons'))} <b>${D.onlineMonsters.length}</b> <span class="pill online">${esc(t('online_tag'))}</span></button></span></div>` : '');
+const omonCard = (m) => card({ cat: 'monsters', id: 'o:' + m.id, img: m.img, name: tx(m.name), lv: `${t('lv')} ${m.level}`, tag: m.elite ? t('elite') : t('online_tag'), tagc: m.elite ? 'elite' : 'online', r: m.elite ? 'legendary' : '',
+  meta: esc(tx(m.region?.name)) + (m.night ? ' · ' + esc(t('only_night')) : '') + (m.cave ? ' · ' + esc(t('cave')) : '') });
+function onlineMonsters() {
+  const mul = D.onlineMonsters.find((m) => m.hpMul)?.hpMul || 1.5, regs = (D.onlineRegions || []).slice().sort((a, b) => a.level[0] - b.level[0] || a.level[1] - b.level[1]), OM = by(D.onlineMonsters);
+  const body = regs.map((r) => { const l = r.species.map((id) => OM[id]).filter(Boolean).concat(r.elite && OM[r.elite] && !r.species.includes(r.elite) ? [OM[r.elite]] : []).sort((a, b) => a.level - b.level);
+    return l.length ? `<section class="sub">${subh(`${tx(r.name)} · ${t('lv')} ${lvr(r.level)}`, l.length)}<div class="grid small">${l.map(omonCard).join('')}</div></section>` : ''; }).join('');
+  return sec(t('monsters'), `<p class="lead">${esc(t('d_monsters'))}</p>${monSeg()}<p class="oband"><span class="pill online">${esc(t('online_badge'))}</span> ${esc(t('online_mons_lead', { m: mul }))}</p>`) + body;
+}
+function omonDetail(m) {
+  const S = m.stats || {}, base = MON()[m.body], mul = m.hpMul || 1;
+  return `<div class="dhead"><span class="big">${m.img ? `<img src="${img(m.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(m.name))}</h2>
+    <p class="sub2">${esc(t('level'))} <span class="ltr">${m.level}</span> · ${esc(tx(m.region?.name))}</p>
+    <div class="tags"><span class="pill online">${esc(t('online_badge'))}</span>${m.elite ? `<span class="pill gold">${esc(t('elite'))}</span>` : ''}${m.night ? `<span class="pill">${esc(t('only_night'))}</span>` : ''}${m.cave ? `<span class="pill">${esc(t('cave_dweller'))}</span>` : ''}</div></div></div>
+    ${m.info ? `<div class="dsec"><h4>${esc(t('about'))}</h4><p>${esc(tx(m.info))}</p></div>` : ''}
+    <div class="cols"><div class="dsec"><h4>${esc(t('level'))} ${m.level}</h4><dl class="kv"><dt>${esc(t('hp'))}</dt><dd class="ltr">${S.hp != null ? num(S.hp) : '–'}</dd><dt>${esc(t('blow'))}</dt><dd class="ltr">${S.dmg != null ? num(S.dmg) : '–'}</dd><dt>${esc(t('exp'))}</dt><dd class="ltr">${S.exp != null ? num(S.exp) : '–'}</dd>
+      ${S.speed != null ? `<dt>${esc(t('speed'))}</dt><dd class="ltr">${S.speed}</dd>` : ''}${S.range != null ? `<dt>${esc(t('range'))}</dt><dd class="ltr">${S.range} m</dd>` : ''}${S.aggro != null ? `<dt>${esc(t('aggro'))}</dt><dd class="ltr">${S.aggro} m</dd>` : ''}
+      <dt>${esc(t('size'))}</dt><dd class="ltr">×${m.size?.scale ?? 1} · ${m.size?.height ?? '–'} m</dd></dl>
+      ${S.hp != null && mul !== 1 ? `<p class="hint">${esc(t('hp_note', { m: mul, b: num(S.hpBase) }))} ${esc(t('big_hint'))}</p>` : ''}
+      ${m.speedBonus || m.dmgBonus ? `<p>${esc(t('hum_bonus', { s: m.speedBonus, d: m.dmgBonus }))}</p>` : ''}</div>
+    <div class="dsec"><h4>${esc(t('home_region'))}</h4><p>${esc(tx(m.region?.name))} · ${esc(t('lv'))} <span class="ltr">${lvr(m.region?.level)}</span></p>
+      ${m.skills?.length ? `<h4>${esc(t('moves'))}</h4><div class="tags">${m.skills.map((s) => `<span class="pill">${esc(tx(s.name) || s.id)}</span>`).join('')}</div>` : ''}
+      ${base ? `<h4>${esc(t('body'))}</h4><div class="grid small">${monCard(base)}</div>` : m.bodyName ? `<h4>${esc(t('body'))}</h4><p>${esc(tx(m.bodyName))}</p>` : ''}</div></div>`;
 }
 function monDetail(m) {
   const inR = (lv) => m.levelRange && lv >= m.levelRange[0] - 2 && lv <= m.levelRange[1] + 2;
@@ -506,7 +572,7 @@ function monDetail(m) {
 }
 
 // ------------------------------------------------------------------------------------------------ gear
-const catName = (c) => tx(WT[c]?.name) || c;
+const catName = (c) => tx(WT[c]?.name) || tx(JOB_I().kinds[c]?.name) || c;
 const setCard = (s) => card({ cat: 'gear', id: 'set:' + s.id, img: (s.pieces.find((p) => p.cat === 'sword1') || s.pieces.find((p) => p.cat === 'body') || s.pieces[0])?.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`,
   meta: esc(tx(FAM[s.family]?.name) || '') + (s.wings ? ' · ' + esc(t('wings_set')) : ''),
   extra: `${s.colors ? `<span class="swatch">${s.colors.map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span>` : ''}<span class="icons">${s.pieces.slice(0, 10).map((p) => p.img ? `<img src="${img(p.img)}" alt="" loading="lazy" title="${esc(tx(p.name))}">` : '').join('')}</span>` });
@@ -692,12 +758,103 @@ function questDetail(q) {
     ${q.giver && TOWN[q.giver.place] ? `<p><a href="#people/town:${q.giver.place}" data-open="people|town:${q.giver.place}">${esc(tx(TOWN[q.giver.place].name))}</a></p>` : ''}</div></div>`;
 }
 
+// ------------------------------------------------------------------------------------------------ BETA ONLINE: the jobs (data.online, wiki-extract.js extractOnline)
+// Everything here exists only online (the jobs spec, decision 1.8): every page and card of it carries the teal BETA ONLINE mark
+let _jobi = null;
+const JOB_I = () => (_jobi ||= (() => { const O = D?.online || {}; return { O, jobs: by(O.jobs), skills: by(O.skills), people: by(O.people, 'key'), halls: by(O.halls), quests: by(O.quests), weapons: by(O.weapons), sets: by(O.sets), kinds: by(O.weaponKinds), roles: by(O.roles) }; })());
+const STAT = (k) => String(k || '').toUpperCase();
+const mfName = (n) => { if (!n) return ''; const m = tx(n.m), f = tx(n.f); return m && f && m !== f ? `${m} / ${f}` : m || f; };
+const oband = (k = 'online_only') => `<p class="oband"><span class="pill online">${esc(t('online_badge'))}</span> ${esc(t(k))}</p>`;
+const opill = () => `<span class="pill online">${esc(t('online_badge'))}</span>`;
+const pathName = (p) => (p ? t('path_' + p) : '');
+const jobName = (id) => mfName(JOB_I().jobs[id]?.name) || id;
+const personName = (key) => tx(JOB_I().people[key]?.name) || key;
+const placeOf = (id) => tx(JOB_I().halls[id]?.name) || tx(PL[id]?.name) || tx(TOWN[id]?.name) || id;
+const jobCard = (j) => card({ cat: 'jobs', id: 'job:' + j.id, img: j.img, name: mfName(j.name), tag: t('online_tag'), tagc: 'online', meta: `${esc(t('primary'))} ${STAT(j.primary)} · ${esc(t('secondary'))} ${STAT(j.secondary)}` });
+const jskCard = (s) => card({ cat: 'jobs', id: 'sk:' + s.id, img: s.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`, tag: s.ult ? t('ult') : '', meta: s.mana != null ? `${esc(t('mana'))} ${s.mana} · ${esc(t('cd'))} ${s.cd}${esc(t('sec'))}` : '' });
+const jwCard = (p) => card({ cat: 'jobs', id: 'w:' + p.id, img: p.img, ico: true, r: p.rar === 'legendary' ? 'legendary' : p.rar === 'epic' ? 'epic' : '', name: tx(p.name), lv: `${t('lv')} ${p.lvl}`, meta: esc(catName(p.cat)) + (p.starter ? ' · ' + esc(t('starter')) : p.reward ? ' · ' + esc(t('oath_reward')) : '') });
+const jsetCard = (s) => card({ cat: 'jobs', id: 'set:' + s.id, img: (s.pieces.find((p) => p.cat === 'body') || s.pieces[0])?.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`, tag: t('online_tag'), tagc: 'online',
+  meta: esc(jobName(s.job)) + (s.path ? ' · ' + esc(pathName(s.path)) : ''), extra: `${s.colors ? `<span class="swatch">${s.colors.map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span>` : ''}<span class="icons">${s.pieces.map((p) => p.img ? `<img src="${img(p.img)}" alt="" loading="lazy" title="${esc(tx(p.name))}">` : '').join('')}</span>` });
+const personRow = (p) => `<a class="row face" href="#jobs/npc:${p.key}" data-open="jobs|npc:${p.key}">${p.img ? `<img src="${img(p.img)}" alt="" loading="lazy" width="96" height="96">` : '<span></span>'}<div><div class="nm" style="color:${esc(p.color || 'inherit')}">${esc(tx(p.name))}</div><div class="mt">${esc(tx(JOB_I().roles[p.role]?.name) || p.role)}${p.path ? ' · ' + esc(pathName(p.path)) : ''}</div>${p.shopTitle ? `<div class="mt">${esc(t('shop'))}: ${esc(tx(p.shopTitle))}</div>` : ''}</div><span class="end">${p.x != null ? `${p.x}, ${p.z}` : ''}</span></a>`;
+const qkName = (q) => (q.kind === 'job' ? `${t('qk_job')} · ${t('tier_n', { n: q.tier })}` : q.kind === 'ult' ? `${t('qk_ult')} · ${t('tier_n', { n: q.tier })}` : t('qk_' + q.kind));
+const jqRow = (q) => `<a class="row" href="#jobs/q:${q.id}" data-open="jobs|q:${q.id}"><span class="pill" style="min-width:52px;text-align:center">${esc(t('lv'))} ${q.lvl ?? '?'}</span><div><div class="nm">${esc(tx(q.title))}</div><div class="mt">${esc(qkName(q))}${q.job ? ' · ' + esc(jobName(q.job)) : ''}${q.path ? ' · ' + esc(pathName(q.path)) : ''} · ${esc(q.giver ? personName(q.giver.role) : '')}</div></div><span class="end">${q.reward?.drachma ? q.reward.drachma + ' ₯' : ''}</span></a>`;
+function jobs() {
+  const { O } = JOB_I(); if (!O.jobs) return sec(t('jobs'), `<p class="empty">${esc(t('none'))}</p>`);
+  const halls = (O.halls || []).map((h) => `<section class="sub">${subh(`${tx(h.name)} · ${tx(h.sub)}`)}<p class="lead"><a href="#jobs/hall:${h.id}" data-open="jobs|hall:${h.id}">${esc(t('coords'))}</a> <span class="ltr">${h.x}, ${h.z}</span>${h.near ? ` · ${esc(t('near'))} ${esc(tx(h.near.name))}` : ''}${h.hidden ? ` · ${esc(t('hidden_hall'))}` : ''}</p><div class="rows">${(O.people || []).filter((p) => p.hall === h.id).map(personRow).join('')}</div></section>`).join('');
+  const others = (O.people || []).filter((p) => !p.hall).map(personRow).join('');
+  const kinds = (O.weaponKinds || []).map((w) => `<tr><td><b>${esc(tx(w.name))}</b></td><td>${esc(jobName(w.job))}</td><td class="n">${w.unlock ?? ''}</td><td class="n">${w.hands === 'pair' ? '2×' : w.hands === 'off' ? '½' : w.hands ?? ''}</td><td class="n">${w.reach ? w.reach + ' m' : ''}</td><td>${esc(tx(w.handling))}</td></tr>`).join('');
+  return sec(t('jobs'), `<p class="lead">${esc(t('d_jobs'))}</p>${oband()}<p class="lead">${esc(t('second_oath', { n: O.secondOathLevel, p: Math.round((O.share || 0) * 100) }))}</p><div class="grid">${O.jobs.map(jobCard).join('')}</div>`) +
+    `<section class="sub">${subh(t('halls'), (O.halls || []).length)}</section>${halls}` +
+    (others ? `<section class="sub">${subh(t('chiron'))}<div class="rows">${others}</div></section>` : '') +
+    (O.sets?.length ? `<section class="sub">${subh(t('job_sets'), O.sets.length)}<div class="grid wide">${O.sets.map(jsetCard).join('')}</div></section>` : '') +
+    (kinds ? `<section class="sub">${subh(t('weapon_kinds'), O.weaponKinds.length)}<div class="tblwrap tblbox"><table class="tbl"><tr><th></th><th>${esc(t('job_of'))}</th><th class="n">${esc(t('unlock'))}</th><th class="n">${esc(t('hands'))}</th><th class="n">${esc(t('reach'))}</th><th>${esc(t('handling'))}</th></tr>${kinds}</table></div></section>` : '') +
+    (O.quests?.length ? `<section class="sub">${subh(t('quests'), O.quests.length)}<div class="rows">${O.quests.map(jqRow).join('')}</div></section>` : '');
+}
+function jobDetail(j) {
+  const { O } = JOB_I(), sk = (O.skills || []).filter((s) => s.job === j.id), qs = (O.quests || []).filter((q) => q.job === j.id), ws = (O.weapons || []).filter((w) => w.job === j.id), sets = (O.sets || []).filter((s) => s.job === j.id);
+  const tiers = j.tiers.map((x) => `<tr><td><span class="tier">${x.tier}</span></td><td><b>${esc(mfName(x.name))}</b>${x.path ? `<div class="mt">${esc(pathName(x.path))}</div>` : ''}</td><td class="n">${lvr([x.level, x.to])}</td><td class="n">${x.advancePrimary ? STAT(j.primary) + ' ' + x.advancePrimary : '–'}</td></tr>`).join('');
+  const skRows = (l) => l.map((s) => `<tr><td><a class="sk" href="#jobs/sk:${s.id}" data-open="jobs|sk:${s.id}">${s.img ? `<img src="${img(s.img)}" alt="" loading="lazy">` : ''}<span>${esc(tx(s.name))}${s.ult ? ` <span class="pill gold">${esc(t('ult'))}</span>` : ''}${s.basic ? ` <span class="pill">${esc(t('basic_spell'))}</span>` : ''}</span></a></td><td class="n">${s.lvl}</td><td class="n">${s.mana ?? '–'}</td><td class="n">${s.cd != null ? s.cd + 's' : '–'}</td><td>${s.path ? esc(pathName(s.path)) : ''}${s.needs ? `${s.path ? ' · ' : ''}${esc(tx(O.needs?.[s.needs]) || s.needs)}` : ''}</td></tr>`).join('');
+  const byTier = [1, 2, 3, 4, 5].map((n) => { const l = sk.filter((s) => s.tier === n); const name = j.tiers.filter((x) => x.tier === n).map((x) => mfName(x.name)).join(' · ');
+    return l.length ? `<div class="dsec"><h4><span class="tier">${n}</span> ${esc(t('tier_n', { n }))} · ${esc(name)} (${l.length})</h4><div class="tblwrap"><table class="tbl"><tr><th></th><th class="n">${esc(t('lv'))}</th><th class="n">${esc(t('mana'))}</th><th class="n">${esc(t('cd'))}</th><th>${esc(t('needs_w'))}</th></tr>${skRows(l)}</table></div></div>` : ''; }).join('');
+  const staff = [...j.masters, ...j.trainers, ...j.outfitters].map((k) => JOB_I().people[k]).filter(Boolean).map(personRow).join('');
+  return `<div class="dhead"><span class="big">${j.img ? `<img src="${img(j.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(mfName(j.name))}</h2><p class="sub2">${esc(t('primary'))} ${STAT(j.primary)} · ${esc(t('secondary'))} ${STAT(j.secondary)} · ${esc(placeOf(j.hall))}</p><div class="tags">${opill()}</div></div></div>
+    <div class="dsec"><h4>${esc(t('tiers'))}</h4><div class="tblwrap"><table class="tbl"><tr><th></th><th></th><th class="n">${esc(t('lvl_range'))}</th><th class="n">${esc(t('adv_need'))}</th></tr>${tiers}</table></div></div>
+    <div class="dsec"><h4>${esc(t('hall'))}: ${esc(placeOf(j.hall))}</h4><div class="rows">${staff}</div></div>
+    ${byTier}
+    ${qs.length ? `<div class="dsec"><h4>${esc(t('quests'))} (${qs.length})</h4><div class="rows">${qs.map(jqRow).join('')}</div></div>` : ''}
+    ${ws.length ? `<div class="dsec"><h4>${esc(t('job_weapons'))} (${ws.length})</h4><div class="grid small">${ws.map(jwCard).join('')}</div></div>` : ''}
+    ${sets.length ? `<div class="dsec"><h4>${esc(t('job_sets'))}</h4><div class="grid wide">${sets.map(jsetCard).join('')}</div></div>` : ''}`;
+}
+function jskDetail(s) {
+  const { O } = JOB_I(), tr = (O.people || []).find((p) => p.role === 'job_trainer' && p.job === s.job), tier = JOB_I().jobs[s.job]?.tiers.find((x) => x.tier === s.tier && (!x.path || !s.path || x.path === s.path));
+  return `<div class="dhead"><span class="big" style="${s.color ? `--rc:${esc(s.color)}` : ''}">${s.img ? `<img class="ico" src="${img(s.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(s.name))}</h2>
+    <p class="sub2">${esc(jobName(s.job))} · ${esc(t('tier_n', { n: s.tier }))}${tier ? ' · ' + esc(mfName(tier.name)) : ''}${s.path ? ' · ' + esc(pathName(s.path)) : ''} · ${esc(t('unlock'))} ${s.lvl}</p>
+    <div class="tags">${opill()}${s.ult ? `<span class="pill gold">${esc(t('ult'))}</span>` : ''}${s.basic ? `<span class="pill">${esc(t('basic_spell'))}</span>` : ''}${s.mana != null ? `<span class="pill" style="background:#22356a;box-shadow:inset 0 0 0 1px #5b7cff">${esc(t('mana'))} ${s.mana}</span>` : ''}${s.cd != null ? `<span class="pill">${esc(t('cd'))} ${s.cd}${esc(t('sec'))}</span>` : ''}</div></div></div>
+    <div class="dsec"><p>${esc(tx(s.desc))}</p></div>
+    <div class="cols"><div class="dsec"><h4>${esc(t('how_get'))}</h4>${tr ? personRow(tr) : ''}</div>
+    <div class="dsec"><h4>${esc(t('more'))}</h4><dl class="kv"><dt>${esc(t('job_of'))}</dt><dd><a href="#jobs/job:${s.job}" data-open="jobs|job:${s.job}">${esc(jobName(s.job))}</a></dd>${s.needs ? `<dt>${esc(t('needs_w'))}</dt><dd>${esc(tx(O.needs?.[s.needs]) || s.needs)}</dd>` : ''}${s.specName && tx(s.specName) !== tx(s.name) ? `<dt>${esc(t('about'))}</dt><dd>${esc(tx(s.specName))}</dd>` : ''}</dl></div></div>`;
+}
+function jqDetail(q) {
+  const giver = q.giver && JOB_I().people[q.giver.role];
+  return `<div class="dhead"><span class="big">${giver?.img ? `<img src="${img(giver.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(q.title))}</h2><p class="sub2">${esc(t('lv'))} ${q.lvl ?? '?'} · ${esc(qkName(q))}${q.job ? ' · ' + esc(jobName(q.job)) : ''}${q.path ? ' · ' + esc(pathName(q.path)) : ''}</p><div class="tags">${opill()}</div></div></div>
+    ${q.offer ? `<blockquote class="quote">“${esc(tx(q.offer))}”</blockquote>` : ''}${q.hint ? `<div class="dsec"><p>${esc(tx(q.hint))}</p></div>` : ''}
+    <div class="cols"><div class="dsec"><h4>${esc(t('steps'))}</h4><ol style="margin:0;padding-inline-start:20px">${q.steps.map((x) => `<li>${esc(tx(x))}</li>`).join('')}</ol>${q.ult && JOB_I().skills[q.ult] ? `<p><b>${esc(t('ult'))}:</b> <a href="#jobs/sk:${q.ult}" data-open="jobs|sk:${q.ult}">${esc(tx(JOB_I().skills[q.ult].name))}</a></p>` : ''}</div>
+    <div class="dsec"><h4>${esc(t('reward'))}</h4><ul style="margin:0;padding-inline-start:20px">${(q.reward?.items || []).map((i) => `<li>${esc(tx(i.name))}${i.n > 1 ? ' ×' + i.n : ''}</li>`).join('')}${q.reward?.exp ? `<li>${q.reward.exp} EXP</li>` : ''}${q.reward?.drachma ? `<li>${q.reward.drachma} ₯</li>` : ''}</ul>
+    <h4>${esc(t('giver'))}</h4>${giver ? personRow(giver) : `<p>${esc(q.giver ? personName(q.giver.role) + ' · ' + placeOf(q.giver.place) : '')}</p>`}</div></div>`;
+}
+function npcDetail(p) {
+  const { O } = JOB_I(), qs = (O.quests || []).filter((q) => q.giver?.role === p.key), spots = p.spots || (p.x != null ? [{ hall: p.hall, x: p.x, z: p.z }] : []);
+  return `<div class="dhead"><span class="big">${p.img ? `<img src="${img(p.img)}" alt="">` : ''}</span><div><h2 id="dlgt" style="color:${esc(p.color || 'inherit')};text-shadow:1px 1px 0 var(--night)">${esc(tx(p.name))}</h2><p class="sub2">${esc(tx(JOB_I().roles[p.role]?.name) || p.role)}${p.job ? ' · ' + esc(jobName(p.job)) : ''}${p.path ? ' · ' + esc(pathName(p.path)) : ''}</p><div class="tags">${opill()}${p.title ? `<span class="pill">${esc(tx(p.title))}</span>` : ''}</div></div></div>
+    ${p.intro ? `<blockquote class="quote">“${esc(tx(p.intro))}”</blockquote>` : ''}
+    <div class="cols"><div class="dsec"><h4>${esc(t('where_stand'))}</h4>${spots.map((q) => `<p><b>${esc(placeOf(q.place || q.hall))}</b> <span class="ltr">${q.x}, ${q.z}</span>${q.when ? ` · ${esc(tx(q.when))}` : ''}</p>`).join('')}${spots[0] ? miniMap(spots[0].x, spots[0].z, [], 420) : ''}</div>
+    <div class="dsec">${p.shopTitle ? `<h4>${esc(t('shop'))}</h4><p>${esc(tx(p.shopTitle))}</p>` : ''}${qs.length ? `<h4>${esc(t('gives_quests'))}</h4><div class="rows">${qs.map(jqRow).join('')}</div>` : ''}${p.job ? `<p><a href="#jobs/job:${p.job}" data-open="jobs|job:${p.job}">${esc(jobName(p.job))}</a></p>` : ''}</div></div>`;
+}
+function hallDetail(h) {
+  const { O } = JOB_I(), ppl = (O.people || []).filter((p) => p.hall === h.id);
+  return `<div class="dhead"><span class="big">${ppl[0]?.img ? `<img src="${img(ppl[0].img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(h.name))}</h2><p class="sub2">${esc(tx(h.sub))} · ${esc(jobName(h.job))}</p><div class="tags">${opill()}${h.anchor != null ? `<span class="pill">${esc(t('anchor'))} ${h.anchor}</span>` : ''}<span class="pill ltr">${h.x}, ${h.z}</span></div></div></div>
+    ${h.hidden ? `<div class="dsec"><p>${esc(t('hidden_hall'))}</p></div>` : ''}
+    <div class="cols"><div class="dsec"><h4>${esc(t('coords'))}</h4>${miniMap(h.x, h.z, ppl.map((p) => ({ x: p.x, z: p.z, title: tx(p.name) })), 420)}${h.near ? `<p>${esc(t('near'))} ${esc(tx(h.near.name))} (${h.near.d} m)</p>` : ''}</div>
+    <div class="dsec"><h4>${esc(t('people_n'))}</h4><div class="rows">${ppl.map(personRow).join('')}</div></div></div>`;
+}
+function jobFind(id) {
+  const I = JOB_I(), [k, ...r] = id.split(':'), v = r.join(':');
+  if (k === 'job') return I.jobs[v] && jobDetail(I.jobs[v]);
+  if (k === 'sk') return I.skills[v] && jskDetail(I.skills[v]);
+  if (k === 'q') return I.quests[v] && jqDetail(I.quests[v]);
+  if (k === 'npc') return I.people[v] && npcDetail(I.people[v]);
+  if (k === 'hall') return I.halls[v] && hallDetail(I.halls[v]);
+  if (k === 'w') { const p = I.weapons[v]; return p && itemDetail(p).replace('<div class="tags">', `<div class="tags">${opill()}<span class="pill">${esc(jobName(p.job))}</span>${p.starter ? `<span class="pill gold">${esc(t('starter'))}</span>` : ''}${p.reward ? `<span class="pill gold">${esc(t('oath_reward'))}</span>` : ''}${p.stub ? `<span class="pill">${esc(t('stub'))}</span>` : ''}`); }
+  if (k === 'set') { const s = I.sets[v]; return s && setDetail(s).replace('</p>', ` · ${esc(jobName(s.job))}${s.path ? ' · ' + esc(pathName(s.path)) : ''}</p><div class="tags">${opill()}</div>`); }
+  return null;
+}
+
 // ------------------------------------------------------------------------------------------------ the detail dialog
 function find(cat, id) {
-  if (cat === 'monsters') { const m = MON()[id]; return m && monDetail(m); }
+  if (cat === 'monsters') { if (id.startsWith('o:')) { const m = (D.onlineMonsters || []).find((x) => x.id === id.slice(2)); return m && omonDetail(m); } const m = MON()[id]; return m && monDetail(m); }
   if (cat === 'skills') { const s = (D.skills || []).find((x) => x.id === id); return s && skDetail(s); }
   if (cat === 'mounts') { const s = (D.mounts || []).find((x) => x.id === id); return s && mtDetail(s); }
   if (cat === 'quests') { const s = (D.quests || []).find((x) => x.id === id); return s && questDetail(s); }
+  if (cat === 'jobs') return jobFind(id);
   const [k, ...r] = id.split(':'), v = r.join(':');
   if (cat === 'gear') {
     if (k === 'set') { const s = (D.sets || []).find((x) => x.id === v); return s && setDetail(s); }
@@ -739,6 +896,16 @@ function index() {
   for (const p of D.places || []) if (!TOWN[p.id]) add('places', 'place:' + p.id, p.name, [p.sub], () => card({ cat: 'places', id: 'place:' + p.id, name: tx(p.name), meta: esc(kindName(p.kind)), lv: p.level ? `${t('lv')} ${p.level}` : '' }));
   for (const d of D.dungeons || []) add('places', 'dun:' + d.id, d.name, [d.sub, d.near && PL[d.near.id]?.name], () => card({ cat: 'places', id: 'dun:' + d.id, name: tx(d.name), meta: esc(t(d.kind)) + (d.near ? ' · ' + esc(tx(PL[d.near.id]?.name)) : ''), lv: d.level ? `${t('lv')} ${d.level}` : '' }));
   for (const q of D.quests || []) add('quests', q.id, q.title, [q.offer, ...(q.steps || [])], () => card({ cat: 'quests', id: q.id, name: tx(q.title), meta: giverOf(q), lv: q.lvl ? `${t('lv')} ${q.lvl}` : '' }));
+  // BETA ONLINE: the online bestiary and the jobs
+  for (const m of D.onlineMonsters || []) add('monsters', 'o:' + m.id, m.name, [m.id, m.region?.name, m.info, 'online'], () => omonCard(m));
+  const O = D.online || {};
+  for (const j of O.jobs || []) add('jobs', 'job:' + j.id, j.name?.m, [j.name?.f, ...j.tiers.flatMap((x) => [x.name?.m, x.name?.f]), 'online'], () => jobCard(j));
+  for (const s of O.skills || []) add('jobs', 'sk:' + s.id, s.name, [s.desc, s.specName, 'online'], () => jskCard(s));
+  for (const p of O.people || []) add('jobs', 'npc:' + p.key, p.name, [p.title, p.shopTitle, 'online'], () => card({ cat: 'jobs', id: 'npc:' + p.key, img: p.img, name: tx(p.name), tag: t('online_tag'), tagc: 'online', meta: esc(tx(JOB_I().roles[p.role]?.name) || '') }));
+  for (const h of O.halls || []) add('jobs', 'hall:' + h.id, h.name, [h.sub, 'online'], () => card({ cat: 'jobs', id: 'hall:' + h.id, name: tx(h.name), tag: t('online_tag'), tagc: 'online', meta: esc(tx(h.sub)) }));
+  for (const q of O.quests || []) add('jobs', 'q:' + q.id, q.title, [q.offer, ...(q.steps || []), 'online'], () => card({ cat: 'jobs', id: 'q:' + q.id, name: tx(q.title), tag: t('online_tag'), tagc: 'online', meta: esc(qkName(q)), lv: q.lvl ? `${t('lv')} ${q.lvl}` : '' }));
+  for (const p of O.weapons || []) add('jobs', 'w:' + p.id, p.name, [p.desc, p.special, 'online'], () => jwCard(p));
+  for (const s of O.sets || []) { add('jobs', 'set:' + s.id, s.name, [s.theme, 'online'], () => jsetCard(s)); }
   return out;
 }
 function searchView(q) {
