@@ -217,6 +217,7 @@ html[lang="he"] .dsec h4 { letter-spacing: 0; font-size: 13px; }
 .pill.online, .card .well .tag.online { color: #06302c; background: var(--teal); box-shadow: none; font-weight: 700; }
 .oband { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 14px; border-radius: var(--rad-box); background: rgba(122, 240, 220, .07); box-shadow: inset 0 0 0 1px rgba(122, 240, 220, .35); color: var(--tx); font-size: 14px; }
 a.row.face { text-decoration: none; } /* (a hall's person: the whole row opens them) */
+.jqt { margin: 14px 0 6px; display: flex; align-items: center; gap: 8px; } .jqt small { opacity: .6; }
 .tier { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 6px; font: 400 10px/1 var(--font-num); color: #1a0f17; background: var(--gold); direction: ltr; }
 .tbl td .sk { display: inline-flex; align-items: center; gap: 6px; color: var(--parch-hi); text-decoration: none; } .tbl td .sk:hover { color: var(--gold); }
 .tbl td .sk img { width: 28px; height: 28px; image-rendering: pixelated; border-radius: 5px; background: var(--slot); box-shadow: inset 0 0 0 1px var(--line-mid); }
@@ -329,7 +330,7 @@ const T = {
     needs_w: 'דורש', basic_spell: 'כישוף בסיס', qk_paths: 'לפני המקצוע', qk_job: 'קידום בעבודה', qk_ult: 'ניסיון האולטימייט', qk_second: 'השבועה השנייה', qk_arrows: 'משימת חצים', qk_later: 'עוד לא במשחק',
     job_weapons: 'נשקים ויד שנייה', job_sets: 'סטים של המקצועות', weapon_kinds: 'סוגי הנשק של המקצועות', starter: 'פריט התחלה', oath_reward: 'פרס שבועת האלים', stub: 'האפקט עוד לא במשחק',
     common: 'רגיל', rare: 'נדיר', second_oath: 'ברמה {n} נשבעים שבועה שנייה ומקבלים מקצוע שני; הוא מקבל {p}% מהניסיון של המקצוע הפעיל. מחליפים ביניהם ב־Switch Main.',
-    job_of: 'מקצוע', hidden_hall: 'נסתר: מופיע במפה אחרי שכירון מספר עליו', anchor: 'רמת האזור', people_n: 'אנשים', job_skills_n: 'כישורים', of_job: 'של',
+    job_quests: 'משימות המקצועות', d_job_quests: 'רק באונליין: המשימות של כל מקצוע, לפי מקצוע ולפי דרגה. הן לא חלק מרשימת המשימות של הקמפיין.', jq_general: 'לכל המקצועות', jq_other: 'משימות נוספות', job_of: 'מקצוע', hidden_hall: 'נסתר: מופיע במפה אחרי שכירון מספר עליו', anchor: 'רמת האזור', people_n: 'אנשים', job_skills_n: 'כישורים', of_job: 'של',
   },
   en: {
     nav_run: 'Download and play', nav_about: 'About', nav_upd: 'Updates', nav_wiki: 'Wiki',
@@ -372,7 +373,7 @@ const T = {
     needs_w: 'Needs', basic_spell: 'Basic spell', qk_paths: 'Before the job', qk_job: 'Advancement', qk_ult: 'Ultimate trial', qk_second: 'The Second Oath', qk_arrows: 'Arrow quest', qk_later: 'Not in the game yet',
     job_weapons: 'Weapons and off hands', job_sets: 'Job sets', weapon_kinds: 'The jobs’ weapon kinds', starter: 'Starter item', oath_reward: 'Oath of the Gods reward', stub: 'Effect not in the game yet',
     common: 'Common', rare: 'Rare', second_oath: 'At level {n} a second oath gives a second job; it gets {p}% of the EXP the active job earns. Switch Main swaps between them.',
-    job_of: 'Job', hidden_hall: 'Hidden: on the map once Chiron has told of it', anchor: 'Area level', people_n: 'People', job_skills_n: 'Skills', of_job: 'of',
+    job_quests: 'Job quests', d_job_quests: 'Online only: each job’s quests, by job and by tier. They are not part of the campaign’s quest list.', jq_general: 'For every job', jq_other: 'More quests', job_of: 'Job', hidden_hall: 'Hidden: on the map once Chiron has told of it', anchor: 'Area level', people_n: 'People', job_skills_n: 'Skills', of_job: 'of',
   },
   es: {
     nav_run: 'Descargar y jugar', nav_about: 'El juego', nav_upd: 'Novedades', nav_wiki: 'Wiki',
@@ -415,7 +416,7 @@ const T = {
     needs_w: 'Requiere', basic_spell: 'Hechizo básico', qk_paths: 'Antes de la clase', qk_job: 'Ascenso', qk_ult: 'Prueba de la definitiva', qk_second: 'El segundo juramento', qk_arrows: 'Misión de flechas', qk_later: 'Aún no en el juego',
     job_weapons: 'Armas y mano secundaria', job_sets: 'Conjuntos de clase', weapon_kinds: 'Tipos de arma de las clases', starter: 'Objeto inicial', oath_reward: 'Premio del Juramento de los Dioses', stub: 'Efecto aún no en el juego',
     common: 'Común', rare: 'Raro', second_oath: 'A nivel {n} un segundo juramento da una segunda clase; recibe el {p}% de la EXP de la clase activa. Switch Main cambia entre ellas.',
-    job_of: 'Clase', hidden_hall: 'Oculto: aparece en el mapa cuando Quirón habla de él', anchor: 'Nivel de la zona', people_n: 'Gente', job_skills_n: 'Habilidades', of_job: 'de',
+    job_quests: 'Misiones de clase', d_job_quests: 'Solo online: las misiones de cada clase, por clase y por trabajo. No forman parte de la lista de misiones de la campaña.', jq_general: 'Para todas las clases', jq_other: 'Otras misiones', job_of: 'Clase', hidden_hall: 'Oculto: aparece en el mapa cuando Quirón habla de él', anchor: 'Nivel de la zona', people_n: 'Gente', job_skills_n: 'Habilidades', of_job: 'de',
   },
 };
 const CATS = [
@@ -746,8 +747,18 @@ function giverOf(q) {
   return `${p ? esc(tx(p.name)) : esc(tx(ROLE[q.giver.role]?.name) || q.giver.role)} · ${esc(tx(town?.name || PL[q.giver.place]?.name) || q.giver.place)}`;
 }
 function quests() {
-  const Q = (D.quests || []).slice().sort((a, b) => (a.lvl || 0) - (b.lvl || 0));
-  return sec(t('quests'), `<p class="lead">${esc(t('d_quests'))}</p><div class="rows">${Q.map((q) => `<a class="row" href="#quests/${q.id}" data-open="quests|${q.id}"><span class="pill" style="min-width:52px;text-align:center">${esc(t('lv'))} ${q.lvl ?? '?'}</span><div><div class="nm">${esc(tx(q.title))}</div><div class="mt">${giverOf(q)}</div></div><span class="end">${q.reward?.exp ? q.reward.exp + ' EXP' : ''}</span></a>`).join('')}</div>`);
+  const Q = (D.quests || []).filter((q) => !JOB_I().quests[q.id]).sort((a, b) => (a.lvl || 0) - (b.lvl || 0));
+  return sec(t('quests'), `<p class="lead">${esc(t('d_quests'))}</p><div class="rows">${Q.map((q) => `<a class="row" href="#quests/${q.id}" data-open="quests|${q.id}"><span class="pill" style="min-width:52px;text-align:center">${esc(t('lv'))} ${q.lvl ?? '?'}</span><div><div class="nm">${esc(tx(q.title))}</div><div class="mt">${giverOf(q)}</div></div><span class="end">${q.reward?.exp ? q.reward.exp + ' EXP' : ''}</span></a>`).join('')}</div>`) + jobQuests();
+}
+// Roy 29.10: "job quests in their own section, by job and tier, apart from the main Quests list" (data.online.quests; the general ones first)
+function jobQuests() {
+  const O = JOB_I().O, all = O.quests || []; if (!all.length) return '';
+  const KO = { paths: 0, job: 1, ult: 2, second: 3, arrows: 4 }, ord = (a, b) => (KO[a.kind] ?? 9) - (KO[b.kind] ?? 9) || (a.lvl || 0) - (b.lvl || 0) || String(a.path || '').localeCompare(String(b.path || ''));
+  const grp = (job) => { const l = all.filter((q) => (q.job || null) === job); if (!l.length) return '';
+    const tiers = [...new Set(l.map((q) => q.tier ?? null))].sort((a, b) => (a ?? 99) - (b ?? 99));
+    const body = tiers.map((n) => { const ql = l.filter((q) => (q.tier ?? null) === n).sort(ord); return `<h4 class="jqt">${n == null ? esc(t('jq_other')) : n === 0 ? esc(t('qk_paths')) : `<span class="tier">${n}</span> ${esc(t('tier_n', { n }))}`} <small>${ql.length}</small></h4><div class="rows">${ql.map((q) => jqRow(q, 'quests')).join('')}</div>`; }).join('');
+    return `<section class="sub" id="jq-${job || 'general'}">${subh(job ? jobName(job) : t('jq_general'), l.length)}${body}</section>`; };
+  return sec(t('job_quests'), `<p class="lead">${esc(t('d_job_quests'))}</p>${oband()}`, 'job-quests') + [null, ...(O.jobs || []).map((j) => j.id)].map(grp).join('');
 }
 function questDetail(q) {
   const QB = by(D.quests);
@@ -777,7 +788,7 @@ const jsetCard = (s) => card({ cat: 'jobs', id: 'set:' + s.id, img: (s.pieces.fi
   meta: esc(jobName(s.job)) + (s.path ? ' · ' + esc(pathName(s.path)) : ''), extra: `${s.colors ? `<span class="swatch">${s.colors.map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span>` : ''}<span class="icons">${s.pieces.map((p) => p.img ? `<img src="${img(p.img)}" alt="" loading="lazy" title="${esc(tx(p.name))}">` : '').join('')}</span>` });
 const personRow = (p) => `<a class="row face" href="#jobs/npc:${p.key}" data-open="jobs|npc:${p.key}">${p.img ? `<img src="${img(p.img)}" alt="" loading="lazy" width="96" height="96">` : '<span></span>'}<div><div class="nm" style="color:${esc(p.color || 'inherit')}">${esc(tx(p.name))}</div><div class="mt">${esc(tx(JOB_I().roles[p.role]?.name) || p.role)}${p.path ? ' · ' + esc(pathName(p.path)) : ''}</div>${p.shopTitle ? `<div class="mt">${esc(t('shop'))}: ${esc(tx(p.shopTitle))}</div>` : ''}</div><span class="end">${p.x != null ? `${p.x}, ${p.z}` : ''}</span></a>`;
 const qkName = (q) => (q.kind === 'job' ? `${t('qk_job')} · ${t('tier_n', { n: q.tier })}` : q.kind === 'ult' ? `${t('qk_ult')} · ${t('tier_n', { n: q.tier })}` : t('qk_' + q.kind));
-const jqRow = (q) => `<a class="row" href="#jobs/q:${q.id}" data-open="jobs|q:${q.id}"><span class="pill" style="min-width:52px;text-align:center">${esc(t('lv'))} ${q.lvl ?? '?'}</span><div><div class="nm">${esc(tx(q.title))}</div><div class="mt">${esc(qkName(q))}${q.job ? ' · ' + esc(jobName(q.job)) : ''}${q.path ? ' · ' + esc(pathName(q.path)) : ''} · ${esc(q.giver ? personName(q.giver.role) : '')}</div></div><span class="end">${q.reward?.drachma ? q.reward.drachma + ' ₯' : ''}</span></a>`;
+const jqRow = (q, cat = 'jobs') => `<a class="row" href="#${cat}/q:${q.id}" data-open="${cat}|q:${q.id}"><span class="pill" style="min-width:52px;text-align:center">${esc(t('lv'))} ${q.lvl ?? '?'}</span><div><div class="nm">${esc(tx(q.title))}</div><div class="mt">${esc(qkName(q))}${q.job ? ' · ' + esc(jobName(q.job)) : ''}${q.path ? ' · ' + esc(pathName(q.path)) : ''} · ${esc(q.giver ? personName(q.giver.role) : '')}</div></div><span class="end">${q.reward?.drachma ? q.reward.drachma + ' ₯' : ''}</span></a>`;
 function jobs() {
   const { O } = JOB_I(); if (!O.jobs) return sec(t('jobs'), `<p class="empty">${esc(t('none'))}</p>`);
   const halls = (O.halls || []).map((h) => `<section class="sub">${subh(`${tx(h.name)} · ${tx(h.sub)}`)}<p class="lead"><a href="#jobs/hall:${h.id}" data-open="jobs|hall:${h.id}">${esc(t('coords'))}</a> <span class="ltr">${h.x}, ${h.z}</span>${h.near ? ` · ${esc(t('near'))} ${esc(tx(h.near.name))}` : ''}${h.hidden ? ` · ${esc(t('hidden_hall'))}` : ''}</p><div class="rows">${(O.people || []).filter((p) => p.hall === h.id).map(personRow).join('')}</div></section>`).join('');
@@ -853,7 +864,7 @@ function find(cat, id) {
   if (cat === 'monsters') { if (id.startsWith('o:')) { const m = (D.onlineMonsters || []).find((x) => x.id === id.slice(2)); return m && omonDetail(m); } const m = MON()[id]; return m && monDetail(m); }
   if (cat === 'skills') { const s = (D.skills || []).find((x) => x.id === id); return s && skDetail(s); }
   if (cat === 'mounts') { const s = (D.mounts || []).find((x) => x.id === id); return s && mtDetail(s); }
-  if (cat === 'quests') { const s = (D.quests || []).find((x) => x.id === id); return s && questDetail(s); }
+  if (cat === 'quests') { if (id.startsWith('q:')) return jobFind(id); const s = (D.quests || []).find((x) => x.id === id); return s && questDetail(s); } // (q:id: a job quest, Roy 29.10)
   if (cat === 'jobs') return jobFind(id);
   const [k, ...r] = id.split(':'), v = r.join(':');
   if (cat === 'gear') {
