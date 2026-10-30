@@ -1,0 +1,617 @@
+diff --git a/js/main.js b/js/main.js
+index 10bbabb..faeac55 100644
+--- a/js/main.js
++++ b/js/main.js
+@@ -81,6 +81,7 @@ import { CX, activeCheats, enterCode, cheatOn, cheatTick, mapTeleport } from './
+ import { initItems } from './passives.js'; // round 33: the equipment's passives and legendary impacts
+ import { EQUIP_TEXT } from './catalog.js';
+ import * as SAT from './satchel.js'; // Roy 29.10: the satchel's slots per tab (48, rows bought up to 96)
++import { translateSettingsRow } from './online/translate.js'; // Roy 30.10: spontaneous translation (online only)
+ 
+ const canvas = document.getElementById('view');
+ const R = createRenderer(canvas);
+@@ -2143,6 +2144,7 @@ function togglePause(tab, mode) {
+     if (padOn() && !navigator.getGamepads?.().some((p) => p?.connected)) ui.toast(t({ he: 'חברו שלט ולחצו על כפתור כלשהו', en: 'Connect a controller and press any button', es: 'Conecta un mando y pulsa cualquier botón' }), 3200);
+   };
+   o.querySelector('[data-a=fps]').onclick = (e) => { setFps(!fpsOn()); e.target.textContent = t(fpsLabel()); }; // the FPS counter (fpsmeter.js)
++  if (isOnline()) translateSettingsRow(o.querySelector('#ppane-game'), { sfx: (n) => audio.sfxPlay?.(n) }); // Roy 30.10: spontaneous translation of other players' messages
+   if (!home && isOnline()) g.jobs?.settingsRow?.(o.querySelector('#ppane-game')); // BETA ONLINE JOBS (spec 5.5): Switch Main changes the gear set too, on or off
+   if (!home && !isOnline()) o.querySelector('.sync').before(ui.codesPanel({ text: CX, list: () => activeCheats(g), enter: (c) => enterCode(g, c) })); // online: no Codes (Roy 26.10)
+   if (!home) o.querySelector('[data-a=quit]').onclick = async () => {
+diff --git a/js/online/chat.js b/js/online/chat.js
+index 82a3db2..5403338 100644
+--- a/js/online/chat.js
++++ b/js/online/chat.js
+@@ -35,7 +35,7 @@ const S = {
+ };
+ export const CHAT_TEXT = S;
+ 
+-export function createChat(g, rt, overhead, { root = document.getElementById('ui'), sfx = () => {} } = {}) {
++export function createChat(g, rt, overhead, { root = document.getElementById('ui'), sfx = () => {}, translate = null } = {}) {
+   const el = document.createElement('div');
+   el.id = 'rt-chat';
+   el.innerHTML = `<ol class="rt-log" aria-live="polite" aria-relevant="additions"></ol>
+@@ -59,14 +59,16 @@ export function createChat(g, rt, overhead, { root = document.getElementById('ui
+     if (!m || typeof m.text !== 'string') return;
+     const key = m.c + '|' + m.at + '|' + m.text; if (seen.has(key)) return; seen.add(key);
+     if (seen.size > 400) seen.delete(seen.values().next().value);
+-    line(m.c === rt.meId() ? 'say mine' : 'say', [['rt-n', m.n], ['rt-sep', ': '], ['rt-x', m.text]]);
++    const li = line(m.c === rt.meId() ? 'say mine' : 'say', [['rt-n', m.n], ['rt-sep', ': '], ['rt-x', m.text]]);
+     overhead?.say(m.c, m.text);
++    if (m.c !== rt.meId()) translate?.track(m.id, li.querySelector('.rt-x'), m.text, m.c); // spontaneous translation (translate.js)
+   }
+   function whisperIn(m) {
+     if (!m || typeof m.text !== 'string') return;
+     const key = 'w|' + m.c + '|' + m.at + '|' + m.text; if (seen.has(key)) return; seen.add(key);
+     lastFrom = m.n;
+-    line('wh in', [['rt-k', t(S.from) + ' '], ['rt-n', m.n], ['rt-sep', ': '], ['rt-x', m.text]]);
++    const li = line('wh in', [['rt-k', t(S.from) + ' '], ['rt-n', m.n], ['rt-sep', ': '], ['rt-x', m.text]]);
++    translate?.track(m.id, li.querySelector('.rt-x'), m.text);
+     sfx('ui');
+   }
+   const whisperOut = (m) => line('wh out', [['rt-k', t(S.to) + ' '], ['rt-n', m.to_n], ['rt-sep', ': '], ['rt-x', m.text]]);
+@@ -81,13 +83,14 @@ export function createChat(g, rt, overhead, { root = document.getElementById('ui
+     if (rt.status !== 'on') return system(t(S.offline), true);
+     try {
+       const m = await rt.rpc('chat_send', { p_channel: 'global', p_text: text });
++      translate?.sent(m); // readers who want it in another language (the server says if there are any: m.tr)
+       setTimeout(() => said(m), 4000); // (it comes back over the socket; this only covers a line that got lost on the way)
+     } catch (e) { system(errText(e), true); }
+   }
+   async function whisper(to, text) {
+     if (!to || !text) return system(t(S.wUsage), true);
+     if (rt.status !== 'on') return system(t(S.offline), true);
+-    try { whisperOut(await rt.rpc('whisper', { p_to_name: to, p_text: text })); } catch (e) { system(errText(e), true); }
++    try { const m = await rt.rpc('whisper', { p_to_name: to, p_text: text }); whisperOut(m); translate?.sent(m); } catch (e) { system(errText(e), true); }
+   }
+   async function command(text) {
+     const m = /^\/(\S*)\s*([\s\S]*)$/.exec(text), cmd = (m?.[1] || '').toLowerCase(), args = m?.[2] || '';
+diff --git a/js/online/layer.js b/js/online/layer.js
+index b8ac73a..71aaf93 100644
+--- a/js/online/layer.js
++++ b/js/online/layer.js
+@@ -18,6 +18,7 @@ import { installNetLoot } from './netloot.js';
+ import { installCaveCycle } from './cavecycle.js';
+ import { installInspect } from './inspect.js';
+ import { installTrade } from './trade.js';
++import { installTranslate } from './translate.js'; // Roy 30.10: spontaneous translation of what players write
+ import { installAdminChat } from '../admindrop.js'; // Roy 29.10: /? /admin /drop in the chat (admin checked on the server)
+ import { online as client } from './client.js';
+ import { t } from '../i18n.js';
+@@ -36,7 +37,7 @@ export function startOnlineLayer(g, { audio } = {}) {
+   rt.attach(g);
+   const avatars = createAvatars(g, rt);
+   const overhead = createOverhead(g, rt, avatars);
+-  let chat = null, menu = null, tries = 0, retryT = null;
++  let chat = null, menu = null, translate = null, tries = 0, retryT = null;
+   const shared = installShared(g, rt); // one world for everyone: the weather, the sky, the wind, the monsters' deaths (shared.js)
+   const auth = installAuthority(g, rt, { avatars }); // Roy 28.10: one page runs each monster, every other page shows the same one (authority.js)
+   const loot = installNetLoot(g, rt); // Roy 28.10 (MapleStory): a kill's drops lie for everyone near, the killer's alone for a while (netloot.js)
+@@ -58,7 +59,8 @@ export function startOnlineLayer(g, { audio } = {}) {
+       retryT = setTimeout(up, Math.min(60000, 5000 * tries));
+       return;
+     }
+-    chat ||= createChat(g, rt, overhead, { sfx });
++    translate ||= installTranslate(rt, client, { overhead });
++    chat ||= createChat(g, rt, overhead, { sfx, translate });
+     menu ||= createPlayerMenu(g, rt, avatars, { sfx });
+     rt.chat = chat;
+     if (!chat._admin) chat._admin = installAdminChat(chat, g, rt, { client });
+@@ -68,7 +70,7 @@ export function startOnlineLayer(g, { audio } = {}) {
+   // another character (Back to title, then another hero entered): everything bound to the old one goes, and the layer
+   // connects again as the new one
+   async function restart() {
+-    chat?.dispose(); chat = null; menu?.dispose(); menu = null; rt.chat = null; tries = 0;
++    chat?.dispose(); chat = null; translate?.dispose(); translate = null; menu?.dispose(); menu = null; rt.chat = null; tries = 0;
+     await rt.disconnect();
+     return up();
+   }
+diff --git a/js/online/translate.js b/js/online/translate.js
+new file mode 100644
+index 0000000..820e69f
+--- /dev/null
++++ b/js/online/translate.js
+@@ -0,0 +1,147 @@
++// BETA ONLINE: "Spontaneous translation" (Roy 30.10). In Settings > Game the player turns it on and picks the language
++// they want to READ. Nobody picks the language they write in: what anyone types goes out as it is, and every reader with
++// the setting on sees it in their own language.
++// How a line gets translated (one paid call per message, never one per reader):
++//   1. chat_send / whisper work as before (the original reaches everyone at once, nothing waits on a translation), and
++//      keep the text a few minutes in private.chat_recent. Their answer says `tr: true` when some reader wants one.
++//   2. Only then the SPEAKER's game calls the edge function chat-translate with the message id (never the text: the
++//      server reads its own copy, so no one can use it to translate arbitrary text for free).
++//   3. The function asks the server which languages the readers want now (private.tr_pref, refreshed every few
++//      minutes by the readers' games), sends ONE request to the translation service for all of them, and publishes
++//      { id, src, tr: { he: '…', es: '…' } } as a 'tr' event on the same topic.
++//   4. Each reader swaps in its own language when that event comes (usually under a second later). If anything fails,
++//      the original simply stays.
++// The server keeps a monthly character budget (online_config 'translate'); past it, lines stay untranslated.
++// Any other text surface (a trade note, party or guild chat later) can use track(id, element) the same way.
++import { L } from '../text.js';
++import { t, LANG } from '../i18n.js';
++import { SUPABASE_URL, SUPABASE_KEY } from './config.js';
++
++export const TR = { key: 'so_translate', refreshMs: 10 * 60 * 1000, keepIds: 300, waitMs: 20000 };
++
++// the languages a reader can pick, each in its own name (codes as ISO 639-1; the edge function maps them per service)
++export const TR_LANGS = [
++  ['he', 'עברית'], ['en', 'English'], ['es', 'Español'], ['fr', 'Français'], ['de', 'Deutsch'], ['it', 'Italiano'],
++  ['pt', 'Português'], ['ru', 'Русский'], ['uk', 'Українська'], ['pl', 'Polski'], ['nl', 'Nederlands'], ['ro', 'Română'],
++  ['cs', 'Čeština'], ['sv', 'Svenska'], ['el', 'Ελληνικά'], ['tr', 'Türkçe'], ['ar', 'العربية'], ['fa', 'فارسی'],
++  ['hi', 'हिन्दी'], ['th', 'ไทย'], ['vi', 'Tiếng Việt'], ['id', 'Bahasa Indonesia'], ['ja', '日本語'], ['ko', '한국어'], ['zh', '中文'],
++];
++const NAME = Object.fromEntries(TR_LANGS);
++const okLang = (l) => (NAME[l] ? l : null);
++
++const TX = {
++  on: L('תרגום ספונטני: פועל', 'Spontaneous translation: On'),
++  off: L('תרגום ספונטני: כבוי', 'Spontaneous translation: Off'),
++  pick: L('להציג הודעות של שחקנים בשפה:', 'Show players\' messages in:'),
++  help: L('הודעות של שחקנים אחרים (צ׳אט ולחישות) יופיעו בשפה שנבחרה כאן. מה שכותבים יוצא כמו שהוא, וכל מי שהפעיל תרגום קורא אותו בשפה שלו.',
++    'Other players\' messages (chat and whispers) show in the language you pick. What you type goes out as it is; anyone who turned this on reads it in their own language.'),
++  from: L('תורגם מ{lang}. ללחוץ לטקסט המקורי.', 'Translated from {lang}. Click for the original.'),
++  orig: L('המקור. ללחוץ לתרגום.', 'Original. Click for the translation.'),
++};
++const fmt = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => o[k] ?? '');
++
++// ---------- the setting (this computer; the server learns it through set_translate_lang) ----------
++export function translatePref() {
++  try { const p = JSON.parse(localStorage.getItem(TR.key) || 'null'); if (p && typeof p === 'object') return { on: !!p.on, lang: okLang(p.lang) || okLang(LANG) || 'en' }; } catch { /* */ }
++  return { on: false, lang: okLang(LANG) || 'en' };
++}
++const listeners = new Set();
++export function setTranslatePref(p) {
++  const v = { on: !!p.on, lang: okLang(p.lang) || 'en' };
++  try { localStorage.setItem(TR.key, JSON.stringify(v)); } catch { /* storage blocked: it lasts for this page */ }
++  for (const fn of listeners) { try { fn(v); } catch (e) { console.error(e); } }
++  return v;
++}
++
++// Settings > Game: one button turns it on or off; when on, the list of languages shows under it
++export function translateSettingsRow(pane, { sfx = () => {} } = {}) {
++  if (!pane) return null;
++  const box = document.createElement('div'); box.className = 'trset';
++  const b = document.createElement('button'); b.type = 'button'; b.className = 'slab ghost'; b.dataset.a = 'translate';
++  const row = document.createElement('label'); row.className = 'trpick';
++  const cap = document.createElement('span'); cap.textContent = t(TX.pick);
++  const sel = document.createElement('select'); sel.name = 'trlang';
++  for (const [code, name] of TR_LANGS) { const o = document.createElement('option'); o.value = code; o.textContent = name; o.lang = code; sel.appendChild(o); }
++  const help = document.createElement('p'); help.className = 'help'; help.textContent = t(TX.help);
++  row.append(cap, sel); box.append(b, row, help);
++  const show = () => { const p = translatePref(); b.textContent = t(p.on ? TX.on : TX.off); b.setAttribute('aria-pressed', String(p.on)); sel.value = p.lang; row.hidden = !p.on; help.hidden = !p.on; };
++  b.onclick = () => { const p = translatePref(); setTranslatePref({ ...p, on: !p.on }); show(); sfx('ui'); if (!p.on) setTimeout(() => sel.focus(), 0); };
++  sel.onchange = () => { setTranslatePref({ ...translatePref(), lang: sel.value }); sfx('ui'); };
++  sel.addEventListener('keydown', (e) => e.stopPropagation()); // arrows choose a language, they don't move the menu's focus
++  show();
++  const sync = pane.querySelector('.sync'); // (above the line about where progress is kept)
++  if (sync) sync.before(box); else pane.appendChild(box);
++  return box;
++}
++
++// ---------- in the world ----------
++// installTranslate(rt, client, { overhead }) -> { sent(m), track(id, el, original, speaker), dispose() }
++// chat.js calls sent(m) after its own chat_send / whisper succeeded, and track() for every line it shows.
++export function installTranslate(rt, client, { overhead = null, fetchImpl = (...a) => globalThis.fetch(...a) } = {}) {
++  const lines = new Map(); // message id -> { els: [{ el, original }], speaker, at }
++  const early = new Map(); // translations that came before their line (rare): id -> payload
++  let refreshT = null;
++
++  // the server keeps what each reader wants for half an hour; a game in the world refreshes it every ten minutes
++  async function tellServer() {
++    clearTimeout(refreshT); refreshT = null;
++    const p = translatePref();
++    try { await client.rpc('set_translate_lang', { p_lang: p.on ? p.lang : null }); } catch (e) { console.warn('translate: set_translate_lang', e?.code || e); }
++    if (p.on) refreshT = setTimeout(tellServer, TR.refreshMs);
++  }
++  listeners.add(tellServer);
++  tellServer();
++
++  // my own line went out and some reader wants a translation: ask the edge function (fire and forget)
++  async function sent(m) {
++    if (!m?.id || !m.tr) return;
++    try {
++      const token = await client.accessToken();
++      const h = { 'content-type': 'application/json', apikey: SUPABASE_KEY, authorization: 'Bearer ' + token };
++      const res = await fetchImpl(SUPABASE_URL.replace(/\/+$/, '') + '/functions/v1/chat-translate', { method: 'POST', headers: h, body: JSON.stringify({ id: m.id }) });
++      if (!res.ok) console.warn('translate: chat-translate', res.status);
++    } catch (e) { console.warn('translate: chat-translate', e?.message || e); }
++  }
++
++  function apply(id, p) {
++    const rec = lines.get(id), pref = translatePref();
++    if (!rec || !pref.on) return;
++    const text = p?.tr?.[pref.lang];
++    if (typeof text !== 'string' || !text.trim() || p.src === pref.lang) return;
++    const from = NAME[p.src] || p.src || '?';
++    for (const it of rec.els) {
++      const el = it.el; if (!el.isConnected) continue;
++      el.textContent = text; el.dir = 'auto'; el.lang = pref.lang;
++      el.classList.add('tr'); el.dataset.tr = '1'; el.title = fmt(t(TX.from), { lang: from });
++      el.onclick = (e) => { // click: the original, click again: the translation
++        e.stopPropagation();
++        const showing = el.dataset.tr === '1';
++        el.textContent = showing ? it.original : text; el.dataset.tr = showing ? '0' : '1';
++        el.lang = showing ? (p.src || '') : pref.lang;
++        el.title = showing ? t(TX.orig) : fmt(t(TX.from), { lang: from });
++      };
++    }
++    if (rec.speaker && overhead?.say) overhead.say(rec.speaker, text); // the bubble over the speaker too
++  }
++
++  function track(id, el, original, speaker = null) {
++    if (!id || !el) return;
++    let rec = lines.get(id);
++    if (!rec) { rec = { els: [], speaker, at: Date.now() }; lines.set(id, rec); }
++    rec.els.push({ el, original });
++    while (lines.size > TR.keepIds) lines.delete(lines.keys().next().value);
++    if (early.has(id)) { const p = early.get(id); early.delete(id); apply(id, p); }
++  }
++
++  function onTr(p, meta) {
++    if (meta.event !== 'tr' || meta.signed || !p?.id) return; // only the server publishes 'tr' (tr_publish), never a player
++    if (lines.has(p.id)) return apply(p.id, p);
++    early.set(p.id, p); setTimeout(() => early.delete(p.id), TR.waitMs);
++  }
++  const offs = [rt.on('chat:global', onTr), rt.on('player:' + rt.meId(), onTr)];
++
++  return {
++    sent, track,
++    dispose() { for (const f of offs) f?.(); listeners.delete(tellServer); clearTimeout(refreshT); lines.clear(); early.clear(); },
++  };
++}
+diff --git a/server/supabase/functions/chat-translate/config.toml.snippet b/server/supabase/functions/chat-translate/config.toml.snippet
+new file mode 100644
+index 0000000..7274ade
+--- /dev/null
++++ b/server/supabase/functions/chat-translate/config.toml.snippet
+@@ -0,0 +1,2 @@
++[functions.chat-translate]
++verify_jwt = false # the function checks the player's token itself (Auth /user), see index.ts
+diff --git a/server/supabase/functions/chat-translate/index.ts b/server/supabase/functions/chat-translate/index.ts
+new file mode 100644
+index 0000000..87c31ff
+--- /dev/null
++++ b/server/supabase/functions/chat-translate/index.ts
+@@ -0,0 +1,132 @@
++// BETA ONLINE: spontaneous translation (Roy 30.10). The speaker's game calls this with { id } right after its own
++// chat_send / whisper said `tr: true` (js/online/translate.js). This function:
++//   1. finds out who is calling (their access token, through Auth),
++//   2. takes the job from the database (public.tr_job: only the caller's own line, once, fresh, within the monthly budget;
++//      the text comes from the server's copy, never from the request),
++//   3. sends ONE request to the translation service for all the languages the readers want,
++//   4. publishes the result (public.tr_publish -> a 'tr' event on the line's own topic).
++// Secrets (Supabase dashboard > Edge Functions > Secrets), never in the game:
++//   TRANSLATE_PROVIDER   azure (default) | google | deepl
++//   AZURE_TRANSLATOR_KEY, AZURE_TRANSLATOR_REGION   (Azure AI Translator; the F0 tier is free up to 2M characters a month)
++//   GOOGLE_TRANSLATE_KEY                            (Cloud Translation Basic v2)
++//   DEEPL_KEY                                       (a key ending in ":fx" is the free API)
++// SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are given to every edge function by Supabase itself.
++// Deploy: supabase functions deploy chat-translate --no-verify-jwt   (the token is checked here, see config.toml)
++
++const CORS = {
++  'access-control-allow-origin': '*', // the launcher loads the game from file:// (origin "null")
++  'access-control-allow-headers': 'authorization, apikey, content-type, x-client-info',
++  'access-control-allow-methods': 'POST, OPTIONS',
++};
++const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { ...CORS, 'content-type': 'application/json' } });
++const env = (k: string) => (globalThis as any).Deno?.env.get(k) ?? (globalThis as any).process?.env?.[k] ?? '';
++
++// the game's codes -> each service's codes
++const AZURE: Record<string, string> = { zh: 'zh-Hans' };
++const GOOGLE: Record<string, string> = { zh: 'zh-CN', he: 'iw' };
++const DEEPL: Record<string, string> = { en: 'EN-US', pt: 'PT-BR', zh: 'ZH-HANS' };
++const base = (code: string) => String(code || '').toLowerCase().split('-')[0].replace(/^iw$/, 'he');
++
++// Text written only in a script that belongs to one language is clearly in that language: those readers need nothing.
++// (Latin, Cyrillic and Arabic script are shared by many languages: there the service detects the language itself.)
++const SCRIPT_LANG: [RegExp, string][] = [[/\p{Script=Hebrew}/u, 'he'], [/\p{Script=Greek}/u, 'el'], [/\p{Script=Thai}/u, 'th'], [/\p{Script=Hangul}/u, 'ko']];
++export function plainScriptLang(text: string): string | null {
++  const letters = [...text].filter((ch) => /\p{L}/u.test(ch));
++  if (!letters.length) return null;
++  for (const [re, lang] of SCRIPT_LANG) if (letters.every((ch) => re.test(ch))) return lang;
++  return null;
++}
++export const hasLetters = (text: string) => /\p{L}/u.test(text);
++
++type Result = { src: string; tr: Record<string, string> };
++
++async function azure(text: string, langs: string[], fetchImpl = fetch): Promise<Result> {
++  const q = langs.map((l) => 'to=' + encodeURIComponent(AZURE[l] || l)).join('&');
++  const res = await fetchImpl('https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&' + q, {
++    method: 'POST',
++    headers: { 'Ocp-Apim-Subscription-Key': env('AZURE_TRANSLATOR_KEY'), 'Ocp-Apim-Subscription-Region': env('AZURE_TRANSLATOR_REGION') || 'global', 'content-type': 'application/json' },
++    body: JSON.stringify([{ Text: text }]),
++  });
++  if (!res.ok) throw new Error('azure ' + res.status + ' ' + (await res.text()).slice(0, 200));
++  const d = (await res.json())?.[0] || {};
++  const src = base(d.detectedLanguage?.language);
++  const tr: Record<string, string> = {};
++  for (const t of d.translations || []) { const l = langs.find((x) => (AZURE[x] || x).toLowerCase() === String(t.to).toLowerCase()); if (l) tr[l] = t.text; }
++  return { src, tr };
++}
++
++async function google(text: string, langs: string[], fetchImpl = fetch): Promise<Result> {
++  let src = '';
++  const tr: Record<string, string> = {};
++  await Promise.all(langs.map(async (l) => {
++    const res = await fetchImpl('https://translation.googleapis.com/language/translate/v2?key=' + encodeURIComponent(env('GOOGLE_TRANSLATE_KEY')), {
++      method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ q: text, target: GOOGLE[l] || l, format: 'text' }),
++    });
++    if (!res.ok) throw new Error('google ' + res.status);
++    const t = (await res.json())?.data?.translations?.[0];
++    if (t) { tr[l] = t.translatedText; src ||= base(t.detectedSourceLanguage); }
++  }));
++  return { src, tr };
++}
++
++async function deepl(text: string, langs: string[], fetchImpl = fetch): Promise<Result> {
++  const key = env('DEEPL_KEY'), host = /:fx$/.test(key) ? 'https://api-free.deepl.com' : 'https://api.deepl.com';
++  let src = '';
++  const tr: Record<string, string> = {};
++  await Promise.all(langs.map(async (l) => {
++    const res = await fetchImpl(host + '/v2/translate', {
++      method: 'POST', headers: { authorization: 'DeepL-Auth-Key ' + key, 'content-type': 'application/json' },
++      body: JSON.stringify({ text: [text], target_lang: DEEPL[l] || l.toUpperCase() }),
++    });
++    if (!res.ok) return; // (a language DeepL does not have: that reader keeps the original)
++    const t = (await res.json())?.translations?.[0];
++    if (t) { tr[l] = t.text; src ||= base(t.detected_source_language); }
++  }));
++  return { src, tr };
++}
++
++export const PROVIDERS: Record<string, typeof azure> = { azure, google, deepl };
++
++// the whole job, with the outside world passed in (so it can be tested without Supabase or a translation service)
++export async function handle(req: Request, { fetchImpl = fetch, provider = env('TRANSLATE_PROVIDER') || 'azure' } = {}): Promise<Response> {
++  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
++  if (req.method !== 'POST') return json({ error: 'METHOD' }, 405);
++  const url = env('SUPABASE_URL').replace(/\/+$/, ''), service = env('SUPABASE_SERVICE_ROLE_KEY');
++  const svc = { apikey: service, 'content-type': 'application/json', ...(/^eyJ/.test(service) ? { authorization: 'Bearer ' + service } : {}) };
++  const rpc = async (fn: string, args: unknown) => {
++    const r = await fetchImpl(`${url}/rest/v1/rpc/${fn}`, { method: 'POST', headers: svc, body: JSON.stringify(args) });
++    if (!r.ok) throw new Error(fn + ' ' + r.status + ' ' + (await r.text()).slice(0, 200));
++    const t = await r.text(); return t ? JSON.parse(t) : null;
++  };
++
++  // who is asking
++  const auth = req.headers.get('authorization') || '';
++  if (!/^Bearer\s+\S+/.test(auth)) return json({ error: 'SIGNED_OUT' }, 401);
++  const who = await fetchImpl(`${url}/auth/v1/user`, { headers: { apikey: service, authorization: auth } });
++  if (!who.ok) return json({ error: 'SIGNED_OUT' }, 401);
++  const uid = (await who.json())?.id;
++  let id = '';
++  try { id = String((await req.json())?.id || ''); } catch { /* */ }
++  if (!uid || !/^[0-9a-f-]{36}$/i.test(id)) return json({ error: 'BAD_REQUEST' }, 400);
++
++  // the job
++  const job = await rpc('tr_job', { p_uid: uid, p_msg: id });
++  if (!job || job.over || !job.langs?.length) return json({ done: false, over: !!job?.over });
++  const text = String(job.text || '');
++  if (!hasLetters(text)) return json({ done: false }); // numbers, emoji, "!!!": the same in every language
++  const known = plainScriptLang(text);
++  const langs = (job.langs as string[]).filter((l) => l !== known);
++  if (!langs.length) return json({ done: false });
++
++  // the translation, then the readers
++  const run = PROVIDERS[provider] || azure;
++  let out: Result;
++  try { out = await run(text, langs, fetchImpl); } catch (e) { console.error('translate', String(e)); return json({ done: false, error: 'PROVIDER' }, 502); }
++  const src = known || out.src;
++  for (const l of Object.keys(out.tr)) if (l === src || out.tr[l] === text) delete out.tr[l]; // already in that language
++  if (!Object.keys(out.tr).length) return json({ done: false, src });
++  await rpc('tr_publish', { p_msg: id, p_src: src, p_tr: out.tr });
++  return json({ done: true, src, langs: Object.keys(out.tr) });
++}
++
++(globalThis as any).Deno?.serve((req: Request) => handle(req).catch((e) => { console.error(e); return json({ error: 'UNEXPECTED' }, 500); }));
+diff --git a/server/supabase/migrations/20261030220000_chat_translate.sql b/server/supabase/migrations/20261030220000_chat_translate.sql
+new file mode 100644
+index 0000000..194784b
+--- /dev/null
++++ b/server/supabase/migrations/20261030220000_chat_translate.sql
+@@ -0,0 +1,184 @@
++-- BETA ONLINE: spontaneous translation of what players write (Roy 30.10; client js/online/translate.js, edge function
++-- server/supabase/functions/chat-translate). Safe to run again.
++-- The flow: chat_send / whisper keep the line a few minutes in private.chat_recent and answer `tr: true` when some reader
++-- wants a translation now. The speaker's game then calls the edge function with the message id only. The function takes
++-- the job here (tr_job: the text, the topic, the languages the readers want, the monthly budget), asks the translation
++-- service ONCE for all of those languages, and publishes the result through tr_publish as a 'tr' event on the same topic.
++-- One paid request per message, whatever the number of readers; same-language readers share it.
++
++-- what each reader wants to read (null = off), refreshed by their game every ten minutes while in the world
++create table if not exists private.tr_pref (
++  account_id uuid primary key,
++  lang       text,
++  at         timestamptz not null default now()
++);
++create index if not exists tr_pref_at on private.tr_pref (at) where lang is not null;
++
++-- the lines of the last minutes (the edge function translates only these, by id: never a text sent to it)
++create table if not exists private.chat_recent (
++  id         uuid primary key,
++  account_id uuid not null,
++  topic      text not null,
++  event      text not null,
++  text       text not null,
++  to_account uuid,
++  at         timestamptz not null default now(),
++  tr_at      timestamptz
++);
++create index if not exists chat_recent_at on private.chat_recent (at);
++
++-- characters sent to the translation service per month (the budget is checked before each request)
++create table if not exists private.tr_usage (
++  month date primary key,
++  chars bigint not null default 0,
++  calls int not null default 0
++);
++revoke all on private.tr_pref, private.chat_recent, private.tr_usage from public, anon, authenticated;
++
++-- the numbers, tunable without a code change:
++--   enabled        false turns every translation off at once
++--   monthly_chars  the budget (Azure Translator's free tier is 2,000,000 a month; this stays under it)
++--   max_langs      at most this many languages per message (the most wanted first)
++--   fresh_min      a reader counts while their game refreshed the setting within this many minutes
++--   keep_min       how long a line can still be translated
++insert into private.online_config (key, value)
++values ('translate', '{"enabled": true, "monthly_chars": 1900000, "max_langs": 8, "fresh_min": 30, "keep_min": 5}'::jsonb)
++on conflict (key) do nothing;
++
++-- the languages a reader may ask for (the same list as TR_LANGS in js/online/translate.js)
++create or replace function private.tr_lang_ok(p text) returns boolean
++language sql immutable set search_path = ''
++as $$ select p = any (array['he','en','es','fr','de','it','pt','ru','uk','pl','nl','ro','cs','sv','el','tr','ar','fa','hi','th','vi','id','ja','ko','zh']) $$;
++revoke all on function private.tr_lang_ok(text) from public, anon, authenticated;
++
++create or replace function private.tr_cfg() returns jsonb
++language sql stable security definer set search_path = ''
++as $$ select coalesce((select value from private.online_config where key = 'translate'), '{}'::jsonb) $$;
++revoke all on function private.tr_cfg() from public, anon, authenticated;
++
++-- does any reader (other than the speaker) want translations now? (to_account: only that one reader, for a whisper)
++create or replace function private.tr_wanted(p_uid uuid, p_to uuid) returns boolean
++language sql stable security definer set search_path = ''
++as $$
++  select coalesce((private.tr_cfg() ->> 'enabled')::boolean, true) and exists (
++    select 1 from private.tr_pref p
++     where p.lang is not null and p.account_id <> p_uid and (p_to is null or p.account_id = p_to)
++       and p.at > now() - make_interval(mins => coalesce((private.tr_cfg() ->> 'fresh_min')::int, 30)))
++$$;
++revoke all on function private.tr_wanted(uuid, uuid) from public, anon, authenticated;
++
++-- keep a line for the translator (and drop the old ones; a handful of rows at any time)
++create or replace function private.chat_keep(p_id uuid, p_uid uuid, p_topic text, p_event text, p_text text, p_to uuid) returns void
++language plpgsql volatile security definer set search_path = ''
++as $$
++begin
++  delete from private.chat_recent where at < now() - make_interval(mins => coalesce((private.tr_cfg() ->> 'keep_min')::int, 5));
++  insert into private.chat_recent (id, account_id, topic, event, text, to_account) values (p_id, p_uid, p_topic, p_event, p_text, p_to)
++    on conflict (id) do nothing;
++end $$;
++revoke all on function private.chat_keep(uuid, uuid, text, text, text, uuid) from public, anon, authenticated;
++
++-- ---------------------------------------------------------------------------------------------------------------------
++-- the player's side
++-- ---------------------------------------------------------------------------------------------------------------------
++-- the language I want to read other players in (null = off)
++create or replace function public.set_translate_lang(p_lang text) returns void
++language plpgsql volatile security definer set search_path = ''
++as $$
++declare uid uuid := auth.uid();
++begin
++  if uid is null then raise exception 'NOT_SIGNED_IN' using errcode = 'P0001'; end if;
++  if p_lang is not null and not private.tr_lang_ok(p_lang) then raise exception 'LANG_INVALID' using errcode = 'P0001'; end if;
++  insert into private.tr_pref (account_id, lang, at) values (uid, p_lang, now())
++    on conflict (account_id) do update set lang = excluded.lang, at = excluded.at;
++end $$;
++revoke all on function public.set_translate_lang(text) from public, anon;
++grant execute on function public.set_translate_lang(text) to authenticated;
++
++-- chat_send and whisper as before (phase H), plus: the line is kept for the translator, and `tr` says if anyone wants it
++create or replace function public.chat_send(p_channel text, p_text text) returns jsonb
++language plpgsql volatile security definer set search_path = ''
++as $$
++declare uid uuid := auth.uid(); c public.characters; t text; msg jsonb; mid uuid := gen_random_uuid(); want boolean;
++begin
++  c := private.rt_speaker(uid);
++  if p_channel is null or p_channel !~ '^(global|zone:[a-z0-9._-]{1,48})$' then raise exception 'CHANNEL_INVALID' using errcode = 'P0001'; end if;
++  t := private.chat_text(p_text);
++  perform private.chat_take(uid);
++  msg := jsonb_build_object('id', mid, 'c', c.id, 'n', c.name, 'text', t, 'ch', p_channel,
++    'at', (extract(epoch from now()) * 1000)::bigint);
++  perform realtime.send(msg, 'msg', 'chat:' || p_channel, true);
++  want := private.tr_wanted(uid, null);
++  if want then perform private.chat_keep(mid, uid, 'chat:' || p_channel, 'msg', t, null); end if;
++  return msg || jsonb_build_object('tr', want);
++end $$;
++
++create or replace function public.whisper(p_to_name text, p_text text) returns jsonb
++language plpgsql volatile security definer set search_path = ''
++as $$
++declare uid uuid := auth.uid(); c public.characters; tgt public.characters; t text; msg jsonb; mid uuid := gen_random_uuid(); want boolean;
++begin
++  c := private.rt_speaker(uid);
++  select * into tgt from public.characters where name_norm = public.norm_name(p_to_name);
++  if not found then raise exception 'NO_SUCH_PLAYER' using errcode = 'P0001'; end if;
++  if tgt.id = c.id then raise exception 'WHISPER_SELF' using errcode = 'P0001'; end if;
++  t := private.chat_text(p_text);
++  perform private.chat_take(uid);
++  msg := jsonb_build_object('id', mid, 'c', c.id, 'n', c.name, 'to', tgt.id, 'to_n', tgt.name, 'text', t,
++    'at', (extract(epoch from now()) * 1000)::bigint);
++  perform realtime.send(msg, 'whisper', 'player:' || tgt.id::text, true);
++  want := private.tr_wanted(uid, tgt.account_id);
++  if want then perform private.chat_keep(mid, uid, 'player:' || tgt.id::text, 'whisper', t, tgt.account_id); end if;
++  return msg || jsonb_build_object('tr', want);
++end $$;
++revoke all on function public.chat_send(text, text), public.whisper(text, text) from public, anon;
++grant execute on function public.chat_send(text, text), public.whisper(text, text) to authenticated;
++
++-- ---------------------------------------------------------------------------------------------------------------------
++-- the edge function's side (service_role only; players cannot call these)
++-- ---------------------------------------------------------------------------------------------------------------------
++-- take a line to translate: only the speaker's own line, only once, only while it is fresh, only within the budget.
++-- Returns null (nothing to do) or { text, topic, langs[], over }.
++create or replace function public.tr_job(p_uid uuid, p_msg uuid) returns jsonb
++language plpgsql volatile security definer set search_path = ''
++as $$
++declare r private.chat_recent; cfg jsonb := private.tr_cfg(); langs text[]; cost bigint; m date := date_trunc('month', now())::date;
++  cap bigint := coalesce((cfg ->> 'monthly_chars')::bigint, 1900000); used bigint;
++begin
++  if not coalesce((cfg ->> 'enabled')::boolean, true) then return null; end if;
++  select * into r from private.chat_recent where id = p_msg for update;
++  if not found or r.account_id <> p_uid or r.tr_at is not null then return null; end if;
++  update private.chat_recent set tr_at = now() where id = p_msg;
++  select array_agg(lang) into langs from (
++    select p.lang from private.tr_pref p
++     where p.lang is not null and p.account_id <> p_uid and (r.to_account is null or p.account_id = r.to_account)
++       and p.at > now() - make_interval(mins => coalesce((cfg ->> 'fresh_min')::int, 30))
++     group by p.lang order by count(*) desc, p.lang
++     limit greatest(1, coalesce((cfg ->> 'max_langs')::int, 8))) x;
++  if langs is null then return null; end if;
++  cost := char_length(r.text)::bigint * cardinality(langs);
++  insert into private.tr_usage (month) values (m) on conflict (month) do nothing;
++  select chars into used from private.tr_usage where month = m for update;
++  if used + cost > cap then return jsonb_build_object('over', true, 'langs', '[]'::jsonb); end if;
++  update private.tr_usage set chars = chars + cost, calls = calls + 1 where month = m;
++  return jsonb_build_object('text', r.text, 'topic', r.topic, 'langs', to_jsonb(langs), 'over', false);
++end $$;
++
++-- publish a translation: { id, src, tr: { lang: text } } as a 'tr' event on the line's topic
++create or replace function public.tr_publish(p_msg uuid, p_src text, p_tr jsonb) returns void
++language plpgsql volatile security definer set search_path = ''
++as $$
++declare r private.chat_recent; k text; v text; tr jsonb := '{}'::jsonb;
++begin
++  select * into r from private.chat_recent where id = p_msg;
++  if not found or p_tr is null or jsonb_typeof(p_tr) <> 'object' then return; end if;
++  for k, v in select key, value from jsonb_each_text(p_tr) loop
++    if private.tr_lang_ok(k) and v is not null and char_length(v) between 1 and 800 then
++      tr := tr || jsonb_build_object(k, btrim(regexp_replace(v, '[\u0000-\u001f\u007f-\u009f‪-‮⁦-⁩﻿]', '', 'g')));
++    end if;
++  end loop;
++  if tr = '{}'::jsonb then return; end if;
++  perform realtime.send(jsonb_build_object('id', p_msg, 'src', left(coalesce(p_src, ''), 12), 'tr', tr), 'tr', r.topic, true);
++end $$;
++revoke all on function public.tr_job(uuid, uuid), public.tr_publish(uuid, text, jsonb) from public, anon, authenticated;
++grant execute on function public.tr_job(uuid, uuid), public.tr_publish(uuid, text, jsonb) to service_role;
+diff --git a/style.css b/style.css
+index 1a41815..decd084 100644
+--- a/style.css
++++ b/style.css
+@@ -2989,6 +2989,15 @@ html[lang="he"] #skillwin .ultband span { font: 600 12px/1 var(--font-body); let
+ #rt-chat.open .rt-l.old { opacity: .85; }
+ .rt-l .rt-n { color: var(--gold); font-weight: 700; }
+ .rt-l .rt-sep { color: var(--parch-2); }
++/* spontaneous translation (js/online/translate.js): a translated line wears a small mark; a click shows the original */
++.rt-l .rt-x.tr::after { content: "⇄"; margin-inline-start: 5px; font-size: 11px; color: var(--teal); opacity: .9; }
++.rt-l .rt-x.tr[data-tr="0"]::after { color: var(--parch-2); }
++#rt-chat.open .rt-l .rt-x.tr { cursor: var(--cur-hand, pointer); }
++.trset { display: flex; flex-direction: column; gap: 8px; }
++.trpick { display: flex; align-items: center; gap: 10px; font: 500 15px/1.3 var(--font-body); color: var(--parch-hi); }
++.trpick[hidden], .trset .help[hidden] { display: none; }
++.trpick select option { background: #241520; color: var(--parch-hi); }
++.trpick select { flex: 1; min-width: 0; padding: 5px 8px; border-radius: 6px; border: 1px solid rgba(226, 173, 72, .45); background: rgba(26, 15, 23, .7); color: var(--parch-hi); font: 500 15px/1.3 var(--font-body); cursor: var(--cur-hand, pointer); }
+ .rt-l.mine .rt-n { color: var(--teal); }
+ .rt-l.wh { color: #e8cfff; }
+ .rt-l.wh .rt-k { font: 700 10px/1 var(--font-px); letter-spacing: .08em; text-transform: uppercase; color: #c9a0f2; margin-inline-end: 1px; }

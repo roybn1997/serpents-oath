@@ -1,0 +1,30 @@
+process.env.SUPABASE_URL='https://x.supabase.co'; process.env.SUPABASE_SERVICE_ROLE_KEY='sb_secret_abc';
+const { handle, plainScriptLang } = await import(process.argv[2]);
+const calls = [];
+let job = { text: 'שלום לכולם', topic: 'chat:global', langs: ['es', 'he', 'en'], over: false };
+const fake = async (url, o = {}) => {
+  calls.push([url, o.body]);
+  const R = (b, s = 200) => new Response(typeof b === 'string' ? b : JSON.stringify(b), { status: s });
+  if (url.endsWith('/auth/v1/user')) return o.headers.authorization === 'Bearer good' ? R({ id: 'u1' }) : R({}, 401);
+  if (url.endsWith('/rpc/tr_job')) return R(job);
+  if (url.endsWith('/rpc/tr_publish')) return R('');
+  if (url.includes('microsofttranslator')) { const to = [...new URL(url).searchParams.getAll('to')]; return R([{ detectedLanguage: { language: 'he' }, translations: to.map((t) => ({ to: t, text: t + ':' + JSON.parse(o.body)[0].Text })) }]); }
+  return R({}, 404);
+};
+const req = (auth, body) => new Request('https://f/chat-translate', { method: 'POST', headers: { authorization: auth, 'content-type': 'application/json' }, body: JSON.stringify(body) });
+const ok = (c, m) => { if (!c) { console.log('FAIL', m); process.exitCode = 1; } else console.log('ok', m); };
+const id = '6b1e5b8e-1111-4222-8333-944455556666';
+let r = await handle(req('Bearer bad', { id }), { fetchImpl: fake }); ok(r.status === 401, 'bad token 401');
+r = await handle(req('Bearer good', { id: 'x' }), { fetchImpl: fake }); ok(r.status === 400, 'bad id 400');
+calls.length = 0;
+r = await (await handle(req('Bearer good', { id }), { fetchImpl: fake })).json();
+ok(r.done && r.src === 'he' && r.langs.join() === 'es,en', 'hebrew -> es,en, he skipped by script ' + JSON.stringify(r));
+const az = calls.find((c) => c[0].includes('microsoft')); ok(az && !az[0].includes('to=he'), 'he not sent to azure');
+ok(calls.filter((c) => c[0].includes('microsoft')).length === 1, 'one provider request for all languages');
+const pub = JSON.parse(calls.find((c) => c[0].endsWith('tr_publish'))[1]); ok(pub.p_tr.es === 'es:שלום לכולם' && pub.p_msg === id, 'published');
+job = { text: '123 !!! 😀', topic: 'chat:global', langs: ['es'], over: false }; calls.length = 0;
+r = await (await handle(req('Bearer good', { id }), { fetchImpl: fake })).json(); ok(!r.done && !calls.some((c) => c[0].includes('microsoft')), 'no letters: no call');
+job = null; r = await (await handle(req('Bearer good', { id }), { fetchImpl: fake })).json(); ok(!r.done, 'no job');
+job = { over: true, langs: [] }; r = await (await handle(req('Bearer good', { id }), { fetchImpl: fake })).json(); ok(r.over, 'over budget');
+ok(plainScriptLang('שלום world') === null && plainScriptLang('γεια σου') === 'el', 'script detection');
+r = await handle(new Request('https://f', { method: 'OPTIONS' })); ok(r.headers.get('access-control-allow-origin') === '*', 'cors');
