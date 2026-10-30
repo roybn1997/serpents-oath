@@ -25,6 +25,48 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '33', date: '2026-10-30',
+    he: { title: 'גרסה 33: מקצועות, מסחר וידיים חדשות', items: [
+      'ידיים חדשות עם אצבעות לכל הדמויות',
+      'תנועות חלקות ואנושיות יותר: מעברים רכים, נשימה במנוחה וקומבו זורם',
+      'יצירת דמות: חלון צר יותר, 3 בגדים (לבן, עור חום בהיר ובד כהה), 4 גווני עור, 3 צורות עיניים ו-3 צבעי עיניים',
+      'מקצועות: חמישה שלבים לכל מקצוע, עם קווסטים, סינרגיות ובסטיארי',
+      'מסחר בין שחקנים, וחלון Info בלחיצה ימנית על שחקן',
+      'התיק: 48 משבצות בכל לשונית, ואפשר להרחיב בדרכמות עד 96',
+      'זורקים חפץ בגרירה אל מחוץ לתיק, וחברי הפארטי יכולים להרים אותו ראשונים',
+      'עם כנפיים בים: הכנפיים מתקפלות, הנשק עובר לגב והדמות שוחה',
+      'מיני בוסים חזקים יותר מהלהקה שלהם, ומפלצות ים לפי אזורים',
+      'המשחק קל יותר: בניית השטח רצה על ליבה נוספת של המעבד',
+      'הוויקי: מפלצות לפי טווחי רמות, בוסים בקטגוריה משלהם וקווסטי המקצועות בנפרד',
+    ] },
+    en: { title: 'Version 33: jobs, trading and new hands', items: [
+      'New hands with fingers on every character',
+      'Smoother, more human motion: soft blends, breathing at rest and a flowing combo',
+      'Hero creation: a narrower window, 3 outfits (white, light-brown leather and dark cloth), 4 skin tones, 3 eye shapes and 3 eye colours',
+      'Jobs: five tiers for every job, with quests, synergies and a bestiary',
+      'Trading between players, and an Info window on a right-click on a player',
+      'The satchel: 48 slots in every tab, expandable with drachmas up to 96',
+      'Drop an item by dragging it out of the satchel, and your party gets first pick',
+      'With wings in the sea: the wings fold, the weapon goes on your back and you swim',
+      'Mini-bosses stronger than their pack, and sea monsters by region',
+      'A lighter game: building the terrain runs on a second CPU core',
+      'The wiki: monsters by level band, bosses in their own category and the job quests apart',
+    ] },
+    es: { title: 'Versión 33: oficios, comercio y manos nuevas', items: [
+      'Manos nuevas con dedos en todos los personajes',
+      'Movimientos más suaves y humanos: transiciones suaves, respiración en reposo y un combo fluido',
+      'Creación de héroe: una ventana más estrecha, 3 atuendos (blanco, cuero marrón claro y tela oscura), 4 tonos de piel, 3 formas y 3 colores de ojos',
+      'Oficios: cinco niveles por oficio, con misiones, sinergias y bestiario',
+      'Comercio entre jugadores, y una ventana de información con clic derecho sobre un jugador',
+      'El zurrón: 48 casillas en cada pestaña, ampliables con dracmas hasta 96',
+      'Suelta un objeto arrastrándolo fuera del zurrón, y tu grupo tiene prioridad para recogerlo',
+      'Con alas en el mar: las alas se pliegan, el arma va a la espalda y nadas',
+      'Minijefes más fuertes que su manada, y monstruos marinos por región',
+      'Un juego más ligero: el terreno se construye en otro núcleo del procesador',
+      'La wiki: monstruos por franjas de nivel, jefes en su propia categoría y las misiones de oficio aparte',
+    ] },
+  },
+  {
     v: '32', date: '2026-10-27',
     he: { title: 'גרסה 32: משחק הרשת נפתח (BETA ONLINE)', items: [
       'BETA ONLINE: נרשמים, יוצרים דמות ונכנסים לעולם משותף עם שחקנים אחרים',
