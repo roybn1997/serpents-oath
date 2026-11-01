@@ -1,0 +1,76 @@
+// Skill rework (v31), segment 4 of the Path of Ascent: levels 81-105, ultimate IV (Gate of Tartarus). Data only; see seg01.js
+// for the units and docs/skills-rework.md for the schema. Behaviour: js/skillpacks/seg04.js.
+const L = (he, en) => ({ he, en });
+
+export default [
+  {
+    id: 'skill_019', slot: 'm1', lvl: 81, name: L('סדן המטאור', 'Meteor Anvil'),
+    desc: L('את מסמנת עיגול בינוני; אחרי 0.65 שניות של אזהרה ברורה, מטאור אחד נוחת עליו באלכסון ופוגע בכל מי שבתוכו.', 'You mark a medium circle; after a clear 0.65-second warning one meteor comes down diagonally on it and strikes everyone inside.'),
+    tags: ['aoe', 'fire', 'earth', 'delayed'], el: 'fire', cd: 10, cost: 24,
+    tgt: 'point', range: 12, radius: 3.5, cap: 8, los: true, anim: 'cast', dur: .7, tele: .65,
+    hits: [{ at: 1.0, beu: 1.0 }],
+    budget: 1.0, vfx: 'vfx_019', sfx: 'sfx_019', icon: 'icon_019', ready: true,
+  },
+  {
+    id: 'skill_020', slot: 'm2', lvl: 85, name: L('כידון שעון החול', 'Sandglass Javelin'),
+    desc: L('חנית זכוכית זהובה מסתובבת בתוך טבעת שעון וחודרת קדימה: פגיעה והאטה של 20% ל־3 שניות לאויבים רגילים, 8% לבוסים.', 'A gold glass spear spinning inside a thin clock-ring pierces ahead: a hit and a 20% slow for 3 seconds on ordinary foes, 8% on bosses.'),
+    tags: ['magic', 'time', 'pierce', 'slow'], el: 'time', cd: 7, cost: 22,
+    tgt: 'line', range: 12, width: 1.2, cap: 4, los: true, anim: 'throw', dur: .6,
+    hits: [{ at: .32, beu: .95 }],
+    cc: [{ k: 'slow', amt: .2, dur: 3, elite: .7, boss: .4 }],
+    budget: .95, vfx: 'vfx_020', sfx: 'sfx_020', icon: 'icon_020', ready: true,
+  },
+  {
+    id: 'skill_021', slot: 'm3', lvl: 89, name: L('סחרור זנב הדרקון', 'Dragon Tail Sweep'),
+    desc: L('קשת רחבה וקרובה של הנשק: זנב דרקון רפאים מפולח עוקב בצורת S ומשיר קשקשי גחלת, ואויבים קטנים נהדפים הצידה.', 'A broad, close weapon arc: a segmented spectral dragon tail traces an S-curve behind it, shedding ember scales, and small foes are knocked sideways.'),
+    tags: ['physical', 'cone', 'aoe'], el: 'dragon', cd: 8, cost: 20,
+    tgt: 'cone', range: 3.6, arc: 2.6, cap: 6, los: true, anim: 'sweep', dur: .6,
+    hits: [{ at: .3, beu: .75 }],
+    cc: [{ k: 'push', amt: 1.4, elite: .4, boss: 0, side: true }],
+    budget: .75, vfx: 'vfx_021', sfx: 'sfx_021', icon: 'icon_021', ready: true,
+  },
+  {
+    id: 'skill_022', slot: 'm4', lvl: 92, name: L('הכפילה שבמראה', 'Mirror Double'),
+    desc: L('כפילה זכוכיתית שבירה נבנית מרסיסי מראה ל־3.5 שניות ומושכת אליה את התקפות המפלצות. היא לא מכה ולא מטעה בוסים.', 'A fragile glassy double assembles from mirror shards for 3.5 seconds and draws monster attacks to itself. It deals no damage and never fools a boss.'),
+    tags: ['selfcast', 'decoy'], el: 'light', cd: 32, cost: 22,
+    tgt: 'self', anim: 'fate', dur: .6,
+    buff: { decoy: 3.5, dur: 3.5, group: 'decoy', rank: 1 },
+    budget: 0, vfx: 'vfx_022', sfx: 'sfx_022', icon: 'icon_022', ready: true,
+  },
+  {
+    id: 'skill_023', slot: 'm5', lvl: 96, name: L('זינוק פוסעת הרוח', 'Windstrider Leap'),
+    desc: L('קפיצה ארוכה שאפשר לתקן באוויר; הנחיתה פוגעת סביבך ונותנת 10% מהירות ל־2 שניות.', 'A long leap you can correct in mid-air; the landing strikes around you and grants 10% speed for 2 seconds.'),
+    tags: ['mobility', 'air'], el: 'wind', cd: 10, cost: 18,
+    tgt: 'leap', move: 9, radius: 2.6, cap: 6, los: true, anim: 'slam', dur: 1, carry: true,
+    hits: [{ at: .8, beu: .55, phase: 'land' }],
+    buff: { speed: .1, dur: 2, group: 'haste', rank: 1 },
+    budget: .55, vfx: 'vfx_023', sfx: 'sfx_023', icon: 'icon_023', ready: true,
+  },
+  {
+    id: 'skill_024', slot: 'm6', lvl: 100, name: L('מחטי האיכור השחור', 'Black-Ichor Needles'),
+    desc: L('שש מחטים שחורות־ירוקות במניפה מכוונת; כל פגיעה שלישית מוסיפה שכבת רעל, עד שלוש שכבות לכל היותר.', 'Six black-green needles fan out in a deliberate pattern; every third hit adds a poison stack, three stacks at most.'),
+    tags: ['poison', 'dot', 'multihit'], el: 'poison', cd: 9, cost: 22,
+    tgt: 'proj', range: 12, speed: 26, cap: 1, los: true, anim: 'throw', dur: .8,
+    hits: [{ at: .3, beu: .28, n: 6, every: .07, travel: true }],
+    dot: { kind: 'poison', n: 4, every: 1, beu: .12, rule: 'stack', max: 3, apply: 2 },
+    budget: 2.64, vfx: 'vfx_024', sfx: 'sfx_024', icon: 'icon_024', ready: true,
+  },
+  {
+    id: 'skill_076', slot: 'side', lvl: 98, name: L('לוע האובסידיאן', 'Obsidian Maw'),
+    desc: L('לוחות אובסידיאן שחורים נפתחים כמו שיניים מתוך סדק עגול וחושפים עומק אדום־לבה: פגיעה וריתוק של 0.8 שניות לאויבים רגילים. בוסים לא מרותקים.', 'Black obsidian plates snap open like teeth from a circular crack, showing lava-red depth: a hit and a 0.8-second root on ordinary foes. Bosses are never rooted.'),
+    tags: ['control', 'dark', 'aoe'], el: 'underworld', cd: 14, cost: 26,
+    tgt: 'point', range: 10, radius: 2.8, cap: 6, los: true, anim: 'summon', dur: .7,
+    hits: [{ at: .45, beu: .9 }],
+    cc: [{ k: 'root', dur: .8, elite: .5, boss: 0 }],
+    budget: .9, vfx: 'vfx_076', sfx: 'sfx_076', icon: 'icon_076', ready: true,
+  },
+  {
+    id: 'skill_088', slot: 'ult', ult: 2, lvl: 105, name: L('שער הטרטרוס', 'Gate of Tartarus'),
+    desc: L('רצפת הזירה נפתחת לשער אדום־שחור עם שורות של שרשראות, כלבי רפאים ותפרי מגמה. שרשראות מצליפות בגלים מתוזמנים ונמשכות פנימה, והשער נטרק ומעיף לוחות אובסידיאן. אויבים רגילים מרותקים לרגע; בוסים רק מואטים.', 'The arena floor opens into a vast red-black gate of chains, spectral hounds and molten seams. Chains whip out in timed waves and pull inward; the gate slams shut and hurls obsidian slabs. Ordinary foes are briefly rooted; bosses are only slowed.'),
+    tags: ['ultimate', 'physical', 'underworld', 'chain', 'aoe', 'dot'], el: 'underworld', cd: 100,
+    tgt: 'around', radius: 9, cap: 10, los: true, anim: 'ult', dur: 3.2,
+    hits: [{ at: 1.0, beu: 1.2, phase: 'open' }, { at: 1.5, beu: .5, n: 4, every: .35, phase: 'chains', once: 'pulse' }, { at: 3.0, beu: 1.2, phase: 'slam' }],
+    cc: [{ k: 'root', dur: 1, elite: .5, boss: 0 }, { k: 'pull', amt: .6, every: 1, center: true, elite: .4, boss: 0 }],
+    budget: 4.4, vfx: 'vfx_088', sfx: 'sfx_088', icon: 'icon_088', ready: true,
+  },
+];

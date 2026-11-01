@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>The Serpent's Oath · Companion</title>
+<meta name="theme-color" content="#140b11">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<canvas id="cv" aria-hidden="true"></canvas>
+<main id="ui">
+  <section id="s-login" class="screen" hidden>
+    <img class="emblem" src="icons/emblem.png" alt="" width="120" height="108">
+    <h1 data-t="title"></h1>
+    <form id="f-login" autocomplete="on">
+      <label><span data-t="username"></span><input id="in-user" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required minlength="3" maxlength="64"></label>
+      <label><span data-t="password"></span><input id="in-pass" name="password" type="password" autocomplete="current-password" required></label>
+      <p class="err" id="login-err" role="alert"></p>
+      <button class="btn gold" type="submit" data-t="sign_in"></button>
+      <p class="note" data-t="sign_in_help"></p>
+    </form>
+    <p class="note install" id="install"></p>
+  </section>
+  <section id="s-chars" class="screen" hidden>
+    <h1 data-t="pick"></h1>
+    <ul id="chars" class="chars"></ul>
+    <p class="note" id="chars-empty" hidden data-t="no_chars"></p>
+    <p class="err" id="chars-err" role="alert"></p>
+    <div class="row"><button class="btn quiet" id="b-out" data-t="sign_out"></button></div>
+  </section>
+  <section id="s-blocked" class="screen" hidden>
+    <h1 id="blk-name"></h1><p id="blk-msg" class="note big"></p>
+    <div class="row"><button class="btn gold" id="blk-retry" data-t="retry"></button><button class="btn quiet" id="blk-back" data-t="switch"></button></div>
+  </section>
+  <section id="s-load" class="screen" hidden><p class="note big" data-t="loading"></p></section>
+  <section id="s-game" hidden>
+    <header class="hud"><div class="who"><b id="h-name"></b><span id="h-lv"></span></div><div class="tok" id="h-tok" title=""></div><div class="chip" id="h-afk" hidden></div></header>
+    <div class="joy" id="joy" aria-hidden="true"><i id="joy-k"></i></div>
+    <p class="hint" id="hint" data-t="controls"></p>
+    <button class="btn gold talk" id="b-talk" hidden></button>
+    <nav class="dock"><button class="btn" id="b-bag" data-t="bag"></button><button class="btn" id="b-set" data-t="settings"></button></nav>
+  </section>
+  <div id="sheet" class="sheet" hidden role="dialog" aria-modal="true"><div class="card"><button class="x" id="sheet-x" aria-label="close">×</button><div id="sheet-body"></div></div></div>
+  <div id="toast" class="toast" hidden role="status"></div>
+</main>
+<script type="module" src="main.js"></script>
+</body>
+</html>
