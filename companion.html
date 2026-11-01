@@ -12,33 +12,38 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;600;700&family=Silkscreen&display=swap">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="lang.css">
+<link rel="stylesheet" href="home.css">
 <style>
-.comp { padding: 56px 0 80px; }
-.comp .tagp { display: inline-block; margin: 0 0 14px; padding: 4px 12px; border-radius: 99px; font: 600 13px/1.4 var(--font-body); color: var(--turq, #34d1bf); box-shadow: inset 0 0 0 1px currentColor; }
-.comp h1 { margin: 0 0 14px; font: 700 clamp(32px, 5vw, 52px)/1.08 var(--font-title); color: var(--gold); }
-html[lang="he"] .comp h1 { letter-spacing: 0; }
-.comp .lead { max-width: 62ch; margin: 0 0 26px; }
-.comp .dls { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 10px; }
-.comp .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
-.comp .dlnote { margin: 0 0 44px; color: var(--tx-3); font-size: 14px; max-width: 62ch; }
-.comp .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-.comp .panel { padding: 24px 26px 26px; }
-.comp .panel h2 { margin: 0 0 8px; font: 600 20px/1.3 var(--font-body); color: var(--parch-hi); }
-.comp .panel p, .comp .panel li { margin: 0; color: var(--tx-2); }
-.comp .panel ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 8px; }
-.comp .panel ol { margin: 0; padding-inline-start: 22px; display: grid; gap: 6px; color: var(--tx-2); }
-.comp .panel ul, .comp .panel ol { unicode-bidi: plaintext; }
-html[lang="he"] .comp .panel ul, html[lang="he"] .comp .panel ol { direction: rtl; }
-@media (max-width: 760px) { .comp .grid { grid-template-columns: 1fr; } }
-.comp .wide { grid-column: 1 / -1; }
-.comp .back { margin: 36px 0 0; }
+.chero { min-height: min(64vh, 640px); padding-bottom: 72px; }
+.chero .hv { background: url(assets/hero.jpg) center / cover no-repeat; image-rendering: pixelated; }
+.chero h1 { margin: 14px 0 0; font: 700 clamp(34px, 5.4vw, 60px)/1.08 var(--font-title); color: var(--gold); text-shadow: 0 3px 0 #000, 0 6px 28px rgba(0,0,0,.8); animation: rise .7s .1s cubic-bezier(.2,.7,.2,1) both; }
+html[lang="he"] .chero h1 { letter-spacing: 0; }
+.tagp { display: inline-block; margin: 0; padding: 5px 14px; border-radius: 99px; font: 600 13px/1.4 var(--font-body); color: var(--turq, #34d1bf); background: rgba(20,11,17,.6); box-shadow: inset 0 0 0 1px currentColor; }
+.chero .lead { max-width: 60ch; margin: 18px auto 26px; font: 500 clamp(16px, 1.9vw, 19px)/1.55 var(--font-body); color: var(--parch); text-shadow: 0 2px 10px rgba(0,0,0,.8); text-wrap: balance; }
+.chero .dlnote { max-width: 56ch; margin: 16px auto 0; font-size: 14px; color: var(--tx-2); text-shadow: 0 1px 6px rgba(0,0,0,.8); }
+.chero .btn.big { min-width: 270px; }
+.chero .btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cfeats { display: grid; gap: 18px; }
+.cfeat { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 0; align-items: center; overflow: hidden; border-radius: var(--r-lg); background: linear-gradient(180deg, var(--panel), var(--panel-2)); box-shadow: var(--sh-panel); }
+.cfeat:nth-child(even) { grid-template-columns: minmax(0, 1fr) 250px; }
+.cfeat:nth-child(even) .ph { order: 2; }
+.cfeat .ph { padding: 22px; display: grid; place-items: center; background: var(--well); align-self: stretch; }
+.cfeat .ph img { width: 100%; max-width: 206px; height: auto; aspect-ratio: 400 / 780; object-fit: cover; border-radius: 22px; box-shadow: 0 0 0 3px #0c0709, 0 0 0 4px var(--line-hi), 0 14px 34px rgba(0,0,0,.55); image-rendering: auto; }
+.cfeat .tx { padding: 28px 34px; }
+.cfeat h3, .cc h3 { margin: 0 0 8px; font: 700 22px/1.25 var(--font-body); color: var(--gold); }
+.cfeat p, .cc p { margin: 0; color: var(--tx-2); font-size: 16px; }
+.crow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.cc { padding: 24px 26px 26px; }
+.cc ul, .cc ol { margin: 0; padding-inline-start: 22px; display: grid; gap: 10px; color: var(--tx-2); unicode-bidi: plaintext; }
+html[lang="he"] .cc ul, html[lang="he"] .cc ol { direction: rtl; }
+@media (max-width: 820px) { .cfeat, .cfeat:nth-child(even) { grid-template-columns: 1fr; } .cfeat:nth-child(even) .ph { order: 0; } .crow { grid-template-columns: 1fr; } .cfeat .tx { padding: 22px; } }
 </style>
 </head>
 <body>
 <div class="sky" aria-hidden="true"></div>
 <header class="bar">
   <div class="in">
-    <a class="brand" href="./" aria-label="The Serpent's Oath"><img src="assets/logo/icon-512.png" alt="" width="36" height="36"><span>The Serpent's Oath</span></a>
+    <a class="brand" href="./" aria-label="The Serpent's Oath"><img src="assets/logo/icon-512.png" alt="" width="36" height="36"><img class="lt" src="assets/logo/logotype-bar.png" alt="The Serpent's Oath" height="30"></a>
     <button class="navtg" id="navtg" type="button" aria-expanded="false" aria-controls="mainnav" data-ta="nav_menu"><i aria-hidden="true"></i></button>
     <nav id="mainnav" hidden>
       <a href="index.html#game" data-t="nav_game"></a>
@@ -62,30 +67,53 @@ html[lang="he"] .comp .panel ul, html[lang="he"] .comp .panel ol { direction: rt
     </div>
   </div>
 </header>
-<main class="comp wrap">
-  <p class="tagp" data-t="tag"></p>
-  <h1 data-t="h"></h1>
-  <p class="lead" data-t="lead"></p>
-  <div class="dls">
-    <a class="btn gold big" href="companion-app/index.html"><span class="lbl"><span data-t="dl"></span><small data-t="soon"></small></span></a>
+<section class="hero lite chero" id="top">
+  <div class="hv" aria-hidden="true"></div>
+  <div class="hero-in wrap">
+    <p class="tagp" data-t="tag"></p>
+    <h1 data-t="h"></h1>
+    <p class="lead" data-t="lead"></p>
+    <div class="dlrow">
+      <a class="btn gold big" href="companion-app/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.4"/><path d="M11 18.5h2"/></svg><span class="lbl"><span data-t="dl"></span><small data-t="soon"></small></span></a>
+    </div>
+    <p class="dlnote" data-t="dlnote"></p>
   </div>
-  <p class="dlnote" data-t="dlnote"></p>
-  <div class="grid">
-    <section class="panel"><h2 data-t="h1"></h2><p data-t="p1"></p></section>
-    <section class="panel"><h2 data-t="h2"></h2><p data-t="p2"></p></section>
-    <section class="panel"><h2 data-t="h3"></h2><p data-t="p3"></p></section>
-    <section class="panel"><h2 data-t="h4"></h2><p data-t="p4"></p></section>
-    <section class="panel wide"><h2 data-t="h5"></h2><ul id="rules"></ul></section>
-    <section class="panel wide"><h2 data-t="h6"></h2><ol id="steps"></ol></section>
-  </div>
-  <p class="back"><a class="btn quiet" href="./" data-t="back"></a></p>
+  <div class="hero-foot" aria-hidden="true"></div>
+</section>
+<main>
+  <section class="sec">
+    <div class="wrap">
+      <div class="cfeats">
+        <article class="cfeat"><div class="ph"><img src="assets/comp-village.jpg" alt="" width="400" height="780" loading="lazy"></div><div class="tx"><h3 data-t="h1"></h3><p data-t="p1"></p><p data-t="p2" style="margin-top:12px"></p></div></article>
+        <article class="cfeat"><div class="ph"><img src="assets/comp-fisher.jpg" alt="" width="400" height="780" loading="lazy"></div><div class="tx"><h3 data-t="h3"></h3><p data-t="p3"></p></div></article>
+        <article class="cfeat"><div class="ph"><img src="assets/comp-bank.jpg" alt="" width="400" height="780" loading="lazy"></div><div class="tx"><h3 data-t="h4"></h3><p data-t="p4"></p></div></article>
+      </div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <div class="crow">
+        <section class="panel cc"><h3 data-t="h5"></h3><ul id="rules"></ul></section>
+        <section class="panel cc"><h3 data-t="h6"></h3><ol id="steps"></ol></section>
+      </div>
+      <p style="margin:28px 0 0"><a class="btn quiet" href="./" data-t="back"></a></p>
+    </div>
+  </section>
 </main>
-<footer><div class="fline" aria-hidden="true"></div><div class="in wrap"><p><a href="./">The Serpent's Oath</a></p></div></footer>
+<footer>
+  <div class="fline" aria-hidden="true"></div>
+  <div class="in wrap">
+    <img src="assets/logo/logotype.png" alt="The Serpent's Oath" width="702" height="426">
+    <p data-t="foot"></p>
+    <p class="links"><a href="index.html" data-t="home"></a><a href="privacy.html" data-t="g_privacy_link"></a><a href="terms.html" data-t="g_terms_link"></a></p>
+  </div>
+<p class="rights" aria-label="Copyright"><span lang="he">© 2026 · כל הזכויות שמורות ל-The Serpent's Oath</span><span lang="en">© 2026 The Serpent's Oath. All rights reserved.</span><span lang="es">© 2026 The Serpent's Oath. Todos los derechos reservados.</span></p>
+</footer>
 <script src="lang.js"></script>
 <script src="nav.js"></script>
 <script src="nav-auth.js"></script>
 <script>
-const T = {"he":{"title":"אפליקציית Companion: הכפר הקטן שלך","tag":"בטא","h":"הכפר הקטן שלך","lead":"אפליקציה נלווית למשחק: כפר שקט ומלא חיים שבו הדמות האמיתית שלך הולכת, מדברת עם תושבים ועובדת בשבילך גם כשאת/ה רחוק/ה מהמחשב. נכנסים עם אותו חשבון של המשחק.","dl":"פתיחת האפליקציה","soon":"בדפדפן, בלי הורדה","dlnote":"האפליקציה היא אתר שמתקינים על המסך הראשי, בלי חנות אפליקציות. כניסה עם אותו שם משתמש וסיסמה של המשחק.","h1":"מה זה","p1":"כפר קטן בתלת-ממד באותו סגנון פיקסל-ארט של המשחק: כמה בתים, כנסייה, ואגם גדול שרואים ממנו רק חלק. בלי קרבות ובלי עולם פתוח. הדמות שלך נראית בדיוק כמו במשחק, עם הציוד הנוכחי שלה.","h2":"פעילויות AFK","p2":"כרגע פעיל הדייג. בהמשך יתווספו שליחויות, איסוף עשבים, גינון, בישול ותפילה. מתחילים, סוגרים את האפליקציה וחוזרים לקבל את התוצאות. השרת סופר את הזמן, לא המכשיר, ויש תקרה לזמן שאפשר לצבור כשלא מחוברים.","h3":"דייג: שבעה דגים","p3":"הדייג של האגם תופס דג כל כמה דקות. יש שבעה סוגים, מדג בריכה נפוץ ועד דג הנחש העתיק, נדיר מאוד. מוכרים דגים תמורת אסימוני אגם ואוספים את כל הסוגים בספר הדגים.","h4":"בנק משותף לכל החשבון","p4":"אצל הבנקאי יש בנק אחד לכל החשבון עם 10 משבצות: מפקידים עם דמות אחת ומושכים עם דמות אחרת. הבנקאי נמצא גם במשחק, באלאיה. פריטי משחק נשארים במשחק ואפשר להוציא אותם רק שם, ודגים רק באפליקציה. האפליקציה לא נוגעת בתיק של הדמות במשחק.","h5":"כללים הוגנים","li":["חשבון אחד ודמות אחת: דמות לא יכולה להיות פעילה במשחק ובאפליקציה באותו זמן. כשהדמות במשחק האפליקציה לא נותנת להיכנס אליה.","פעילות אחת לכל דמות, והיא מושהית בזמן שהדמות במשחק.","הכול מחושב ונשמר בשרת. אין שום יתרון בקרב."],"h6":"איך מתקינים","steps":["אנדרואיד: פותחים את האפליקציה ב-Chrome, בתפריט (שלוש נקודות) בוחרים \"התקנת אפליקציה\" או \"הוספה למסך הבית\".","אייפון: פותחים ב-Safari, לוחצים על כפתור השיתוף ובוחרים \"הוסף למסך הבית\".","נכנסים עם שם המשתמש והסיסמה של המשחק ובוחרים דמות."],"back":"חזרה לדף הבית"},"en":{"title":"Companion app: your little village","tag":"Beta","h":"Your little village","lead":"A companion app for the game: a quiet, lively village where your real character walks, talks to the residents and works for you even when you are away from the PC. You sign in with the same account as the game.","dl":"Open the app","soon":"in your browser, no download","dlnote":"The app is a web app you install to your home screen. There is no app store. Sign in with the same username and password as the game.","h1":"What it is","p1":"A tiny 3D village in the same pixel-art style as the game: a few houses, a church, and a large lake of which you only see a part. No combat and no open world. Your character looks exactly as in the game, with the gear it wears now.","h2":"AFK activities","p2":"Fishing is live now. Errands, herb gathering, gardening, cooking and prayer come later. Start one, close the app and come back for the results. The server counts the time, not your device, and there is a cap on how much you can collect while away.","h3":"Fishing: seven fish","p3":"The lake's fisherman catches a fish every few minutes. There are seven kinds, from the common Pond Minnow to the Ancient Lake Serpentfish, very rare. Sell fish for Lake Tokens and collect every kind in the fish book.","h4":"One bank for the whole account","p4":"The banker keeps one 10-slot bank for the whole account: deposit with one character and withdraw with another. The Banker is in the game too, in Elaia. Game items stay game items and come out only there; fish come out only in the app. The app never touches the character's bag in the game.","h5":"Fair rules","li":["One account and one character: a character cannot be active in the game and in the app at the same time. While it is in the game, the app will not let you in.","One activity per character, paused while the character is in the game.","Everything is calculated and saved on the server. Nothing gives an edge in combat."],"h6":"How to install","steps":["Android: open the app in Chrome, open the menu (three dots) and choose \"Install app\" or \"Add to Home screen\".","iPhone: open it in Safari, tap the Share button and choose \"Add to Home Screen\".","Sign in with your game username and password and pick a character."],"back":"Back to the home page"},"es":{"title":"App Companion: tu pequeña aldea","tag":"Beta","h":"Tu pequeña aldea","lead":"Una app complementaria del juego: una aldea tranquila y viva donde tu personaje real camina, habla con los vecinos y trabaja para ti aunque estés lejos del PC. Entras con la misma cuenta del juego.","dl":"Abrir la app","soon":"en el navegador, sin descarga","dlnote":"La app es una web app que se instala en la pantalla de inicio. No hay tienda de apps. Entra con el mismo usuario y contraseña del juego.","h1":"Qué es","p1":"Una pequeña aldea en 3D con el mismo estilo pixel art del juego: unas pocas casas, una iglesia y un gran lago del que solo ves una parte. Sin combate y sin mundo abierto. Tu personaje se ve igual que en el juego, con el equipo que lleva ahora.","h2":"Actividades AFK","p2":"Ahora mismo funciona la pesca. Los recados, la recolección de hierbas, la jardinería, la cocina y la oración llegarán después. Empieza una, cierra la app y vuelve por los resultados. El servidor cuenta el tiempo, no tu dispositivo, y hay un tope de lo que se acumula estando ausente.","h3":"Pesca: siete peces","p3":"El pescador del lago pesca un pez cada pocos minutos. Hay siete tipos, desde la común Carpita de estanque hasta la Serpiente del lago antigua, muy rara. Vende peces por Fichas del lago y colecciona todos en el libro de peces.","h4":"Un banco para toda la cuenta","p4":"El banquero guarda un banco de 10 casillas para toda la cuenta: deposita con un personaje y retira con otro. El Banquero también está en el juego, en Elaia. Los objetos del juego solo se sacan allí; los peces solo en la app. La app nunca toca la bolsa del personaje en el juego.","h5":"Reglas justas","li":["Una cuenta y un personaje: un personaje no puede estar activo en el juego y en la app a la vez. Mientras está en el juego, la app no deja entrar.","Una actividad por personaje, en pausa mientras el personaje está en el juego.","Todo se calcula y se guarda en el servidor. Nada da ventaja en combate."],"h6":"Cómo instalar","steps":["Android: abre la app en Chrome, abre el menú (tres puntos) y elige \"Instalar app\" o \"Añadir a la pantalla de inicio\".","iPhone: ábrela en Safari, toca Compartir y elige \"Añadir a pantalla de inicio\".","Entra con tu usuario y contraseña del juego y elige un personaje."],"back":"Volver al inicio"}};
+const T = {"he": {"title": "אפליקציית Companion: הכפר הקטן שלך", "tag": "בטא", "h": "הכפר הקטן שלך", "lead": "אפליקציה נלווית למשחק: כפר שקט ומלא חיים שבו הדמות האמיתית שלך הולכת, מדברת עם תושבים ועובדת בשבילך גם כשאת/ה רחוק/ה מהמחשב. נכנסים עם אותו חשבון של המשחק.", "dl": "פתיחת האפליקציה", "soon": "בדפדפן, בלי הורדה", "dlnote": "האפליקציה היא אתר שמתקינים על המסך הראשי, בלי חנות אפליקציות. כניסה עם אותו שם משתמש וסיסמה של המשחק.", "h1": "מה זה", "p1": "כפר קטן בתלת-ממד באותו סגנון פיקסל-ארט של המשחק: כמה בתים, כנסייה, ואגם גדול שרואים ממנו רק חלק. בלי קרבות ובלי עולם פתוח. הדמות שלך נראית בדיוק כמו במשחק, עם הציוד הנוכחי שלה.", "h2": "פעילויות AFK", "p2": "כרגע פעיל הדייג. בהמשך יתווספו שליחויות, איסוף עשבים, גינון, בישול ותפילה. מתחילים, סוגרים את האפליקציה וחוזרים לקבל את התוצאות. השרת סופר את הזמן, לא המכשיר, ויש תקרה לזמן שאפשר לצבור כשלא מחוברים.", "h3": "דייג: שבעה דגים", "p3": "הדייג של האגם תופס דג כל כמה דקות. יש שבעה סוגים, מדג בריכה נפוץ ועד דג הנחש העתיק, נדיר מאוד. מוכרים דגים תמורת אסימוני אגם ואוספים את כל הסוגים בספר הדגים.", "h4": "בנק משותף לכל החשבון", "p4": "אצל הבנקאי יש בנק אחד לכל החשבון עם 10 משבצות: מפקידים עם דמות אחת ומושכים עם דמות אחרת. הבנקאי נמצא גם במשחק, באלאיה. פריטי משחק נשארים במשחק ואפשר להוציא אותם רק שם, ודגים רק באפליקציה. האפליקציה לא נוגעת בתיק של הדמות במשחק.", "h5": "כללים הוגנים", "li": ["חשבון אחד ודמות אחת: דמות לא יכולה להיות פעילה במשחק ובאפליקציה באותו זמן. כשהדמות במשחק האפליקציה לא נותנת להיכנס אליה.", "פעילות אחת לכל דמות, והיא מושהית בזמן שהדמות במשחק.", "הכול מחושב ונשמר בשרת. אין שום יתרון בקרב."], "h6": "איך מתקינים", "steps": ["אנדרואיד: פותחים את האפליקציה ב-Chrome, בתפריט (שלוש נקודות) בוחרים \"התקנת אפליקציה\" או \"הוספה למסך הבית\".", "אייפון: פותחים ב-Safari, לוחצים על כפתור השיתוף ובוחרים \"הוסף למסך הבית\".", "נכנסים עם שם המשתמש והסיסמה של המשחק ובוחרים דמות."], "back": "חזרה לדף הבית", "foot": "המסע של Val להחזיר את Roye הביתה.", "home": "חזרה לדף הבית", "g_privacy_link": "מדיניות הפרטיות", "g_terms_link": "תנאי השימוש"}, "en": {"title": "Companion app: your little village", "tag": "Beta", "h": "Your little village", "lead": "A companion app for the game: a quiet, lively village where your real character walks, talks to the residents and works for you even when you are away from the PC. You sign in with the same account as the game.", "dl": "Open the app", "soon": "in your browser, no download", "dlnote": "The app is a web app you install to your home screen. There is no app store. Sign in with the same username and password as the game.", "h1": "What it is", "p1": "A tiny 3D village in the same pixel-art style as the game: a few houses, a church, and a large lake of which you only see a part. No combat and no open world. Your character looks exactly as in the game, with the gear it wears now.", "h2": "AFK activities", "p2": "Fishing is live now. Errands, herb gathering, gardening, cooking and prayer come later. Start one, close the app and come back for the results. The server counts the time, not your device, and there is a cap on how much you can collect while away.", "h3": "Fishing: seven fish", "p3": "The lake's fisherman catches a fish every few minutes. There are seven kinds, from the common Pond Minnow to the Ancient Lake Serpentfish, very rare. Sell fish for Lake Tokens and collect every kind in the fish book.", "h4": "One bank for the whole account", "p4": "The banker keeps one 10-slot bank for the whole account: deposit with one character and withdraw with another. The Banker is in the game too, in Elaia. Game items stay game items and come out only there; fish come out only in the app. The app never touches the character's bag in the game.", "h5": "Fair rules", "li": ["One account and one character: a character cannot be active in the game and in the app at the same time. While it is in the game, the app will not let you in.", "One activity per character, paused while the character is in the game.", "Everything is calculated and saved on the server. Nothing gives an edge in combat."], "h6": "How to install", "steps": ["Android: open the app in Chrome, open the menu (three dots) and choose \"Install app\" or \"Add to Home screen\".", "iPhone: open it in Safari, tap the Share button and choose \"Add to Home Screen\".", "Sign in with your game username and password and pick a character."], "back": "Back to the home page", "foot": "Val's journey to bring Roye home.", "home": "Back to the home page", "g_privacy_link": "Privacy Policy", "g_terms_link": "Terms of Service"}, "es": {"title": "App Companion: tu pequeña aldea", "tag": "Beta", "h": "Tu pequeña aldea", "lead": "Una app complementaria del juego: una aldea tranquila y viva donde tu personaje real camina, habla con los vecinos y trabaja para ti aunque estés lejos del PC. Entras con la misma cuenta del juego.", "dl": "Abrir la app", "soon": "en el navegador, sin descarga", "dlnote": "La app es una web app que se instala en la pantalla de inicio. No hay tienda de apps. Entra con el mismo usuario y contraseña del juego.", "h1": "Qué es", "p1": "Una pequeña aldea en 3D con el mismo estilo pixel art del juego: unas pocas casas, una iglesia y un gran lago del que solo ves una parte. Sin combate y sin mundo abierto. Tu personaje se ve igual que en el juego, con el equipo que lleva ahora.", "h2": "Actividades AFK", "p2": "Ahora mismo funciona la pesca. Los recados, la recolección de hierbas, la jardinería, la cocina y la oración llegarán después. Empieza una, cierra la app y vuelve por los resultados. El servidor cuenta el tiempo, no tu dispositivo, y hay un tope de lo que se acumula estando ausente.", "h3": "Pesca: siete peces", "p3": "El pescador del lago pesca un pez cada pocos minutos. Hay siete tipos, desde la común Carpita de estanque hasta la Serpiente del lago antigua, muy rara. Vende peces por Fichas del lago y colecciona todos en el libro de peces.", "h4": "Un banco para toda la cuenta", "p4": "El banquero guarda un banco de 10 casillas para toda la cuenta: deposita con un personaje y retira con otro. El Banquero también está en el juego, en Elaia. Los objetos del juego solo se sacan allí; los peces solo en la app. La app nunca toca la bolsa del personaje en el juego.", "h5": "Reglas justas", "li": ["Una cuenta y un personaje: un personaje no puede estar activo en el juego y en la app a la vez. Mientras está en el juego, la app no deja entrar.", "Una actividad por personaje, en pausa mientras el personaje está en el juego.", "Todo se calcula y se guarda en el servidor. Nada da ventaja en combate."], "h6": "Cómo instalar", "steps": ["Android: abre la app en Chrome, abre el menú (tres puntos) y elige \"Instalar app\" o \"Añadir a la pantalla de inicio\".", "iPhone: ábrela en Safari, toca Compartir y elige \"Añadir a pantalla de inicio\".", "Entra con tu usuario y contraseña del juego y elige un personaje."], "back": "Volver al inicio", "foot": "El viaje de Val para traer a Roye a casa.", "home": "Volver a la página principal", "g_privacy_link": "Política de privacidad", "g_terms_link": "Términos del servicio"}};
 function render(L) {
   const t = T[L] || T.en;
   SoLang.fill(T, L);

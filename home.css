@@ -154,9 +154,6 @@ html[lang="he"] .btn .lbl { text-align: end; }
 .social a.off { color: var(--tx-3); opacity: .55; cursor: default; transform: none; background: transparent; }
 .social a.off:hover { box-shadow: 0 0 0 1px var(--edge), inset 0 0 0 1px var(--line); }
 
-/* ---------- see-through top bar over the hero video (Roy 1.11) ---------- */
-.bar { background: linear-gradient(180deg, rgba(20, 11, 17, .5), rgba(20, 11, 17, 0)); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom-color: transparent; box-shadow: none; transition: background .3s, backdrop-filter .3s; }
-.bar.solid { background: rgba(20, 11, 17, .82); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); }
+/* ---------- the top bar: black at 80%, the video runs up under it (Roy 1.11) ---------- */
 .hero { margin-top: calc(-1 * var(--bar-h)); padding-top: calc(56px + var(--bar-h)); }
-@media (max-width: 900px) { .bar nav { background: rgba(20, 11, 17, .93); } }
-.bar:not(.solid) nav a, .bar:not(.solid) .brand { text-shadow: 0 1px 6px rgba(0,0,0,.85); }
+@media (max-width: 900px) { .bar nav { background: rgba(0, 0, 0, .94); } }
