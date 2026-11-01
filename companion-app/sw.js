@@ -1,5 +1,5 @@
 // The app shell is kept for fast starts and works offline up to the sign-in; every server call goes to the network.
-const V = 'companion-1';
+const V = 'companion-2';
 self.addEventListener('install', (e) => { self.skipWaiting(); });
 self.addEventListener('activate', (e) => { e.waitUntil((async () => { for (const k of await caches.keys()) if (k !== V) await caches.delete(k); await self.clients.claim(); })()); });
 self.addEventListener('fetch', (e) => {
