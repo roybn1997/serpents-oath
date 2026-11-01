@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Serpent's Oath · Companion app</title>
+<meta name="description" content="The Serpent's Oath Companion: a tiny village where your real character fishes, gathers and works while you are away. Same account, a shared 10-slot bank. In development.">
+<meta name="theme-color" content="#140b11">
+<link rel="icon" href="assets/logo/icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;600;700&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="lang.css">
+<style>
+.comp { padding: 56px 0 80px; }
+.comp .tagp { display: inline-block; margin: 0 0 14px; padding: 4px 12px; border-radius: 99px; font: 600 13px/1.4 var(--font-body); color: var(--turq, #34d1bf); box-shadow: inset 0 0 0 1px currentColor; }
+.comp h1 { margin: 0 0 14px; font: 700 clamp(32px, 5vw, 52px)/1.08 var(--font-title); color: var(--gold); }
+html[lang="he"] .comp h1 { letter-spacing: 0; }
+.comp .lead { max-width: 62ch; margin: 0 0 26px; }
+.comp .dls { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 10px; }
+.comp .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+.comp .dlnote { margin: 0 0 44px; color: var(--tx-3); font-size: 14px; max-width: 62ch; }
+.comp .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.comp .panel { padding: 24px 26px 26px; }
+.comp .panel h2 { margin: 0 0 8px; font: 600 20px/1.3 var(--font-body); color: var(--parch-hi); }
+.comp .panel p, .comp .panel li { margin: 0; color: var(--tx-2); }
+.comp .panel ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 8px; }
+.comp .panel ol { margin: 0; padding-inline-start: 22px; display: grid; gap: 6px; color: var(--tx-2); }
+.comp .panel ul, .comp .panel ol { unicode-bidi: plaintext; }
+html[lang="he"] .comp .panel ul, html[lang="he"] .comp .panel ol { direction: rtl; }
+@media (max-width: 760px) { .comp .grid { grid-template-columns: 1fr; } }
+.comp .wide { grid-column: 1 / -1; }
+.comp .back { margin: 36px 0 0; }
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+<header class="bar">
+  <div class="in">
+    <a class="brand" href="./" aria-label="The Serpent's Oath"><img src="assets/logo/icon-512.png" alt="" width="36" height="36"><span>The Serpent's Oath</span></a>
+    <button class="navtg" id="navtg" type="button" aria-expanded="false" aria-controls="mainnav" data-ta="nav_menu"><i aria-hidden="true"></i></button>
+    <nav id="mainnav" hidden>
+      <a href="index.html#game" data-t="nav_game"></a>
+      <a href="index.html#heroes" data-t="nav_lb"></a>
+      <a href="index.html#updates" data-t="nav_upd"></a>
+      <a href="wiki.html" data-t="nav_wiki"></a>
+      <a href="companion.html" aria-current="page" data-t="nav_comp"></a>
+      <a href="forum.html" data-nav="forum" data-t="nav_forum"></a>
+      <a href="account.html" data-nav="acct" data-t="nav_account"></a>
+      <a href="index.html#run" class="navdl" data-t="nav_dl"></a>
+    </nav>
+    <div class="tools">
+      <div class="langw">
+        <button class="chip globe-btn" id="lang" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu"><svg viewBox="0 0 13 13" aria-hidden="true"><path d="M4 0h5v1h-5zM2 1h2v1h-2zM6 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM0 6h13v1h-13zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM6 11h1v1h-1zM9 11h2v1h-2zM4 12h5v1h-5z"/></svg></button>
+        <div class="lmenu" id="lang-menu" role="menu" hidden>
+          <button type="button" role="menuitemradio" class="lopt" data-l="he" lang="he">עברית</button>
+          <button type="button" role="menuitemradio" class="lopt" data-l="en" lang="en">English</button>
+          <button type="button" role="menuitemradio" class="lopt" data-l="es" lang="es">Español</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="comp wrap">
+  <p class="tagp" data-t="tag"></p>
+  <h1 data-t="h"></h1>
+  <p class="lead" data-t="lead"></p>
+  <div class="dls">
+    <a class="btn gold big" href="#" aria-disabled="true" tabindex="-1"><span class="lbl"><span data-t="dl"></span><small data-t="soon"></small></span></a>
+  </div>
+  <p class="dlnote" data-t="dlnote"></p>
+  <div class="grid">
+    <section class="panel"><h2 data-t="h1"></h2><p data-t="p1"></p></section>
+    <section class="panel"><h2 data-t="h2"></h2><p data-t="p2"></p></section>
+    <section class="panel"><h2 data-t="h3"></h2><p data-t="p3"></p></section>
+    <section class="panel"><h2 data-t="h4"></h2><p data-t="p4"></p></section>
+    <section class="panel wide"><h2 data-t="h5"></h2><ul id="rules"></ul></section>
+    <section class="panel wide"><h2 data-t="h6"></h2><ol id="steps"></ol></section>
+  </div>
+  <p class="back"><a class="btn quiet" href="./" data-t="back"></a></p>
+</main>
+<footer><div class="fline" aria-hidden="true"></div><div class="in wrap"><p><a href="./">The Serpent's Oath</a></p></div></footer>
+<script src="lang.js"></script>
+<script src="nav.js"></script>
+<script src="nav-auth.js"></script>
+<script>
+const T = {"he": {"title": "אפליקציית Companion: הכפר הקטן שלך", "tag": "בפיתוח", "h": "הכפר הקטן שלך", "lead": "אפליקציה נלווית למשחק: כפר שקט ומלא חיים שבו הדמות האמיתית שלך הולכת, מדברת עם תושבים ועובדת בשבילך גם כשאת/ה רחוק/ה מהמחשב. נכנסים עם אותו חשבון של המשחק.", "dl": "הורדה", "soon": "בקרוב", "dlnote": "האפליקציה עדיין בפיתוח. כשתהיה מוכנה, כפתורי ההורדה יופיעו כאן. עד אז אין שום קובץ להורדה.", "h1": "מה זה", "p1": "כפר קטן בתלת-ממד באותו סגנון פיקסל-ארט של המשחק: כמה בתים, כנסייה, ואגם גדול שרואים ממנו רק חלק. בלי קרבות ובלי עולם פתוח. הדמות שלך נראית בדיוק כמו במשחק, עם הציוד הנוכחי שלה.", "h2": "פעילויות AFK", "p2": "כל תושב מציע פעילות פשוטה: דייג, שליחויות, איסוף עשבים, גינון, בישול, אומנות ותפילה בכנסייה. מתחילים, סוגרים את האפליקציה, וחוזרים לקבל את התוצאות. השרת מחשב את הזמן, לא המכשיר שלך, ויש תקרה לזמן שאפשר לצבור כשלא מחוברים.", "h3": "דייג: שבעה דגים", "p3": "הדייג של האגם תופס דג כל כמה דקות. יש שבעה סוגים, מדג בריכה נפוץ ועד דג הנחש העתיק, אגדי ונדיר מאוד. מוכרים דגים תמורת מטבעות, מבצעים בקשות יומיות ואוספים את כל הסוגים.", "h4": "הנרתיק החדש ובנק משותף", "p4": "לאפליקציה נרתיק חדש ונוח למסך מגע. כל מה שמרוויחים הוא פריט אמיתי במשחק, ומופיע בנרתיק של הדמות גם בתוך המשחק. אצל הבנקאי בכפר יש בנק אחד לכל החשבון עם 10 משבצות: מפקידים עם דמות אחת ומושכים עם דמות אחרת. אותו בנק יופיע גם במשחק.", "h5": "כללים הוגנים", "li": ["חשבון אחד ודמות אחת: דמות לא יכולה להיות פעילה במשחק ובאפליקציה באותו זמן.", "פעילות אחת לכל דמות, והיא נעצרת כשהדמות מחוברת למשחק.", "הכול מחושב ונשמר בשרת, עם מגבלות יומיות ושבועיות. שיקויי ניסיון נדירים ומוגבלים מאוד.", "שום דבר לא נותן יתרון בקרב. הפרסים הם בעיקר קוסמטיקה וחומרים."], "h6": "השלבים", "steps": ["כניסה, בחירת דמות והכפר עצמו", "נעילת דמות בין המשחק לאפליקציה", "נרתיק ובנק משותף", "דייג", "שאר התושבים והפעילויות"], "back": "חזרה לדף הבית"}, "en": {"title": "Companion app: your little village", "tag": "In development", "h": "Your little village", "lead": "A companion app for the game: a quiet, lively village where your real character walks, talks to the residents and works for you even when you are away from the PC. You sign in with the same account as the game.", "dl": "Download", "soon": "Coming soon", "dlnote": "The app is still in development. The download buttons will appear here when it is ready. Until then there is no file to download.", "h1": "What it is", "p1": "A tiny 3D village in the same pixel-art style as the game: a few houses, a church, and a large lake of which you only see a part. No combat and no open world. Your character looks exactly as in the game, with the gear it wears now.", "h2": "AFK activities", "p2": "Every resident offers a simple activity: fishing, errands, herb gathering, gardening, cooking, crafting and prayer at the church. Start one, close the app and come back for the results. The server counts the time, not your device, and there is a cap on how much you can collect while away.", "h3": "Fishing: seven fish", "p3": "The lake's fisherman catches a fish every few minutes. There are seven kinds, from the common Pond Minnow to the Ancient Lake Serpentfish, a legendary and very rare catch. Sell fish for coins, do the daily requests and collect every kind.", "h4": "A new satchel and a shared bank", "p4": "The app has a new satchel made for touch screens. Everything you earn is a real item in the game and shows in the character's satchel inside the game too. At the banker in the village there is one bank for the whole account with 10 slots: deposit with one character and withdraw with another. The same bank will appear in the game.", "h5": "Fair rules", "li": ["One account and one character: a character cannot be active in the game and in the app at the same time.", "One activity per character, and it pauses while the character is logged in to the game.", "Everything is calculated and saved on the server, with daily and weekly limits. Experience potions are rare and strictly limited.", "Nothing gives an edge in combat. The rewards are mostly cosmetics and materials."], "h6": "The stages", "steps": ["Sign-in, choosing a character and the village itself", "A character lock between the game and the app", "The satchel and the shared bank", "Fishing", "The other residents and activities"], "back": "Back to the home page"}, "es": {"title": "App Companion: tu pequeña aldea", "tag": "En desarrollo", "h": "Tu pequeña aldea", "lead": "Una app complementaria del juego: una aldea tranquila y viva donde tu personaje real camina, habla con los vecinos y trabaja para ti aunque estés lejos del PC. Entras con la misma cuenta del juego.", "dl": "Descargar", "soon": "Próximamente", "dlnote": "La app aún está en desarrollo. Los botones de descarga aparecerán aquí cuando esté lista. Hasta entonces no hay ningún archivo para descargar.", "h1": "Qué es", "p1": "Una pequeña aldea en 3D con el mismo estilo pixel art del juego: unas pocas casas, una iglesia y un gran lago del que solo ves una parte. Sin combate y sin mundo abierto. Tu personaje se ve igual que en el juego, con el equipo que lleva ahora.", "h2": "Actividades AFK", "p2": "Cada vecino ofrece una actividad sencilla: pesca, recados, recolección de hierbas, jardinería, cocina, artesanía y oración en la iglesia. Empieza una, cierra la app y vuelve por los resultados. El servidor cuenta el tiempo, no tu dispositivo, y hay un límite de lo que se acumula estando fuera.", "h3": "Pesca: siete peces", "p3": "El pescador del lago saca un pez cada pocos minutos. Hay siete tipos, desde el común Pez de Estanque hasta el Pez Serpiente Ancestral del Lago, legendario y muy raro. Vende peces por monedas, cumple los encargos diarios y completa la colección.", "h4": "Una mochila nueva y un banco compartido", "p4": "La app tiene una mochila nueva pensada para pantallas táctiles. Todo lo que ganas es un objeto real del juego y también aparece en la mochila del personaje dentro del juego. En la aldea, el banquero ofrece un solo banco para toda la cuenta con 10 casillas: depositas con un personaje y retiras con otro. El mismo banco aparecerá en el juego.", "h5": "Reglas justas", "li": ["Una cuenta y un personaje: un personaje no puede estar activo en el juego y en la app a la vez.", "Una actividad por personaje, que se pausa mientras el personaje está conectado al juego.", "Todo se calcula y se guarda en el servidor, con límites diarios y semanales. Las pociones de experiencia son raras y estrictamente limitadas.", "Nada da ventaja en combate. Las recompensas son sobre todo cosméticos y materiales."], "h6": "Las etapas", "steps": ["Inicio de sesión, elegir personaje y la aldea", "Bloqueo de personaje entre el juego y la app", "La mochila y el banco compartido", "Pesca", "Los demás vecinos y actividades"], "back": "Volver al inicio"}};
+function render(L) {
+  const t = T[L] || T.en;
+  SoLang.fill(T, L);
+  const pre = L === 'he' ? '\u200f' : '';
+  for (const [id, k] of [['rules', 'li'], ['steps', 'steps']]) {
+    const ul = document.getElementById(id); ul.textContent = '';
+    for (const s of t[k]) { const li = document.createElement('li'); li.textContent = pre + s; ul.append(li); }
+  }
+  document.title = t.title + ' · The Serpent\'s Oath';
+}
+SoLang.mount((L) => SoLang.show(L));
+document.addEventListener('so-lang', (e) => render(e.detail));
+SoLang.show(SoLang.pick());
+</script>
+</body>
+</html>

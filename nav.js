@@ -3,9 +3,9 @@
 // it listens for the 'so-lang' event that SoLang.show sends on every language change.
 (() => {
   const NAV = {
-    he: { nav_game: 'המשחק', nav_lb: 'היכל התהילה', nav_upd: 'עדכונים', nav_wiki: 'ויקי', nav_forum: 'פורום', nav_account: 'כניסה', nav_dl: 'הורדה', nav_menu: 'תפריט' },
-    en: { nav_game: 'The game', nav_lb: 'Hall of Fame', nav_upd: 'Updates', nav_wiki: 'Wiki', nav_forum: 'Forum', nav_account: 'Sign in', nav_dl: 'Download', nav_menu: 'Menu' },
-    es: { nav_game: 'El juego', nav_lb: 'Salón de la fama', nav_upd: 'Novedades', nav_wiki: 'Wiki', nav_forum: 'Foro', nav_account: 'Entrar', nav_dl: 'Descargar', nav_menu: 'Menú' },
+    he: { nav_game: 'המשחק', nav_lb: 'היכל התהילה', nav_upd: 'עדכונים', nav_wiki: 'ויקי', nav_comp: 'Companion', nav_forum: 'פורום', nav_account: 'כניסה', nav_dl: 'הורדה', nav_menu: 'תפריט' },
+    en: { nav_game: 'The game', nav_lb: 'Hall of Fame', nav_upd: 'Updates', nav_wiki: 'Wiki', nav_comp: 'Companion', nav_forum: 'Forum', nav_account: 'Sign in', nav_dl: 'Download', nav_menu: 'Menu' },
+    es: { nav_game: 'El juego', nav_lb: 'Salón de la fama', nav_upd: 'Novedades', nav_wiki: 'Wiki', nav_comp: 'Companion', nav_forum: 'Foro', nav_account: 'Entrar', nav_dl: 'Descargar', nav_menu: 'Menú' },
   };
   function fill(L) {
     const t = NAV[L] || NAV.en, pre = L === 'he' ? '‏' : '';
