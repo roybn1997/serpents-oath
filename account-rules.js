@@ -93,12 +93,22 @@
   }
   const genderProblem = (g) => (GENDERS.includes(g) ? null : 'EMPTY');
 
+  // the invitation code (BETA: no account without one): 8 letters and digits (A-Z, 2-9), any case, spaces dropped
+  const INVITE_LENGTH = 8;
+  const cleanInvite = (raw) => String(raw == null ? '' : raw).replace(/[\s\u00a0-]/g, '').toUpperCase();
+  function inviteProblem(raw) {
+    const c = cleanInvite(raw);
+    if (!c) return 'EMPTY';
+    return /^[A-Z2-9]{8}$/.test(c) ? null : 'INVITE_FORMAT';
+  }
+
   // every problem of the registration form, { field: code } (empty object = fine)
   function registerProblems(f, today) {
     const out = {};
     const put = (k, v) => { if (v) out[k] = v; };
     put('username', usernameProblem(f.username));
     put('email', emailProblem(f.email));
+    put('inviteCode', inviteProblem(f.inviteCode));
     put('password', passwordProblem(f.password, { username: f.username, email: f.email }));
     if (!out.password && f.password !== f.password2) out.password2 = 'MISMATCH';
     put('birthDate', birthProblem(f.birthDate, today));
@@ -107,9 +117,10 @@
     return out;
   }
   // "finish your account": the username only when the account has none yet (a first Google / Facebook sign-in)
-  function finishProblems(f, { needUsername = false } = {}, today) {
+  function finishProblems(f, { needUsername = false, needInvite = false } = {}, today) {
     const out = {};
     const put = (k, v) => { if (v) out[k] = v; };
+    if (needInvite) put('inviteCode', inviteProblem(f.inviteCode));
     if (needUsername) put('username', usernameProblem(f.username));
     put('birthDate', birthProblem(f.birthDate, today));
     put('gender', genderProblem(f.gender));
@@ -143,5 +154,5 @@
   }
 
   return { USERNAME, PASSWORD, MIN_AGE, GENDERS, usernameProblem, emailProblem, looksLikeEmail, passwordScore, passwordProblem,
-    parseDate, ageOn, birthProblem, genderProblem, registerProblems, finishProblems, signInProblems, resetProblems, cleanCode, codeProblem, CODE_LENGTH };
+    parseDate, ageOn, birthProblem, genderProblem, registerProblems, finishProblems, INVITE_LENGTH, cleanInvite, inviteProblem, signInProblems, resetProblems, cleanCode, codeProblem, CODE_LENGTH };
 }));

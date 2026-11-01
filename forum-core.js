@@ -62,9 +62,11 @@
     if (e.soCode) return e.soCode;
     const msg = String(e.message || e.msg || e.error_description || ''), c = String(e.code || e.error_code || ''), st = +e.status || 0;
     if (c === 'P0001' && /^[A-Z_]+(:[A-Z_0-9]+)?$/.test(msg)) return msg.split(':')[0];
+    if ((st === 500 || e.name === 'AuthRetryableFetchError') && /saving new user/i.test(msg)) return 'SIGNUP_REJECTED'; // (supabase-js calls every 500 "retryable": the sign-up trigger's refusal, e.g. no good invitation code, is not a network failure)
     if (e.name === 'AuthRetryableFetchError' || /failed to fetch|networkerror|load failed|network request failed/i.test(msg)) return 'NETWORK';
     if (c === 'invalid_credentials' || /invalid login credentials/i.test(msg)) return 'BAD_CREDENTIALS';
     if (c === 'email_not_confirmed') return 'EMAIL_NOT_CONFIRMED';
+    if (/INVITE_(REQUIRED|INVALID)/.test(msg)) return /INVITE_REQUIRED/.test(msg) ? 'INVITE_REQUIRED' : 'INVITE_INVALID'; // the sign-up gate, when its words come through
     if (c === 'user_already_exists' || c === 'email_exists' || /already registered/i.test(msg)) return 'EMAIL_TAKEN';
     if (c === 'weak_password') return 'PASSWORD_WEAK';
     if (c === 'same_password') return 'SAME_PASSWORD';
@@ -75,7 +77,6 @@
     if (c === 'flow_state_not_found' || c === 'flow_state_expired' || c === 'bad_code_verifier') return 'OAUTH_EXPIRED';
     if (c === 'refresh_token_not_found' || c === 'session_not_found' || c === 'bad_jwt' || c === 'PGRST301' || c === 'PGRST303') return 'SESSION_EXPIRED';
     if (st === 429 || c === 'over_email_send_rate_limit' || c === 'over_request_rate_limit' || /rate limit|only request this after/i.test(msg)) return 'RATE_LIMITED';
-    if (st === 500 && /saving new user/i.test(msg)) return 'SIGNUP_REJECTED';
     if (c === '42501' || st === 403) return 'FORBIDDEN';
     if (st >= 500) return 'SERVICE';
     return 'ERROR';

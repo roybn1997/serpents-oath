@@ -3,12 +3,12 @@
 // (game repo launcher/app/lib/account.js), through supabase-js:
 //   * sign in with a username or an email and the password (a username: public.login_email() hands back the address
 //     only with the right password); an address never confirmed goes to the code step with a fresh code;
-//   * register: username, email, password (8+), date of birth, gender, the terms (the launcher's own form and rules,
+//   * register: invitation code (8 letters and digits, sent as the sign-up's invite_code; BETA), username, email, password (8+), date of birth, gender, the terms (the launcher's own form and rules,
 //     account-rules.js); the sign-up trigger makes the same profile the game reads. "Confirm email" is on: Supabase mails
 //     a 6-digit code ({{ .Token }}), typed here (verifyOtp type 'signup');
 //   * forgot password: a mailed code (verifyOtp type 'recovery') or its link back to this page, then the new password;
 //   * Google / Facebook (OAuth, back to this page); a first OAuth sign-in or an older account finishes here
-//     (complete_profile: username, birth date, gender, the terms), as in the launcher;
+//     (redeem_invite when account_status.needs_invite, then complete_profile: username, birth date, gender, the terms), as in the launcher;
 //   * signed in: your own page (profile.js) with your characters, and Sign out.
 // ?next=<forum.html?...> comes back to that page after signing in; ?mode=register opens the registration.
 (() => {
@@ -20,7 +20,8 @@
   const draft = {}; // what is typed, kept across views and language switches
   const FIELD = { USERNAME_TAKEN: 'username', USERNAME_INVALID: 'username', EMAIL_TAKEN: 'email', EMAIL_INVALID: 'email', TOO_YOUNG: 'birthDate',
     BIRTH_DATE_INVALID: 'birthDate', BIRTH_DATE_LOCKED: 'birthDate', GENDER_INVALID: 'gender', TERMS_REQUIRED: 'acceptTerms', TERMS_OUTDATED: 'acceptTerms',
-    BAD_CREDENTIALS: 'password', PASSWORD_WEAK: 'password', SAME_PASSWORD: 'password', CODE_INVALID: 'code', CODE_WRONG: 'code', CODE_EXPIRED: 'code' };
+    BAD_CREDENTIALS: 'password', PASSWORD_WEAK: 'password', SAME_PASSWORD: 'password', CODE_INVALID: 'code', CODE_WRONG: 'code', CODE_EXPIRED: 'code',
+    INVITE_REQUIRED: 'inviteCode', INVITE_INVALID: 'inviteCode', INVITE_FORMAT: 'inviteCode' };
   const MONTHS_HE = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
   const nfkc = (s) => String(s == null ? '' : s).trim().normalize('NFKC');
   const sb = () => F.client();
@@ -46,6 +47,12 @@
     if (draft[name] != null && type !== 'password') i.value = draft[name];
     i.addEventListener('input', () => { draft[name] = i.value; });
     if (type === 'email' || name === 'identifier' || name === 'username') { i.dir = 'auto'; i.spellcheck = false; i.autocapitalize = 'off'; }
+    if (name === 'inviteCode') { // 8 capitals, no spaces, left to right in every language
+      i.dir = 'ltr'; i.spellcheck = false; i.autocapitalize = 'characters'; i.maxLength = 16; i.placeholder = 'XXXXXXXX'; i.classList.add('invite');
+      i.style.textTransform = 'uppercase'; i.style.letterSpacing = '.2em'; i.style.textAlign = 'left';
+      i.value = R.cleanInvite(draft[name]).slice(0, R.INVITE_LENGTH);
+      i.addEventListener('input', () => { const v = R.cleanInvite(i.value).slice(0, R.INVITE_LENGTH); if (v !== i.value) i.value = v; draft[name] = v; });
+    }
     return i;
   }
   function form(onSubmit) {
@@ -178,7 +185,7 @@
   function vRegister() {
     const f = form(register);
     const un = inp('username', 'text', 'username'), em = inp('email', 'email', 'email'), pw = inp('password', 'password', 'new-password'), pw2 = inp('password2', 'password', 'new-password');
-    f.append(fld('username', 'g_username', un, { hint: t('g_username_hint') }), fld('email', 'g_email', em));
+    f.append(fld('inviteCode', 'g_invite', inp('inviteCode', 'text', 'off'), { hint: t('g_invite_hint') }), fld('username', 'g_username', un, { hint: t('g_username_hint') }), fld('email', 'g_email', em));
     const pf = fld('password', 'g_password', pw); pf.insertBefore(strength(pw), pf.querySelector('.ferrm')); f.append(pf, fld('password2', 'g_password2', pw2));
     const bd = el('div', 'fld' + (errs.birthDate ? ' bad' : '')); bd.append(el('span', 'lbl', t('g_birth')), birthPicker(false), el('div', 'ferrm', errs.birthDate ? feText(errs.birthDate) : '')); f.append(bd);
     const gd = el('div', 'fld' + (errs.gender ? ' bad' : '')); gd.append(el('span', 'lbl', t('g_gender')), genderPicker(), el('div', 'ferrm', errs.gender ? feText(errs.gender) : '')); f.append(gd);
@@ -230,6 +237,7 @@
     const st = S.status || {}, f = form(finish);
     const who = el('p', 'hint'); who.append(F.tn('g_finish_who', { who: el('b', '', st.username || (S.user && S.user.email) || '') }), ' ');
     who.append(textBtn('g_not_you', signOut)); f.append(who);
+    if (st.needs_invite) f.append(fld('inviteCode', 'g_invite', inp('inviteCode', 'text', 'off'), { hint: t('g_invite_hint') }));
     if (!st.has_profile) f.append(fld('username', 'g_username', inp('username', 'text', 'username'), { hint: t('g_username_hint') }));
     if (st.birth_date) draft.birthDate = st.birth_date;
     if (st.gender && !draft.gender) draft.gender = st.gender;
@@ -282,7 +290,7 @@
     });
   }
   async function register() {
-    const f = { username: draft.username, email: draft.email, password: val('password'), password2: val('password2'), birthDate: draft.birthDate, gender: draft.gender, acceptTerms: draft.acceptTerms === true };
+    const f = { inviteCode: draft.inviteCode, username: draft.username, email: draft.email, password: val('password'), password2: val('password2'), birthDate: draft.birthDate, gender: draft.gender, acceptTerms: draft.acceptTerms === true };
     errs = R.registerProblems(f, new Date());
     if (Object.keys(errs).length) { S.notice = 'FORM'; render(); focusFirst(); return; }
     await run(async () => {
@@ -291,8 +299,9 @@
       if (st === 'TAKEN') throw Object.assign(new Error(''), { soCode: 'USERNAME_TAKEN', fields: { username: 'TAKEN' } });
       if (typeof st === 'string' && st.startsWith('INVALID:')) throw Object.assign(new Error(''), { soCode: 'USERNAME_INVALID', fields: { username: st.slice(8) } });
       const { data, error } = await sb().auth.signUp({ email, password: f.password, options: { emailRedirectTo: back(),
-        data: { username, birth_date: f.birthDate, gender: f.gender, terms_version: S.legal.terms_version } } });
+        data: { username, birth_date: f.birthDate, gender: f.gender, terms_version: S.legal.terms_version, invite_code: R.cleanInvite(f.inviteCode) } } });
       if (error) throw error;
+      delete draft.inviteCode; // (used up)
       // an address already registered: Supabase answers with a user that has no identities (and sends nothing)
       if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) throw Object.assign(new Error(''), { soCode: 'EMAIL_TAKEN' });
       if (data.session) { await adopt(data.session); return; }
@@ -365,13 +374,17 @@
   }
   async function finish() {
     const st = S.status || {};
-    const f = { username: draft.username, birthDate: st.birth_date || draft.birthDate, gender: draft.gender, acceptTerms: draft.acceptTerms === true };
-    errs = R.finishProblems(f, { needUsername: !st.has_profile }, new Date());
+    const f = { inviteCode: draft.inviteCode, username: draft.username, birthDate: st.birth_date || draft.birthDate, gender: draft.gender, acceptTerms: draft.acceptTerms === true };
+    errs = R.finishProblems(f, { needUsername: !st.has_profile, needInvite: !!st.needs_invite }, new Date());
     if (Object.keys(errs).length) { S.notice = 'FORM'; render(); focusFirst(); return; }
     await run(async () => {
       if (!st.has_profile) {
         const u = await F.rpc('username_status', { p_username: nfkc(f.username) });
         if (u === 'TAKEN') throw Object.assign(new Error(''), { soCode: 'USERNAME_TAKEN', fields: { username: 'TAKEN' } });
+      }
+      if (st.needs_invite) { // Google / Facebook: the code first, once the form and the username are right (a good code is used up for good)
+        S.status = await F.rpc('redeem_invite', { p_code: R.cleanInvite(f.inviteCode) });
+        delete draft.inviteCode;
       }
       S.status = await F.rpc('complete_profile', { p_username: st.has_profile ? null : nfkc(f.username), p_birth_date: f.birthDate, p_gender: f.gender, p_terms_version: S.legal.terms_version });
       if (!S.status.ready) throw Object.assign(new Error(''), { soCode: S.status.problem || 'ERROR' });
