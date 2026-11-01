@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Serpent's Oath: Player</title>
+<meta name="description" content="A player's page on The Serpent's Oath forum: join date, rank and posts.">
+<meta name="theme-color" content="#140b11">
+<link rel="icon" href="assets/logo/icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;700&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="lang.css">
+<link rel="stylesheet" href="forum.css">
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+
+<header class="bar">
+  <div class="in">
+    <a class="brand" href="index.html" aria-label="The Serpent's Oath"><img src="assets/logo/icon-512.png" alt="" width="36" height="36"><span>The Serpent's Oath</span></a>
+    <button class="navtg" id="navtg" type="button" aria-expanded="false" aria-controls="mainnav" aria-label="Menu"><i aria-hidden="true"></i></button>
+    <nav id="mainnav" hidden>
+      <a href="index.html#game" data-t="nav_game"></a>
+      <a href="index.html#heroes" data-t="nav_lb"></a>
+      <a href="index.html#updates" data-t="nav_upd"></a>
+      <a href="wiki.html" data-t="nav_wiki"></a>
+      <a href="forum.html" data-nav="forum" data-t="nav_forum"></a>
+      <a href="account.html" aria-current="page" data-nav="acct" data-t="nav_account"></a>
+      <a href="index.html#run" class="navdl" data-t="nav_dl"></a>
+    </nav>
+    <div class="tools">
+      <div class="langw">
+        <button class="chip globe-btn" id="lang" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu"><svg viewBox="0 0 13 13" aria-hidden="true"><path d="M4 0h5v1h-5zM2 1h2v1h-2zM6 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM0 6h13v1h-13zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM6 11h1v1h-1zM9 11h2v1h-2zM4 12h5v1h-5z"/></svg></button>
+        <div class="lmenu" id="lang-menu" role="menu" hidden>
+          <button type="button" role="menuitemradio" class="lopt" data-l="he" lang="he">עברית</button>
+          <button type="button" role="menuitemradio" class="lopt" data-l="en" lang="en">English</button>
+          <button type="button" role="menuitemradio" class="lopt" data-l="es" lang="es">Español</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="fwrap" id="view"><noscript><p class="loading">This page needs JavaScript.</p></noscript></main>
+
+<footer>
+  <div class="fline" aria-hidden="true"></div>
+  <div class="in wrap">
+    <img src="assets/logo/logotype.png" alt="The Serpent's Oath" width="702" height="426">
+    <p data-t="foot"></p>
+    <p class="links"><a href="index.html" data-t="home"></a><a href="privacy.html" data-t="g_privacy_link"></a><a href="terms.html" data-t="g_terms_link"></a></p>
+  </div>
+<p class="rights" aria-label="Copyright"><span lang="he">© 2026 · כל הזכויות שמורות ל-The Serpent's Oath</span><span lang="en">© 2026 The Serpent's Oath. All rights reserved.</span><span lang="es">© 2026 The Serpent's Oath. Todos los derechos reservados.</span></p>
+</footer>
+
+<!-- the site's settings (SITE.SUPABASE_URL / ANON_KEY), the language menu, and the sign-in library at a fixed version -->
+<script src="updates.js"></script>
+<script src="lang.js"></script>
+<script src="nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" integrity="sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R" crossorigin="anonymous"></script>
+<script src="forum-i18n.js"></script>
+<script src="account-i18n.js"></script>
+<script src="nav-auth.js"></script>
+<script src="forum-core.js"></script>
+<script src="profile.js"></script>
+<script src="user.js"></script>
+</body>
+</html>

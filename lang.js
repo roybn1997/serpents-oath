@@ -1,7 +1,7 @@
-// The site's language menu (Roy, 24.10): a pixel globe in the top bar opens a small menu, עברית / English / Español.
-// Used by index.html and wiki.html. The choice is kept in localStorage 'so-lang'. Hebrew is right-to-left, the others
-// left-to-right. Order: ?lang=he|en|es, the visitor's last choice, else English
-// (the browser's language is not consulted: English is the default, Roy 27.10).
+// The site's language: עברית / English / Español, chosen from the globe in the top bar.
+// Used by every page. The choice is kept in localStorage 'so-lang'. Order: ?lang=he|en|es, the visitor's last choice,
+// else English. The layout never flips: <html dir> stays ltr and each text block is unicode-bidi: plaintext (site.css),
+// so Hebrew reads right-to-left inside the same layout as English and Spanish (Roy's rule).
 (() => {
   const CODES = ['he', 'en', 'es'];
   const ARIA = { he: 'שפה: עברית', en: 'Language: English', es: 'Idioma: español' };
@@ -12,9 +12,9 @@
     try { const s = ok(localStorage.getItem('so-lang')); if (s) return s; } catch (e) { /* storage off */ }
     return 'en';
   }
-  // wires the globe (#lang) and its menu (#lang-menu); onChange(L) redraws the page in the chosen language
   function mount(onChange) {
     const btn = document.getElementById('lang'), menu = document.getElementById('lang-menu');
+    if (!btn || !menu) return;
     const items = [...menu.querySelectorAll('[data-l]')];
     const open = (on, focusBtn) => {
       menu.hidden = !on; btn.setAttribute('aria-expanded', String(on));
@@ -31,17 +31,33 @@
       const i = items.indexOf(document.activeElement);
       if (e.key === 'Escape') { e.preventDefault(); open(false, true); }
       else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus(); }
-      else if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); items[e.key === 'Home' ? 0 : items.length - 1].focus(); }
       else if (e.key === 'Tab') open(false);
     });
     document.addEventListener('pointerdown', (e) => { if (!menu.hidden && !e.target.closest('.langw')) open(false); });
   }
-  // marks the current language (call after every change)
   function show(L) {
-    const h = document.documentElement; h.lang = L; h.dir = L === 'he' ? 'rtl' : 'ltr';
+    const h = document.documentElement; h.lang = L; h.dir = 'ltr';
     const btn = document.getElementById('lang');
-    btn.setAttribute('aria-label', ARIA[L]); btn.title = ARIA[L];
+    if (btn) { btn.setAttribute('aria-label', ARIA[L]); btn.title = ARIA[L]; }
     for (const b of document.querySelectorAll('#lang-menu [data-l]')) b.setAttribute('aria-checked', String(b.dataset.l === L));
+    document.dispatchEvent(new CustomEvent('so-lang', { detail: L }));
   }
-  window.SoLang = { pick, mount, show };
+  // fills every [data-t] (text) and [data-h] (fixed markup) from a strings table
+  function fill(T, L, vars) {
+    const t = T[L] || T.en;
+    // Hebrew strings get a leading RLM, so unicode-bidi: plaintext reads them right-to-left even when they open with Latin
+    const sub = (s) => (L === 'he' ? '\u200f' : '') + String(s).replace(/\{(\w+)\}/g, (m, k) => (vars && k in vars ? vars[k] : m));
+    for (const n of document.querySelectorAll('[data-t]')) { const k = n.dataset.t; if (k in t) n.textContent = sub(t[k]); }
+    for (const n of document.querySelectorAll('[data-h]')) { const k = n.dataset.h; if (k in t) n.innerHTML = sub(t[k]); }
+    for (const n of document.querySelectorAll('[data-ta]')) { const k = n.dataset.ta; if (k in t) n.setAttribute('aria-label', t[k]); }
+    for (const n of document.querySelectorAll('[data-tp]')) { const k = n.dataset.tp; if (k in t) n.setAttribute('placeholder', t[k]); }
+  }
+  // the date, in the language
+  function fmt(iso, L) {
+    const [y, m, d] = iso.split('-').map(Number);
+    const dt = new Date(y, m - 1, d);
+    try { return dt.toLocaleDateString(L === 'he' ? 'he-IL' : L === 'es' ? 'es-ES' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); }
+    catch (e) { return `${d}.${m}.${y}`; }
+  }
+  window.SoLang = { pick, mount, show, fill, fmt };
 })();

@@ -9,7 +9,7 @@
 <meta property="og:title" content="The Serpent's Oath · Wiki">
 <meta property="og:description" content="Every monster, weapon, set, skill, mount, person and place in the game.">
 <meta property="og:image" content="assets/hero.jpg">
-<link rel="icon" href="assets/icon-64.png">
+<link rel="icon" href="assets/logo/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;700&family=Silkscreen&display=swap">
@@ -19,7 +19,7 @@
 /* The wiki, in the satchel's language (site.css holds the shared tokens, bar, panels, buttons and foot): every card is
    an item slot with its rarity ring, every detail opens as the satchel's hover card.
    Its data and pictures come from the game itself (tools/site/wiki-gen.mjs in the game repo writes wiki/data.json and wiki/img/). */
-html { scroll-padding-top: 124px; }
+html { scroll-padding-top: 130px; }
 a, button, summary, label, .card, [role="button"] { cursor: var(--cur-hand); }
 .px { image-rendering: pixelated; }
 .bar { box-shadow: 0 1px 0 var(--edge); } /* (the rail below carries the line) */
@@ -46,7 +46,7 @@ html[lang="he"] .whead h1 { letter-spacing: 0; }
 .hint { font-size: 13.5px; color: var(--tx-3); }
 
 /* ---------- the category rail: the satchel's section tabs (sticky under the bar) ---------- */
-.rail { position: sticky; top: 58px; z-index: 25; display: flex; gap: 4px; padding: 6px var(--gut) 8px; overflow-x: auto; scrollbar-width: none; justify-content: safe center;
+.rail { position: sticky; top: var(--bar-h); z-index: 25; display: flex; gap: 4px; padding: 6px var(--gut) 8px; overflow-x: auto; scrollbar-width: none; justify-content: safe center;
   background: linear-gradient(180deg, rgba(27, 17, 23, .94), rgba(27, 17, 23, .9)); box-shadow: inset 0 -1px 0 var(--line), 0 6px 18px rgba(0, 0, 0, .3); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .rail::-webkit-scrollbar { display: none; }
 .rail a { flex: none; display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 12px; border-radius: var(--rad-btn); text-decoration: none; color: var(--tx-2); font: 600 14px/1 var(--font-body); white-space: nowrap; background: rgba(0, 0, 0, .25); }
@@ -244,19 +244,27 @@ a.row.face { text-decoration: none; } /* (a hall's person: the whole row opens t
 <body>
 <div class="sky" aria-hidden="true"></div>
 <header class="bar">
-  <a class="brand" href="index.html" aria-label="The Serpent's Oath"><img src="assets/icon-64.png" alt="" width="32" height="32"><span>The Serpent's Oath</span></a>
-  <nav>
-    <a href="index.html#run" data-t="nav_run"></a>
-    <a href="index.html#about" data-t="nav_about"></a>
-    <a href="index.html#updates" data-t="nav_upd"></a>
-    <a href="wiki.html" class="wikilink" aria-current="page" data-t="nav_wiki"></a>
-  </nav>
-  <div class="langw">
-    <button class="chip globe-btn" id="lang" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu"><svg viewBox="0 0 13 13" aria-hidden="true"><path d="M4 0h5v1h-5zM2 1h2v1h-2zM6 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM0 6h13v1h-13zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM6 11h1v1h-1zM9 11h2v1h-2zM4 12h5v1h-5z"/></svg></button>
-    <div class="lmenu" id="lang-menu" role="menu" hidden>
-      <button type="button" role="menuitemradio" class="lopt" data-l="he" lang="he">עברית</button>
-      <button type="button" role="menuitemradio" class="lopt" data-l="en" lang="en">English</button>
-      <button type="button" role="menuitemradio" class="lopt" data-l="es" lang="es">Español</button>
+  <div class="in">
+    <a class="brand" href="index.html" aria-label="The Serpent's Oath"><img src="assets/logo/icon-512.png" alt="" width="36" height="36"><span>The Serpent's Oath</span></a>
+    <button class="navtg" id="navtg" type="button" aria-expanded="false" aria-controls="mainnav" aria-label="Menu"><i aria-hidden="true"></i></button>
+    <nav id="mainnav" hidden>
+      <a href="index.html#game" data-t="nav_game"></a>
+      <a href="index.html#heroes" data-t="nav_lb"></a>
+      <a href="index.html#updates" data-t="nav_upd"></a>
+      <a href="wiki.html" class="wikilink" aria-current="page" data-t="nav_wiki"></a>
+      <a href="forum.html" data-nav="forum" data-t="nav_forum"></a>
+      <a href="account.html" data-nav="acct" data-t="nav_account"></a>
+      <a href="index.html#run" class="navdl" data-t="nav_dl"></a>
+    </nav>
+    <div class="tools">
+      <div class="langw">
+        <button class="chip globe-btn" id="lang" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu"><svg viewBox="0 0 13 13" aria-hidden="true"><path d="M4 0h5v1h-5zM2 1h2v1h-2zM6 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM0 6h13v1h-13zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM6 11h1v1h-1zM9 11h2v1h-2zM4 12h5v1h-5z"/></svg></button>
+        <div class="lmenu" id="lang-menu" role="menu" hidden>
+          <button type="button" role="menuitemradio" class="lopt" data-l="he" lang="he">עברית</button>
+          <button type="button" role="menuitemradio" class="lopt" data-l="en" lang="en">English</button>
+          <button type="button" role="menuitemradio" class="lopt" data-l="es" lang="es">Español</button>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -281,11 +289,14 @@ a.row.face { text-decoration: none; } /* (a hall's person: the whole row opens t
   <div class="fline" aria-hidden="true"></div>
   <p data-t="foot"></p>
   <p><a href="index.html" data-t="home"></a></p>
+<p class="rights" aria-label="Copyright"><span lang="he">© 2026 · כל הזכויות שמורות ל-The Serpent's Oath</span><span lang="en">© 2026 The Serpent's Oath. All rights reserved.</span><span lang="es">© 2026 The Serpent's Oath. Todos los derechos reservados.</span></p>
 </footer>
 
 <dialog id="dlg" aria-labelledby="dlgt"><div class="dlg"><button class="x" type="button" data-a="close">×</button><div class="in" id="dlgin"></div></div></dialog>
 
 <script src="lang.js"></script>
+<script src="nav.js"></script>
+<script src="nav-auth.js"></script>
 <script>
 // ------------------------------------------------------------------------------------------------ texts
 const T = {
@@ -464,7 +475,7 @@ async function boot() {
 }
 function chrome() {
   SoLang.show(L);
-  $$('[data-t]').forEach((e) => { e.textContent = t(e.dataset.t); });
+  $$('[data-t]').forEach((e) => { if (!e.closest('.bar')) e.textContent = t(e.dataset.t); }); // (the bar's texts come from nav.js)
   $('#q').placeholder = t('search_ph'); $('#hint').innerHTML = t('hint');
   $('#qx').setAttribute('aria-label', { he: 'ניקוי החיפוש', en: 'Clear the search', es: 'Borrar la búsqueda' }[L]);
   $('#dlg .x').setAttribute('aria-label', t('close'));

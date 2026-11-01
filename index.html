@@ -3,793 +3,182 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Serpent's Oath</title>
-<meta name="description" content="The Serpent's Oath: המסע של Val להחזיר את Roye הביתה. משחק הרפתקאות בעולם פתוח של יוון המיתולוגית, ל-Windows. מורידים את המשגר, והוא מתקין ומעדכן את המשחק.">
-<meta name="theme-color" content="#1a0f17">
+<title>The Serpent's Oath · Free pixel-art adventure in ancient Greece</title>
+<meta name="description" content="The Serpent's Oath: a free open-world pixel-art adventure through ancient Greece, from the Aegean coast down to the underworld. Windows and Mac. Hebrew, English and Spanish.">
+<meta name="theme-color" content="#140b11">
 <meta property="og:title" content="The Serpent's Oath">
-<meta property="og:description" content="Val's journey to bring Roye home. An open-world adventure in mythic Greece, for Windows. Download the launcher; it installs and updates the game.">
-<meta property="og:image" content="assets/hero.jpg">
-<link rel="icon" href="assets/icon-64.png">
+<meta property="og:description" content="Val's journey to bring Roye home. A free pixel-art adventure through ancient Greece.">
+<meta property="og:image" content="https://serpents-oath.github.io/assets/hero.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/logo/icon-512.png">
+<link rel="apple-touch-icon" href="assets/logo/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;700&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;600;700&family=Silkscreen&display=swap">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="lang.css">
-<style>
-/* The home page, in the satchel's language (site.css holds the shared tokens, bar, panels, buttons and foot).
-   Every path is relative (GitHub Pages). */
-html { scroll-padding-top: 66px; }
-body { font-size: 17px; }
-
-/* ---------- hero: Athens from above under the satchel's dusk, the town held still while the camera drifts ---------- */
-.hero { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: min(88vh, 860px); min-height: min(88svh, 860px); padding: 48px var(--gut) 104px;
-  background: #24161e url(assets/hero.jpg) center / cover no-repeat; }
-.hero video { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
-.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(ellipse 60% 52% at 50% 46%, rgba(16, 8, 14, .58) 0%, rgba(16, 8, 14, 0) 100%),
-              linear-gradient(to top, var(--night) 0%, rgba(26, 15, 23, .72) 20%, rgba(16, 8, 14, 0) 50%),
-              linear-gradient(to bottom, rgba(16, 8, 14, .75) 0%, rgba(16, 8, 14, 0) 30%); }
-.hero-in { display: grid; justify-items: center; gap: 16px; text-align: center; max-width: 920px; }
-.logo { position: relative; padding-inline: 78px; }
-.logo h1 { margin: 0; font: 700 clamp(44px, 8.2vw, 100px)/.98 "Pixelify Sans", sans-serif; color: var(--gold); letter-spacing: .02em; direction: ltr; text-wrap: balance;
-  text-shadow: 3px 0 0 #1a0f17, -3px 0 0 #1a0f17, 0 3px 0 #1a0f17, 0 -3px 0 #1a0f17, 3px 3px 0 #1a0f17, -3px 3px 0 #1a0f17, 3px -3px 0 #1a0f17, -3px -3px 0 #1a0f17, 0 7px 0 #6b4024, 3px 7px 0 #1a0f17, -3px 7px 0 #1a0f17, 0 10px 0 #1a0f17; }
-.logo h1 span { display: inline-block; animation: drop .6s steps(6) both; }
-@keyframes drop { from { transform: translateY(-40px); opacity: 0; } }
-/* the title's underline: the game's gold meander with the bat-wing skull (its title art) */
-.band { width: min(560px, 84vw); height: 30px; image-rendering: pixelated;
-  background: url(assets/emblem.png) center / 54px 22px no-repeat, linear-gradient(var(--night), var(--night)) center / 84px 30px no-repeat, url(assets/mz-gold.png) 0 50% / 20px 26px repeat-x; }
-.tag { margin: 0; font-size: clamp(18px, 2.3vw, 23px); font-weight: 500; color: var(--parch-hi); text-shadow: 0 2px 0 #000, 0 0 18px rgba(0, 0, 0, .6); text-wrap: balance; }
-
-/* torches either side of the title, as in the menu */
-.torch { position: absolute; top: 50%; width: 18px; height: 66px; margin-top: -24px; pointer-events: none; image-rendering: pixelated;
-  background: linear-gradient(var(--bronze-hi), var(--bronze-hi)) 0 21px / 18px 3px no-repeat, linear-gradient(var(--bronze), var(--bronze)) 0 24px / 18px 6px no-repeat,
-              linear-gradient(var(--bronze-dk), var(--bronze-dk)) 6px 30px / 6px 36px no-repeat, linear-gradient(var(--night), var(--night)) 3px 30px / 12px 36px no-repeat; }
-.torch.l { left: 8px; } .torch.r { right: 8px; }
-.torch::before { content: ""; position: absolute; left: 3px; top: 0; width: 12px; height: 21px; background: linear-gradient(#ffe08a, #ffe08a) 3px 9px / 6px 12px no-repeat, #ff9a2e;
-  clip-path: polygon(25% 0, 75% 0, 75% 15%, 100% 15%, 100% 100%, 0 100%, 0 15%, 25% 15%); animation: fl .36s steps(2) infinite alternate; transform-origin: 50% 100%; }
-.torch::after { content: ""; position: absolute; left: 50%; top: 10px; width: 170px; height: 170px; margin: -85px 0 0 -85px; border-radius: 50%; z-index: -1;
-  background: radial-gradient(circle, rgba(255, 170, 60, .3) 0%, rgba(255, 140, 40, .1) 40%, rgba(255, 140, 40, 0) 70%); animation: glow .72s steps(3) infinite alternate; }
-@keyframes fl { to { transform: scaleY(.78); background-color: #ffb22e; } }
-@keyframes glow { to { opacity: .7; transform: scale(.93); } }
-
-/* the downloads: the gold button for Windows, the tab-brown one for the Mac */
-.dlrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; width: min(860px, 100%); margin-top: 4px; }
-.btn.big { min-height: 72px; padding: 13px 26px 14px; gap: 14px; border-radius: 14px; font: 700 clamp(20px, 2.6vw, 25px)/1.1 var(--font-title); letter-spacing: .02em; }
-html[lang="he"] .btn.big { letter-spacing: 0; }
-.btn .lbl { display: grid; gap: 4px; text-align: start; }
-.btn .lbl > span { white-space: nowrap; }
-.btn small { font: 500 14px/1.2 var(--font-body); letter-spacing: 0; opacity: .82; }
-.btn .dl { flex: none; width: 20px; height: 23px; background: currentColor; clip-path: polygon(33% 0, 67% 0, 67% 42%, 100% 42%, 50% 88%, 0 42%, 33% 42%); }
-.meta { margin: 4px 0 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 12px; font-size: 14.5px; color: var(--tx-2); text-shadow: 0 2px 0 #000; }
-.meta b { font: 400 13px/1.6 var(--font-num); color: var(--gold); letter-spacing: .02em; direction: ltr; unicode-bidi: isolate; }
-.meta .sep { width: 5px; height: 5px; border-radius: 1px; background: var(--bronze-hi); transform: rotate(45deg); font-size: 0; }
-.req { margin: 0; font-size: 14.5px; color: var(--tx-2); text-shadow: 0 2px 0 #000; }
-
-/* the snake that slithers along the hero's foot */
-.trail { position: absolute; left: 0; right: 0; bottom: 22px; height: 30px; z-index: 1; overflow: hidden; pointer-events: none; direction: ltr; }
-[dir="rtl"] .trail { transform: scaleX(-1); }
-.snake { position: absolute; left: -260px; bottom: 3px; display: flex; align-items: flex-end; animation: slither 28s linear infinite; }
-.snake i { flex: none; width: 12px; height: 12px; margin-right: -1px; background: var(--teal); box-shadow: inset 0 -3px 0 var(--teal-dk), inset 0 0 0 2px #0b3f3a;
-  animation: wave 1s steps(4) infinite; animation-delay: calc(var(--i) * -.11s); }
-.snake i:nth-child(3n) { background: #c9aa3a; box-shadow: inset 0 -3px 0 #8a6a1e, inset 0 0 0 2px #0b3f3a; }
-.snake i:first-child { width: 8px; height: 6px; }
-.snake i:nth-child(2) { width: 10px; height: 9px; }
-.snake .hd { position: relative; width: 20px; height: 15px; background: var(--teal) linear-gradient(#1a0f17, #1a0f17) 12px 3px / 3px 3px no-repeat; box-shadow: inset 0 -3px 0 var(--teal-dk), inset 0 0 0 2px #0b3f3a; }
-.snake .hd::after { content: ""; position: absolute; right: -7px; top: 8px; width: 7px; height: 2px; background: #d8343b; animation: tongue .9s steps(1) infinite; }
-@keyframes wave { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-@keyframes slither { to { left: calc(100% + 30px); } }
-@keyframes tongue { 50% { width: 0; } }
-/* the hero's foot: a fine bronze line, fading at both ends */
-.rule { position: absolute; left: 0; right: 0; bottom: 18px; height: 1px; z-index: 1; background: linear-gradient(to right, transparent, var(--line-hi) 20%, var(--line-hi) 80%, transparent); }
-
-/* ---------- sections ---------- */
-main { display: grid; gap: 76px; padding: 52px 0 24px; }
-.sec { width: 100%; max-width: 1100px; margin: 0 auto; padding-inline: var(--gut); display: grid; gap: 22px; }
-.lead { margin: -8px auto 0; max-width: 62ch; text-align: center; color: var(--tx-2); text-wrap: balance; }
-
-/* how to run: three panels, each step's number in a satchel slot */
-.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; counter-reset: none; }
-.step { position: relative; display: grid; align-content: start; gap: 8px; padding: 20px 22px 22px; }
-.num { width: 52px; height: 52px; display: grid; place-items: center; border-radius: var(--rad-slot); font: 400 20px/1 var(--font-num); color: var(--gold); text-shadow: 0 2px 0 #000;
-  background: radial-gradient(circle at 50% 55%, rgba(255, 178, 46, .26), transparent 72%), var(--slot); box-shadow: inset 0 0 0 2px var(--r-legendary), inset 0 0 0 3px var(--ring-dk); }
-.step h3 { margin: 6px 0 0; font: 700 20px/1.25 var(--font-title); color: var(--parch-hi); }
-.step p { margin: 0; color: var(--tx-2); font-size: 16px; }
-.file { display: inline-flex; align-items: center; gap: 6px; padding: 1px 8px 1px 6px; border-radius: var(--rad-chip); font-weight: 600; color: var(--parch-hi); background: rgba(255, 255, 255, .06);
-  box-shadow: inset 0 0 0 1px var(--line-mid); white-space: nowrap; direction: ltr; unicode-bidi: isolate; }
-.file img { width: 20px; height: 20px; image-rendering: pixelated; }
-.step h3 .file { font-size: .9em; white-space: normal; }
-.macnote { max-width: 62ch; margin: 2px auto 0; text-align: center; line-height: 1.7; color: var(--tx-2); }
-.macnote b { color: var(--parch-hi); }
-
-.notes { padding: 0; }
-.notes summary { display: flex; align-items: center; gap: 12px; padding: 18px 26px; list-style: none; cursor: var(--cur-hand); border-radius: var(--rad-box); }
-.notes summary::-webkit-details-marker { display: none; }
-.notes summary::after { content: ""; margin-inline-start: auto; flex: none; width: 9px; height: 9px; border: solid var(--tx-2); border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-2px, -2px); transition: transform .14s ease-out; }
-.notes:not([open]) summary::after { transform: rotate(-45deg); }
-[dir="rtl"] .notes:not([open]) summary::after { transform: rotate(135deg); }
-.notes summary:hover h3, .notes summary:focus-visible h3 { color: var(--parch-hi); }
-.notes h3 { margin: 0; font: 700 19px/1.2 var(--font-title); color: var(--gold); letter-spacing: .03em; text-shadow: 0 2px 0 #000; }
-html[lang="he"] .notes h3 { letter-spacing: 0; }
-.notes ul { margin: 0 26px 22px; padding: 16px 0 0; border-top: 1px solid var(--line-lo); list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 30px; }
-.notes li { position: relative; padding-inline-start: 22px; color: var(--tx-2); font-size: 16px; }
-.notes li::before { content: ""; position: absolute; inset-inline-start: 2px; top: .62em; width: 7px; height: 7px; border-radius: 2px; background: var(--bronze-hi); transform: rotate(45deg); box-shadow: 0 0 0 2px var(--ring-dk); }
-.notes li b { color: var(--parch-hi); }
-.notes li.wide { grid-column: 1 / -1; }
-.path { font: 600 14.5px/1.6 ui-monospace, Consolas, monospace; color: var(--parch-hi); direction: ltr; unicode-bidi: isolate; overflow-wrap: anywhere; }
-
-/* about: the story, what's in it, and the clips and shots each in a satchel slot */
-.about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 22px; align-items: start; }
-.about .txt { padding: 22px 26px 24px; display: grid; gap: 12px; }
-.about .txt p { margin: 0; color: var(--tx); }
-.feats { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; padding: 14px 0 0; list-style: none; border-top: 1px solid var(--line-lo); }
-.feats li { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px 4px 7px; border-radius: var(--rad-btn); font-weight: 600; font-size: 14px; color: var(--parch-hi);
-  background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px var(--line); }
-.feats img { width: 22px; height: 22px; image-rendering: pixelated; }
-.shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0; }
-.shot, .clip { margin: 0; display: grid; gap: 8px; align-content: start; }
-.shot a, .clip .fr { position: relative; display: block; padding: 4px; border-radius: var(--rad-box); background: var(--slot-2); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-mid), 0 8px 22px rgba(0, 0, 0, .35); transition: box-shadow .14s ease-out, transform .14s ease-out; }
-.shot a:hover { transform: translateY(-2px); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--gold), var(--sh-glow); }
-.shot img, .clip video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; image-rendering: pixelated; background: var(--card-2) center / cover no-repeat; }
-.shot figcaption, .clip figcaption { font-size: 13.5px; line-height: 1.4; color: var(--tx-2); text-align: center; }
-.about + .shots { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 22px; }
-.clips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0; }
-.clip .pp { position: absolute; inset-inline-end: 12px; bottom: 12px; width: 32px; height: 32px; padding: 0; border: 0; border-radius: var(--rad-btn); background: rgba(30, 19, 26, .82);
-  box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-hi); cursor: var(--cur-hand); display: grid; place-items: center; opacity: .8; transition: opacity .12s; }
-.clip .pp:hover, .clip .pp:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--gold); }
-.clip .pp i { width: 4px; height: 12px; background: var(--parch-hi); box-shadow: 6px 0 0 var(--parch-hi); transform: translateX(-3px); }
-.clip .pp[aria-pressed="false"] i { width: 0; height: 0; background: none; box-shadow: none; transform: translateX(1px); border: solid transparent; border-width: 7px 0 7px 11px; border-left-color: var(--parch-hi); }
-.wikiline { margin: 24px 0 0; display: flex; justify-content: center; }
-.wikiline .btn { min-height: 52px; padding-inline: 20px 22px; text-align: center; }
-.wikiline img { flex: none; image-rendering: pixelated; }
-
-/* the hall of fame: the online beta's top 5 characters by level (SITE.SUPABASE_URL/ANON_KEY in updates.js, the
-   read-only RPC leaderboard_top). Each one is a panel with its portrait in a satchel slot: rank 1 a little larger,
-   with the legendary ring and a gold rank tag; the rest with the common ring. Without data, five empty slots. */
-.lb { display: flex; justify-content: center; align-items: stretch; gap: 14px; margin: 0; padding: 0; list-style: none; }
-.hc { position: relative; flex: 0 1 176px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 12px 12px 14px; text-align: center; }
-.hc:not(.r1) { margin-top: 44px; }
-.hc.r1 { flex-basis: 220px; padding: 14px 14px 16px;
-  box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px rgba(246, 214, 122, .75), inset 0 1px 0 1px rgba(255, 228, 160, .12), 0 16px 40px rgba(0, 0, 0, .5), 0 0 34px rgba(246, 214, 122, .07); }
-.pt { position: relative; width: 100%; aspect-ratio: 1 / 2; padding: 6px; border-radius: var(--rad-slot); margin-bottom: 3px;
-  background: radial-gradient(circle at 50% 58%, rgba(241, 230, 204, .07), transparent 70%), var(--slot); box-shadow: inset 0 0 0 2px var(--r-common), inset 0 0 0 3px var(--ring-dk); }
-.r1 .pt { background: radial-gradient(circle at 50% 56%, rgba(255, 178, 46, .24), transparent 72%), var(--slot);
-  box-shadow: inset 0 0 0 2px var(--r-legendary), inset 0 0 0 3px var(--ring-dk), 0 0 16px rgba(255, 178, 46, .16); }
-.pt img { width: 100%; height: 100%; object-fit: contain; border-radius: 6px; image-rendering: pixelated; }
-/* no portrait: a quiet pixel bust in the slot */
-.sil { width: 100%; height: 100%; opacity: .5;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18' shape-rendering='crispEdges' fill='%23c9b896'%3E%3Cpath d='M6 2h4v1h1v1h1v4h-1v1h-1v1H6V9H5V8H4V4h1V3h1zM7 10h2v1h3v1h1v1h1v5H2v-5h1v-1h1v-1h3z'/%3E%3C/svg%3E") 50% 62% / 66% auto no-repeat; }
-.r1 .sil { opacity: .6; }
-.rk { position: absolute; top: 6px; inset-inline-start: 6px; z-index: 1; min-width: 32px; height: 32px; padding: 0 6px; display: grid; place-items: center; border-radius: var(--rad-btn);
-  font: 400 15px/1 var(--font-num); color: var(--parch-hi); text-shadow: 0 2px 0 #000; background: linear-gradient(var(--tab-a), var(--tab-b)); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-hi); }
-.r1 .rk { min-width: 36px; height: 36px; font-size: 17px; color: #1a0f17; text-shadow: none; background: linear-gradient(180deg, #f8dd8c 0%, var(--bronze-hi) 60%, #c28a38 100%);
-  box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px rgba(255, 244, 205, .55), inset 0 -2px 0 rgba(107, 64, 36, .35), 0 4px 10px rgba(0, 0, 0, .4); }
-.hc .nm { max-width: 100%; margin: 0; font: 700 18px/1.25 var(--font-title); color: var(--parch-hi); text-shadow: 0 2px 0 #000; unicode-bidi: plaintext; overflow-wrap: anywhere;
-  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
-.hc.r1 .nm { font-size: 21px; color: var(--gold); }
-.hc .nm.long { font-size: 15.5px; } .hc .nm.longer { font-size: 13.5px; }
-.hc.r1 .nm.long { font-size: 18px; } .hc.r1 .nm.longer { font-size: 15.5px; }
-.hc .lv { margin: 0; display: flex; align-items: baseline; justify-content: center; gap: 7px; }
-.hc .lv span { font: 600 12px/1 var(--font-body); color: var(--tx-3); text-transform: uppercase; letter-spacing: .08em; }
-html[lang="he"] .hc .lv span { font-size: 13px; letter-spacing: 0; }
-.hc .lv b { font: 400 24px/1 var(--font-num); font-weight: 400; color: var(--gold); text-shadow: 0 2px 0 #000; direction: ltr; unicode-bidi: isolate; }
-.hc.r1 .lv b { font-size: 30px; }
-.hc .wp { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px 2px 7px; border-radius: var(--rad-chip); font: 600 13.5px/1.5 var(--font-body); color: var(--tx-2);
-  background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px var(--line); }
-.hc .wp img { width: 18px; height: 18px; image-rendering: pixelated; }
-.hc .since { margin: auto 0 0; padding-top: 1px; font-size: 12.5px; line-height: 1.3; color: var(--tx-3); }
-/* nothing to show yet (or the call failed): five empty slots and a line on the online beta */
-.lb-empty { width: min(620px, 100%); margin: 0 auto; display: grid; justify-items: center; gap: 12px; padding: 24px 24px 26px; text-align: center; }
-.ghosts { display: flex; align-items: flex-end; justify-content: center; gap: 12px; margin: 0 0 6px; padding: 0; list-style: none; }
-.ghosts li { position: relative; width: 58px; }
-.ghosts li:first-child { width: 72px; }
-.ghosts .pt { padding: 4px; margin: 0; opacity: .75; aspect-ratio: 1; }
-.ghosts .pt:not(.g1) { box-shadow: inset 0 0 0 2px rgba(123, 100, 80, .55), inset 0 0 0 3px var(--ring-dk); }
-.ghosts .g1 { box-shadow: inset 0 0 0 2px rgba(255, 178, 46, .55), inset 0 0 0 3px var(--ring-dk); background: radial-gradient(circle at 50% 56%, rgba(255, 178, 46, .14), transparent 72%), var(--slot); }
-.ghosts .sil { opacity: .32; }
-.ghosts b { display: block; margin-top: 6px; font: 400 11px/1 var(--font-num); color: var(--tx-3); }
-.ghosts li:first-child b { color: var(--bronze-hi); }
-.lb-empty h3 { margin: 0; font: 700 20px/1.25 var(--font-title); color: var(--gold); letter-spacing: .02em; text-shadow: 0 2px 0 #000; }
-html[lang="he"] .lb-empty h3 { letter-spacing: 0; }
-.lb-empty p { margin: 0; max-width: 46ch; color: var(--tx-2); font-size: 16px; text-wrap: balance; }
-.lb-empty.busy .ghosts .pt { animation: ghost 1.4s steps(2) infinite; }
-@keyframes ghost { 50% { opacity: .45; } }
-
-/* the updates board: the satchel's quest list, one entry per update, newest first and open */
-.log { display: grid; gap: 8px; max-width: 900px; width: 100%; margin: 0 auto; }
-.upd { border-radius: var(--rad-box); background: rgba(255, 255, 255, .03); box-shadow: inset 0 0 0 1px var(--line-lo); transition: background .12s; }
-.upd:hover { background: rgba(255, 255, 255, .05); }
-.upd[open] { background: linear-gradient(180deg, rgba(74, 51, 34, .5), rgba(42, 27, 34, .5)); box-shadow: inset 0 0 0 1px var(--line-hi), 0 8px 22px rgba(0, 0, 0, .3); }
-.upd summary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 12px 16px; border-radius: var(--rad-box); list-style: none; }
-.upd summary::-webkit-details-marker { display: none; }
-.upd summary::after { content: ""; margin-inline-start: auto; flex: none; width: 8px; height: 8px; border: solid var(--tx-2); border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-2px, -2px); transition: transform .14s ease-out; }
-.upd:not([open]) summary::after { transform: rotate(-45deg); }
-[dir="rtl"] .upd:not([open]) summary::after { transform: rotate(135deg); }
-.upd .dt { font: 400 11px/1.5 var(--font-num); color: var(--tx-3); direction: ltr; unicode-bidi: isolate; white-space: nowrap; min-width: 92px; }
-.upd .v { padding: 3px 7px 2px; border-radius: var(--rad-key); font: 400 11px/1.3 var(--font-num); color: var(--parch-hi); background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px var(--line-mid); white-space: nowrap; }
-html[lang="he"] .upd .v { font: 600 12px/1.3 var(--font-body); }
-html[lang="he"] .upd .v .ltr { font: 400 11px/1 var(--font-num); }
-.upd .tt { flex: 1 1 260px; min-width: 0; font: 600 16px/1.3 var(--font-body); color: var(--parch); }
-.upd[open] .tt, .upd:first-child .tt { color: var(--gold); }
-.upd .soon { padding: 3px 8px; border-radius: 6px; font: 600 12px/1.2 var(--font-body); color: #06302c; background: var(--teal); white-space: nowrap; animation: pulse 1.6s steps(2) infinite; }
-@keyframes pulse { 50% { background: #74f0dc; } }
-.upd.up { box-shadow: inset 0 0 0 1px var(--r-quest), 0 0 0 2px rgba(95, 208, 176, .25); }
-.upd ul { margin: 0; padding: 2px 18px 16px; list-style: none; display: grid; gap: 5px; }
-.upd li { position: relative; padding-inline-start: 18px; color: var(--tx-2); font-size: 15px; line-height: 1.5; }
-.upd li::before { content: ""; position: absolute; inset-inline-start: 2px; top: .6em; width: 6px; height: 6px; border-radius: 2px; background: var(--bronze-hi); transform: rotate(45deg); }
-
-.cta { display: grid; justify-items: center; gap: 18px; text-align: center; }
-.cta h2 { margin: 0; font: 700 clamp(26px, 4vw, 38px)/1.15 var(--font-title); color: var(--gold); letter-spacing: .03em; text-shadow: 0 3px 0 #000; }
-html[lang="he"] .cta h2 { letter-spacing: 0; }
-
-@media (max-width: 960px) { .bar nav a.lblink { display: none; } } /* (no room in the bar for a fifth link) */
-@media (max-width: 900px) {
-  /* rank 1 alone on top, the others in a row under it (.n2-.n5: how many there are) */
-  .lb { display: grid; justify-content: center; grid-template-columns: repeat(4, minmax(0, 200px)); }
-  .lb.n2 { grid-template-columns: repeat(2, minmax(0, 200px)); } .lb.n3 { grid-template-columns: repeat(2, minmax(0, 200px)); } .lb.n4 { grid-template-columns: repeat(3, minmax(0, 200px)); }
-  .hc:not(.r1) { margin-top: 0; }
-  .hc.r1, .lb.n2 .hc { grid-column: 1 / -1; justify-self: center; width: min(300px, 100%); }
-  .lb.n2 .hc:not(.r1) { width: min(200px, 100%); }
-  .steps { grid-template-columns: minmax(0, 1fr); }
-  .about { grid-template-columns: minmax(0, 1fr); }
-  .notes ul { grid-template-columns: minmax(0, 1fr); }
-  .dlrow { grid-template-columns: minmax(0, 1fr); width: min(440px, 100%); }
-}
-@media (max-width: 720px) {
-  .lb, .lb.n2, .lb.n3, .lb.n4 { gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .lb.n2 .hc:not(.r1), .lb.n4 .hc:last-child { grid-column: 1 / -1; justify-self: center; width: calc(50% - 6px); }
-  .hc { padding: 10px 10px 12px; gap: 6px; }
-  .hc.r1 { width: min(360px, 100%); padding: 14px 14px 16px; }
-  .r1 .pt { width: min(180px, 62%); }
-  .hc .nm { font-size: 17px; }
-  .hc .lv b { font-size: 22px; }
-  .lb-empty { padding: 20px 16px 22px; }
-  .ghosts { gap: 9px; }
-  .ghosts li { width: 50px; } .ghosts li:first-child { width: 62px; }
-  .logo { padding-inline: 34px; }
-  .torch { transform: scale(.62); transform-origin: 50% 30%; }
-  .torch.l { left: -2px; } .torch.r { right: -2px; }
-  .shots, .clips { gap: 10px; }
-  .shot a, .clip .fr { padding: 3px; border-radius: var(--rad-slot); } .shot img, .clip video { border-radius: 7px; }
-  .about + .shots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .upd summary { padding: 12px 14px; }
-  .upd .dt { min-width: 0; }
-  .upd ul { padding: 0 14px 16px; }
-  .notes, .about .txt { padding: 18px 18px 20px; }
-  .step { padding: 18px 18px 20px; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center; }
-  .step .num { grid-row: span 1; width: 44px; height: 44px; font-size: 17px; }
-  .step h3 { margin: 0; } .step p { grid-column: 1 / -1; }
-  main { gap: 58px; padding-top: 40px; }
-}
-@media (max-width: 420px) {
-  .btn.big { padding-inline: 18px; }
-  .btn .lbl > span { white-space: normal; }
-}
-/* motion off: the still town instead of the video, and the snake, torches and stars hold still */
-@media (prefers-reduced-motion: reduce) {
-  .hero video { display: none; }
-  .snake { left: 12%; }
-}
-
-/* ---------- ONLINE BETA IS OPEN (Roy 27.10): the festive announcement at the top of the hero, with Val jumping for joy ----------
-   One block: this section, the <aside id="beta-open"> in the hero, bo_* in the texts. Val is a pixel sprite sheet rendered from the game's own
-   rig (assets/val-cheer.png: 12 frames of 104 x 240, one jump a second; val-cheer-still.png for reduced motion). The headline stays English. */
-.bo { position: relative; z-index: 1; width: min(860px, 100%); margin: -18px 0 8px; padding: 10px 26px 10px 20px; display: grid; grid-template-columns: 104px minmax(0, 1fr); align-items: center; gap: 4px 22px;
-  text-align: center; border-radius: var(--rad-panel);
-  background: radial-gradient(ellipse 34% 90% at 9% 62%, rgba(246, 214, 122, .2), transparent 70%), radial-gradient(ellipse 60% 70% at 62% 0%, rgba(52, 209, 191, .09), transparent 70%), linear-gradient(180deg, var(--panel-a), var(--panel-b));
-  box-shadow: var(--sh-panel), 0 0 0 1px rgba(246, 214, 122, .12), 0 0 38px rgba(246, 214, 122, .18); }
-[dir="rtl"] .bo { padding: 10px 20px 10px 26px; }
-/* the bunting along the top edge */
-.bo-flags { position: absolute; z-index: 2; inset: -10px 26px auto; height: 18px; pointer-events: none; image-rendering: pixelated;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='18' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h88' stroke='%236b4024' stroke-width='2'/%3E%3Cg stroke='%231a0f17'%3E%3Cpath d='M3 3h18l-9 14z' fill='%23f6d67a'/%3E%3Cpath d='M25 3h18l-9 14z' fill='%2334d1bf'/%3E%3Cpath d='M47 3h18l-9 14z' fill='%23e9dec4'/%3E%3Cpath d='M69 3h18l-9 14z' fill='%23e2ad48'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 88px 18px repeat-x; }
-/* confetti falling inside the panel (it never leaves it) */
-.bo-fx { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
-.bo-fx i { position: absolute; left: var(--x); top: var(--y); width: var(--w); height: var(--h); background: var(--c); opacity: .85; animation: bo-fall var(--t) steps(14) var(--d) infinite; }
-.bo-fx i:nth-child(3n) { box-shadow: 0 0 0 1px rgba(13, 7, 11, .5); }
-.bo-fx { --gold: #f6d67a; --teal: #34d1bf; --parch: #e9dec4; --bronze: #e2ad48; --violet: #b46cff; --coral: #ff8a7a; }
-@keyframes bo-fall { 0% { transform: translate(0, -26px); opacity: 0; } 14% { opacity: .9; } 82% { opacity: .9; } 100% { transform: translate(var(--dx), 64px); opacity: 0; } }
-/* Val: the sprite sheet, one frame at a time (steps), her shadow shrinking while she is in the air, and sparkles round her */
-.bo-val { position: relative; z-index: 1; width: 104px; height: 240px; }
-.bo-val > i { position: absolute; display: block; }
-.bo-spr { inset: 0; background: url(assets/val-cheer.png) 0 0 / 1248px 240px no-repeat; image-rendering: pixelated; animation: bo-cheer 1s steps(12) infinite; }
-@keyframes bo-cheer { to { background-position: -1248px 0; } }
-.bo-sh { left: 28px; bottom: -1px; width: 48px; height: 9px; border-radius: 50%; background: radial-gradient(ellipse, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .32) 55%, rgba(0, 0, 0, 0) 72%); animation: bo-shadow 1s steps(1) infinite; }
-@keyframes bo-shadow { 0%, 8.3%, 16.6%, 83.3%, 91.6% { transform: scaleX(1); } 25%, 75% { transform: scaleX(.9); } 33.3%, 66.6% { transform: scaleX(.72); } 41.6%, 58.3% { transform: scaleX(.64); } 50% { transform: scaleX(.6); } }
-.bo-sp { width: 11px; height: 11px; background: var(--gold); opacity: 0; clip-path: polygon(38% 0, 62% 0, 62% 38%, 100% 38%, 100% 62%, 62% 62%, 62% 100%, 38% 100%, 38% 62%, 0 62%, 0 38%, 38% 38%); animation: bo-twinkle 1s steps(4) infinite; }
-.bo-sp.a { left: -4px; top: 70px; } .bo-sp.b { right: -6px; top: 30px; width: 14px; height: 14px; background: #fff3c4; animation-delay: -.35s; }
-.bo-sp.c { left: 8px; top: 10px; width: 8px; height: 8px; background: var(--teal); animation-delay: -.7s; } .bo-sp.d { right: 0; top: 128px; width: 9px; height: 9px; background: #fff3c4; animation-delay: -.15s; }
-@keyframes bo-twinkle { 0% { opacity: 0; transform: scale(.4); } 35% { opacity: 1; transform: scale(1); } 70% { opacity: .9; transform: scale(.7); } 100% { opacity: 0; transform: scale(.3); } }
-/* the words */
-.bo-txt { position: relative; z-index: 1; display: grid; justify-items: center; gap: 10px; min-width: 0; }
-.bo-h { margin: 0; font: 700 clamp(25px, 5.2vw, 50px)/1.08 "Pixelify Sans", sans-serif; letter-spacing: .02em; direction: ltr; text-wrap: balance; color: var(--gold);
-  text-shadow: 2px 0 0 #1a0f17, -2px 0 0 #1a0f17, 0 2px 0 #1a0f17, 0 -2px 0 #1a0f17, 2px 2px 0 #1a0f17, -2px 2px 0 #1a0f17, 2px -2px 0 #1a0f17, -2px -2px 0 #1a0f17, 0 5px 0 #6b4024, 2px 5px 0 #1a0f17, -2px 5px 0 #1a0f17, 0 7px 0 #1a0f17; }
-.bo-h span { display: inline-block; animation: bo-hop 1s steps(1) infinite; }
-.bo-h span:nth-child(2) { animation-delay: .1s; } .bo-h span:nth-child(3) { animation-delay: .2s; } .bo-h span:nth-child(4) { animation-delay: .3s; }
-.bo-h .o { color: var(--teal); }
-@keyframes bo-hop { 0%, 30%, 100% { transform: none; } 10% { transform: translateY(-5px); } 20% { transform: translateY(-3px); } }
-.bo-p { margin: 0; max-width: 50ch; font-size: 17px; line-height: 1.55; color: var(--tx); text-wrap: balance; text-shadow: 0 2px 0 rgba(0, 0, 0, .55); }
-.bo-p .key { display: inline; padding: 1px 6px; }
-.bo-btn { min-height: 46px; padding-block: 8px; }
-.bo ~ .logo h1 { font-size: clamp(40px, 6.4vw, 76px); } /* (a smaller title while the announcement is up, so the download buttons stay in the first screen) */
-.bo-btn .dl { width: 16px; height: 19px; }
-@media (max-width: 720px) {
-  .bo { margin-top: -8px; padding: 10px 14px 12px 8px; gap: 4px 12px; grid-template-columns: 104px minmax(0, 1fr); }
-  [dir="rtl"] .bo { padding: 10px 8px 12px 14px; }
-  .bo-flags { inset-inline: 14px; }
-  .bo-txt { gap: 8px; }
-  .bo-h { font-size: clamp(22px, 7vw, 30px); }
-  .bo-p { font-size: 14.5px; line-height: 1.5; }
-  .bo-btn { width: 100%; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .bo-spr { background-image: url(assets/val-cheer-still.png); background-size: 104px 240px; }
-  .bo-sp { opacity: 1; }
-}
-</style>
+<link rel="stylesheet" href="home.css">
 </head>
 <body>
 <div class="sky" aria-hidden="true"></div>
 
 <header class="bar">
-  <a class="brand" href="#top" aria-label="The Serpent's Oath"><img src="assets/icon-64.png" alt="" width="32" height="32"><span>The Serpent's Oath</span></a>
-  <nav>
-    <a href="#run" data-t="nav_run"></a>
-    <a href="#heroes" class="lblink" data-t="nav_lb"></a>
-    <a href="#about" data-t="nav_about"></a>
-    <a href="#updates" data-t="nav_upd"></a>
-    <a href="wiki.html" class="wikilink" data-t="nav_wiki"></a>
-  </nav>
-  <div class="langw">
-    <button class="chip globe-btn" id="lang" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu"><svg viewBox="0 0 13 13" aria-hidden="true"><path d="M4 0h5v1h-5zM2 1h2v1h-2zM6 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM0 6h13v1h-13zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM6 11h1v1h-1zM9 11h2v1h-2zM4 12h5v1h-5z"/></svg></button>
-    <div class="lmenu" id="lang-menu" role="menu" hidden>
-      <button type="button" role="menuitemradio" class="lopt" data-l="he" lang="he">עברית</button>
-      <button type="button" role="menuitemradio" class="lopt" data-l="en" lang="en">English</button>
-      <button type="button" role="menuitemradio" class="lopt" data-l="es" lang="es">Español</button>
+  <div class="in">
+    <a class="brand" href="#top" aria-label="The Serpent's Oath"><img src="assets/logo/icon-512.png" alt="" width="36" height="36"><span>The Serpent's Oath</span></a>
+    <button class="navtg" id="navtg" type="button" aria-expanded="false" aria-controls="mainnav" data-ta="nav_menu"><i aria-hidden="true"></i></button>
+    <nav id="mainnav" hidden>
+      <a href="#game" data-t="nav_game"></a>
+      <a href="#heroes" data-t="nav_lb"></a>
+      <a href="#updates" data-t="nav_upd"></a>
+      <a href="wiki.html" data-t="nav_wiki"></a>
+      <a href="forum.html" data-nav="forum" data-t="nav_forum"></a>
+      <a href="account.html" data-nav="acct" data-t="nav_account"></a>
+      <a href="#run" class="navdl" data-t="nav_dl"></a>
+    </nav>
+    <div class="tools">
+      <div class="langw">
+        <button class="chip globe-btn" id="lang" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu"><svg viewBox="0 0 13 13" aria-hidden="true"><path d="M4 0h5v1h-5zM2 1h2v1h-2zM6 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM0 6h13v1h-13zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM6 11h1v1h-1zM9 11h2v1h-2zM4 12h5v1h-5z"/></svg></button>
+        <div class="lmenu" id="lang-menu" role="menu" hidden>
+          <button type="button" role="menuitemradio" class="lopt" data-l="he" lang="he">עברית</button>
+          <button type="button" role="menuitemradio" class="lopt" data-l="en" lang="en">English</button>
+          <button type="button" role="menuitemradio" class="lopt" data-l="es" lang="es">Español</button>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
+<!-- ============ hero: the night over Elaia, the logotype, and the download ============ -->
 <section class="hero" id="top">
-  <video id="bgv" muted loop playsinline preload="none" poster="assets/hero.jpg" aria-hidden="true" tabindex="-1"></video>
-  <div class="hero-in">
-    <!-- ONLINE BETA IS OPEN (Roy 27.10): remove this <aside> and the "ONLINE BETA IS OPEN" section at the end of this <style> (and assets/val-cheer*.png) when the news is old -->
-    <aside class="bo" id="beta-open" aria-labelledby="bo-h">
-      <i class="bo-flags" aria-hidden="true"></i>
-      <div class="bo-fx" aria-hidden="true"><i style="--x:7%;--y:10%;--c:var(--gold);--dx:12px;--t:3.1s;--d:-0.2s;--w:5px;--h:5px"></i><i style="--x:15%;--y:46%;--c:var(--teal);--dx:-10px;--t:2.7s;--d:-1.4s;--w:4px;--h:7px"></i><i style="--x:24%;--y:8%;--c:var(--parch);--dx:14px;--t:3.4s;--d:-2.1s;--w:5px;--h:5px"></i><i style="--x:31%;--y:60%;--c:var(--bronze);--dx:-8px;--t:2.9s;--d:-0.7s;--w:4px;--h:4px"></i><i style="--x:41%;--y:14%;--c:var(--violet);--dx:10px;--t:3.3s;--d:-1.9s;--w:5px;--h:5px"></i><i style="--x:52%;--y:70%;--c:var(--gold);--dx:-12px;--t:2.6s;--d:-0.5s;--w:4px;--h:6px"></i><i style="--x:60%;--y:6%;--c:var(--teal);--dx:9px;--t:3.0s;--d:-2.6s;--w:5px;--h:5px"></i><i style="--x:69%;--y:52%;--c:var(--coral);--dx:-11px;--t:3.2s;--d:-1.1s;--w:4px;--h:4px"></i><i style="--x:77%;--y:12%;--c:var(--gold);--dx:12px;--t:2.8s;--d:-2.3s;--w:5px;--h:5px"></i><i style="--x:86%;--y:40%;--c:var(--parch);--dx:-9px;--t:3.5s;--d:-0.9s;--w:4px;--h:7px"></i><i style="--x:93%;--y:8%;--c:var(--violet);--dx:-12px;--t:3.0s;--d:-1.7s;--w:4px;--h:4px"></i><i style="--x:96%;--y:64%;--c:var(--teal);--dx:8px;--t:2.7s;--d:-0.3s;--w:5px;--h:5px"></i><i style="--x:12%;--y:76%;--c:var(--coral);--dx:10px;--t:3.3s;--d:-2.8s;--w:4px;--h:4px"></i><i style="--x:46%;--y:36%;--c:var(--bronze);--dx:-8px;--t:2.9s;--d:-1.3s;--w:3px;--h:3px"></i><i style="--x:82%;--y:74%;--c:var(--gold);--dx:-10px;--t:3.1s;--d:-2.0s;--w:4px;--h:4px"></i><i style="--x:35%;--y:82%;--c:var(--parch);--dx:9px;--t:2.8s;--d:-0.6s;--w:3px;--h:5px"></i></div>
-      <div class="bo-val" aria-hidden="true"><i class="bo-sh"></i><i class="bo-spr"></i><i class="bo-sp a"></i><i class="bo-sp b"></i><i class="bo-sp c"></i><i class="bo-sp d"></i></div>
-      <div class="bo-txt">
-        <h2 class="bo-h" id="bo-h" lang="en" dir="ltr"><span>ONLINE</span> <span>BETA</span> <span>IS</span> <span class="o">OPEN!</span></h2>
-        <p class="bo-p" data-h="bo_p"></p>
-        <a class="btn gold bo-btn" href="#run"><i class="dl" aria-hidden="true"></i><span data-t="bo_btn"></span></a>
-      </div>
-    </aside>
-    <div class="logo">
-      <i class="torch l" aria-hidden="true"></i><i class="torch r" aria-hidden="true"></i>
-      <h1 aria-label="The Serpent's Oath"><span>The</span> <span style="animation-delay:.15s">Serpent's</span> <span style="animation-delay:.3s">Oath</span></h1>
-    </div>
-    <div class="band" aria-hidden="true"></div>
+  <div class="hv" aria-hidden="true">
+    <video id="bgv" autoplay muted loop playsinline poster="assets/hero.jpg" preload="metadata">
+      <source src="assets/hero.webm" type="video/webm"><source src="assets/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-in wrap">
+    <h1><img src="assets/logo/logotype.png" alt="The Serpent's Oath" width="702" height="426" class="px" fetchpriority="high"></h1>
     <p class="tag" data-t="tagline"></p>
     <div class="dlrow">
-      <a class="btn gold big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
-      <a class="btn big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small class="macsz"></small></span></a>
+      <a class="btn gold big dlbtn" href="#"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M3 5.5 11 4.4v7.1H3zm9-1.3L21 3v8.5h-9zM3 12.5h8v7.1L3 18.5zm9 0h9V21l-9-1.3z"/></svg><span class="lbl"><span data-t="dl_btn"></span><small><span data-t="dl_sub"></span><span class="winsz ltr"></span></small></span></a>
+      <a class="btn big macbtn" href="#"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M16.4 12.7c0-2.5 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.9 1.2 1.9 2.6 3.2 2.5 1.3 0 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.2-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.9-1.1-2.9-4zM14 5.4c.7-.8 1.2-2 1-3.2-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.5 2.9-1.3z"/></svg><span class="lbl"><span data-t="mac_btn"></span><small><span data-t="mac_sub"></span><span class="macsz ltr"></span></small></span></a>
     </div>
-    <p class="meta" id="meta"></p>
+    <p class="meta"><span id="meta"></span><span class="sep" aria-hidden="true"></span><button type="button" class="trailer-btn" id="trailer-btn"><i aria-hidden="true"></i><span data-t="trailer"></span></button></p>
     <p class="req" data-h="req"></p>
   </div>
-  <div class="trail" aria-hidden="true"><div class="snake" id="snake"></div></div>
-  <div class="rule" aria-hidden="true"></div>
+  <div class="hero-foot" aria-hidden="true"></div>
 </section>
 
 <main>
+  <!-- ============ download and play ============ -->
   <section class="sec" id="run" aria-labelledby="run-h">
-    <h2 class="sech" id="run-h"><span data-t="run_h"></span></h2>
-    <p class="lead" data-t="run_sub"></p>
-    <ol class="steps">
-      <li class="step parch"><div class="num" aria-hidden="true">1</div><h3 data-t="s1_h"></h3><p data-h="s1_p"></p></li>
-      <li class="step parch"><div class="num" aria-hidden="true">2</div><h3 data-t="s2_h"></h3><p data-h="s2_p"></p></li>
-      <li class="step parch"><div class="num" aria-hidden="true">3</div><h3 data-t="s3_h"></h3><p data-h="s3_p"></p></li>
-    </ol>
-      <p class="macnote" data-h="mac_p"></p>
-    <details class="notes parch">
-      <summary><h3 data-t="notes_h"></h3></summary>
-      <ul>
-        <li class="wide" data-h="n_ss"></li>
-        <li data-h="n_save"></li>
-        <li data-h="n_upd"></li>
-        <li data-h="n_req"></li>
-        <li data-h="n_full"></li>
-      </ul>
-    </details>
-  </section>
-
-  <section class="sec" id="heroes" aria-labelledby="lb-h">
-    <h2 class="sech" id="lb-h"><span data-t="lb_h"></span></h2>
-    <p class="lead" data-t="lb_sub"></p>
-    <div id="lb" aria-live="polite"></div>
-  </section>
-
-  <section class="sec" id="about" aria-labelledby="about-h">
-    <h2 class="sech" id="about-h"><span data-t="about_h"></span></h2>
-    <div class="about">
-      <div class="txt parch">
-        <p data-t="about_p1"></p>
-        <p data-t="about_p2"></p>
-        <ul class="feats">
-          <li><img src="assets/pi-compass.png" alt=""><span data-t="f_world"></span></li>
-          <li><img src="assets/pi-sword.png" alt=""><span data-t="f_fight"></span></li>
-          <li><img src="assets/pi-horse.png" alt=""><span data-t="f_horse"></span></li>
-          <li><img src="assets/pi-scroll.png" alt=""><span data-t="f_story"></span></li>
-          <li><img src="assets/pi-gstar.png" alt=""><span data-t="f_lang"></span></li>
-        </ul>
+    <div class="wrap">
+      <h2 class="sech" id="run-h"><span data-t="run_h"></span></h2>
+      <p class="lead" data-t="run_sub"></p>
+      <div class="run">
+        <ol class="steps">
+          <li class="step panel"><b class="num" aria-hidden="true">1</b><h3 data-t="s1_h"></h3><p data-h="s1_p"></p></li>
+          <li class="step panel"><b class="num" aria-hidden="true">2</b><h3 data-t="s2_h"></h3><p data-h="s2_p"></p></li>
+          <li class="step panel"><b class="num" aria-hidden="true">3</b><h3 data-t="s3_h"></h3><p data-h="s3_p"></p></li>
+        </ol>
+        <div class="notes panel">
+          <h3 data-t="notes_h"></h3>
+          <details class="acc"><summary data-t="n_ss_h"></summary><div class="body"><p data-h="n_ss"></p></div></details>
+          <details class="acc"><summary data-t="n_mac_h"></summary><div class="body"><p data-h="mac_p"></p></div></details>
+          <details class="acc"><summary data-t="n_upd_h"></summary><div class="body"><p data-h="n_upd"></p></div></details>
+          <details class="acc"><summary data-t="n_req_h"></summary><div class="body"><p data-h="n_req"></p><p data-h="n_save"></p><p data-h="n_full"></p></div></details>
+          <details class="acc"><summary data-t="n_online_h"></summary><div class="body"><p data-h="bo_p"></p></div></details>
+        </div>
       </div>
-      <div class="clips" id="clips"></div>
     </div>
-    <div class="shots" id="shots"></div>
-    <p class="wikiline"><a class="btn" href="wiki.html"><img src="assets/pi-scroll.png" alt="" width="22" height="22"><span data-t="wiki_cta"></span></a></p>
   </section>
 
+  <!-- ============ the game ============ -->
+  <section class="sec" id="game" aria-labelledby="game-h">
+    <div class="wrap">
+      <h2 class="sech" id="game-h"><span data-t="about_h"></span></h2>
+      <p class="lead" data-t="about_p1"></p>
+      <div class="feats" id="feats"></div>
+      <p class="wikiline"><a class="btn" href="wiki.html"><img src="assets/pi-scroll.png" alt="" width="22" height="22" class="px"><span data-t="wiki_cta"></span></a></p>
+    </div>
+  </section>
+
+  <!-- ============ screenshots ============ -->
+  <section class="sec" id="shots" aria-labelledby="shots-h">
+    <div class="wrap">
+      <h2 class="sech" id="shots-h"><span data-t="shots_h"></span></h2>
+      <div class="shots" id="shotgrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ hall of fame ============ -->
+  <section class="sec" id="heroes" aria-labelledby="lb-h">
+    <div class="wrap">
+      <h2 class="sech" id="lb-h"><span data-t="lb_h"></span></h2>
+      <p class="lead" data-t="lb_sub"></p>
+      <div id="lb" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- ============ updates ============ -->
   <section class="sec" id="updates" aria-labelledby="upd-h">
-    <h2 class="sech" id="upd-h"><span data-t="upd_h"></span></h2>
-    <p class="lead" id="upd-sub"></p>
-    <div class="log" id="log"><noscript><p class="lead">The updates list needs JavaScript.</p></noscript></div>
+    <div class="wrap">
+      <h2 class="sech" id="upd-h"><span data-t="upd_h"></span></h2>
+      <p class="lead" id="upd-sub"></p>
+      <div class="log" id="log"><noscript><p class="lead">The updates list needs JavaScript.</p></noscript></div>
+      <p class="more"><button type="button" class="btn quiet" id="upd-more" hidden><span data-t="upd_more"></span></button></p>
+    </div>
   </section>
 
+  <!-- ============ community ============ -->
+  <section class="sec" id="community" aria-labelledby="com-h">
+    <div class="wrap">
+      <h2 class="sech" id="com-h"><span data-t="com_h"></span></h2>
+      <div class="com">
+        <a class="panel comc" href="forum.html"><img src="assets/pi-gstar.png" alt="" class="px" width="28" height="28"><h3 data-t="com_forum_h"></h3><p data-t="com_forum_p"></p></a>
+        <a class="panel comc" href="wiki.html"><img src="assets/pi-scroll.png" alt="" class="px" width="28" height="28"><h3 data-t="com_wiki_h"></h3><p data-t="com_wiki_p"></p></a>
+        <a class="panel comc" href="account.html"><img src="assets/pi-compass.png" alt="" class="px" width="28" height="28"><h3 data-t="com_acc_h"></h3><p data-t="com_acc_p"></p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ last call ============ -->
   <section class="sec cta" aria-labelledby="cta-h">
-    <h2 id="cta-h" data-t="cta_h"></h2>
-    <div class="dlrow">
-      <a class="btn gold big dlbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="dl_btn"></span><small class="winsz"></small></span></a>
-      <a class="btn big macbtn" href="#"><i class="dl" aria-hidden="true"></i><span class="lbl"><span data-t="mac_btn"></span><small class="macsz"></small></span></a>
+    <div class="wrap">
+      <p class="oath" aria-hidden="true"><i></i></p>
+      <h2 id="cta-h" data-t="cta_h"></h2>
+      <div class="dlrow">
+        <a class="btn gold big dlbtn" href="#"><span class="lbl"><span data-t="dl_btn"></span><small><span data-t="dl_sub"></span><span class="winsz ltr"></span></small></span></a>
+        <a class="btn big macbtn" href="#"><span class="lbl"><span data-t="mac_btn"></span><small><span data-t="mac_sub"></span><span class="macsz ltr"></span></small></span></a>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="fline" aria-hidden="true"></div>
-  <p class="brandline">The Serpent's Oath</p>
-  <p data-t="foot"></p>
-  <p><a href="#top" data-t="top"></a></p>
+  <div class="in wrap">
+    <img src="assets/logo/logotype.png" alt="The Serpent's Oath" width="702" height="426">
+  <nav class="social" aria-label="Social">
+      <a href="#" data-social="x" data-ta="social_x" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="#" data-social="instagram" data-ta="social_ig" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.25" class="dot"/></svg></a>
+      <a href="#" data-social="facebook" data-ta="social_fb" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg></a>
+    </nav>
+    <p data-t="foot"></p>
+    <p class="links"><a href="privacy.html" data-t="privacy"></a><a href="terms.html" data-t="terms"></a><a href="https://github.com/serpents-oath/serpents-oath.github.io/releases" rel="noopener" data-t="releases"></a><a href="#top" data-t="top"></a></p>
+  </div>
+<p class="rights" aria-label="Copyright"><span lang="he">© 2026 · כל הזכויות שמורות ל-The Serpent's Oath</span><span lang="en">© 2026 The Serpent's Oath. All rights reserved.</span><span lang="es">© 2026 The Serpent's Oath. Todos los derechos reservados.</span></p>
 </footer>
+
+<!-- trailer and screenshot viewer -->
+<dialog id="viewer" class="viewer" aria-label="Viewer">
+  <button type="button" class="vclose" id="vclose" aria-label="Close">×</button>
+  <div class="vbody" id="vbody"></div>
+</dialog>
 
 <script src="updates.js"></script>
 <script src="lang.js"></script>
-<script>
-// texts in Hebrew, English and Spanish. data-t fills textContent, data-h fills markup (only these fixed strings, never data).
-const SETUPF = `<span class="file">SerpentsOath-Setup.exe</span>`;
-const MACF = `<span class="file">SerpentsOath-Launcher-Mac.zip</span>`;
-const T = {
-  he: {
-    nav_run: 'הורדה והפעלה', nav_about: 'על המשחק', nav_lb: 'היכל התהילה', nav_upd: 'עדכונים', nav_wiki: 'ויקי',
-    tagline: 'המסע של Val להחזיר את Roye הביתה',
-    dl_btn: 'הורדת המשגר', dl_sub: 'Windows · ',
-    // the ONLINE BETA IS OPEN announcement (#beta-open): the headline itself stays in English in every language, as BETA ONLINE does
-    bo_p: 'פותחים את המשגר, לוחצים על החץ הקטן ליד <span class="key">ONLINE</span> ובוחרים <span class="key">BETA ONLINE</span>, ואז נרשמים ויוצרים דמות.', bo_btn: 'איך מצטרפים', bo_val: 'Val קופצת משמחה',
-    mac_btn: 'המשגר ל-Mac', mac_sub: 'בטא · Apple silicon',
-    mac_p: `ב-Mac (בטא): מורידים את ${MACF} (למעבדי Apple silicon; <a class="intel" href="#">למחשבי Mac עם Intel</a>), מחלצים ופותחים את <span class="ltr">The Serpent\'s Oath.app</span>. בפעם הראשונה macOS מבקש אישור: הגדרות המערכת › פרטיות ואבטחה › <span class="ltr">Open Anyway</span>, כי האפליקציה לא אושרה (notarized) על ידי Apple.`,
-    ver: 'גרסה', mb: 'MB',
-    req: 'Windows 10 או 11, 64 ביט. Mac בבטא. המשגר מתקין ומעדכן את המשחק. <a href="#run">איך זה עובד?</a>',
-    run_h: 'איך מורידים ומשחקים',
-    run_sub: 'שלושה צעדים. את ההתקנה והעדכונים עושה המשגר.',
-    s1_h: 'מורידים את המשגר',
-    s1_p: `לוחצים על כפתור ההורדה ושומרים את ${SETUPF} (בערך <span class="ltr">{mb}MB</span>). זו ההורדה היחידה: את המשחק עצמו מוריד המשגר.`,
-    s2_h: 'מריצים ומתקינים את המשגר',
-    s2_p: 'לחיצה כפולה על הקובץ שהורד. אם מופיע החלון הכחול <b class="ltr">"Windows protected your PC"</b>, לוחצים על <span class="key">More info</span> ואז על <span class="key">Run anyway</span>. בוחרים שפה ולוחצים <b>התקן</b>: בלי הרשאות מנהל, עם קיצור דרך בשולחן העבודה ובתפריט התחל. בסוף המשגר נפתח לבד.',
-    s3_h: 'לוחצים התקנה, ואז קמפיין',
-    s3_p: 'המשגר מוריד ומתקין את המשחק (אפשר לבחור תיקייה), בודק כל קובץ, ומאז מעדכן אותו לבד בכל פתיחה. בפעמים הבאות פותחים אותו מהקיצור <b class="ltr">The Serpent\'s Oath</b>.',
-    notes_h: 'טוב לדעת על ההתקנה',
-    n_ss: 'החלון הכחול <b class="ltr">"Windows protected your PC"</b> מופיע כי תוכנת ההתקנה עוד לא חתומה דיגיטלית. לוחצים <span class="key">More info</span> ואז <span class="key">Run anyway</span> וההתקנה ממשיכה.',
-    n_save: 'השמירות נשמרות בפרופיל המשתמש שלכם, ב-<span class="path">%APPDATA%\\SerpentsOath</span>, ולא בתיקיית המשחק.',
-    n_upd: '<b>עדכונים אוטומטיים:</b> בכל פתיחה המשגר בודק אם יש גרסה חדשה ומוריד רק את הקבצים שהשתנו. ההתקדמות נשמרת. מי שכבר שיחק בגרסת ה-ZIP הקודמת ממשיך מאותה נקודה, ואת התיקייה הישנה אפשר למחוק. כשהמשגר מודיע על גרסה חדשה של המשגר עצמו, מורידים ומריצים שוב את תוכנת ההתקנה: היא מעדכנת אותו במקום, והמשחק והשמירות נשארים.',
-    n_req: 'Windows 10 או 11, 64 ביט. לא צריך הרשאות מנהל: המשגר והמשחק מותקנים בתיקיית המשתמש. הסרה דרך הגדרות › אפליקציות; השמירות נשארות אלא אם מסמנים במפורש למחוק אותן.',
-    n_full: '<span class="key">F11</span> או <span class="key">Alt+Enter</span> עוברים בין מסך מלא לחלון.',
-    about_h: 'על המשחק',
-    about_p1: 'Val היא אישה רגילה מכפר קטן לחוף הים האגאי. בלילה שבו נעלמו הכוכבים, מרכבה שחורה לקחה ממנה את Roye, והיא יוצאת אחריו: דרך ערי יוון המוקפות חומות, הרים ומערות, אל הנהר של המתים ועד לשאול. בדרך היא נלחמת במפלצות, מדברת עם אלים וגיבורים, ומגלה שמדוזה, היצור שכולם לימדו אותה לפחד ממנו, היא לא מה שחשבה.',
-    wiki_cta: 'כל המפלצות, הנשקים, הכישורים והמקומות: לוויקי',
-    about_p2: 'עולם פתוח אחד גדול בפיקסל־ארט, קרבות עם משקל, כישורים, נשקים ובגדים, סוסים, ומוזיקה שנכתבה למשחק.',
-    f_world: 'עולם פתוח', f_fight: 'קרבות וכישורים', f_horse: 'רכיבה על סוסים', f_story: 'סיפור בפרקים', f_lang: 'עברית ואנגלית',
-    lb_h: 'היכל התהילה',
-    lb_sub: 'חמש הדמויות ברמה הגבוהה ביותר ב-\u2060BETA\u00a0ONLINE, ואיך הן נראות.',
-    lb_soon_h: 'ההיכל עוד ריק',
-    lb_soon: 'ה-\u2060BETA\u00a0ONLINE נפתחת בקרוב. הדמויות הראשונות יופיעו כאן ברגע שיתחילו לעלות ברמות.',
-    lb_none: 'עוד אין כאן אף דמות. הדמויות הראשונות יופיעו כאן ברגע שיתחילו לעלות ברמות.',
-    lb_load: 'טוען…',
-    lb_rank: 'מקום', lb_lv: 'רמה', lb_since: 'מאז {d}', lb_since_t: 'ברמה הזו מאז {d}', lb_pic: 'הדמות {n}',
-    lb_w: { sword: 'חרב', spear: 'חנית', axe: 'גרזן' },
-    upd_h: 'לוח העדכונים',
-    upd_sub: '{n} עדכונים מאז 14.10.2026, החדש ביותר למעלה.',
-    soon: 'בקרוב',
-    cta_h: 'מוכנים לצאת לדרך?',
-    foot: 'משחק הרפתקאות ל-Windows (ול-Mac בבטא). חינם. המשגר מתקין ומעדכן אותו.',
-    top: 'חזרה למעלה',
-  },
-  en: {
-    nav_run: 'Download and play', nav_about: 'About', nav_lb: 'Hall of Fame', nav_upd: 'Updates', nav_wiki: 'Wiki',
-    tagline: "Val's journey to bring Roye home",
-    dl_btn: 'Download the launcher', dl_sub: 'Windows · ',
-    bo_p: 'Open the launcher, click the small arrow next to <span class="key">ONLINE</span>, choose <span class="key">BETA ONLINE</span>, then create an account and make your hero.', bo_btn: 'How to join', bo_val: 'Val jumping for joy',
-    mac_btn: 'Launcher for Mac', mac_sub: 'Beta · Apple silicon',
-    mac_p: `On a Mac (beta): download ${MACF} (Apple silicon; <a class="intel" href="#">Intel Macs</a>), extract it and open <span class="ltr">The Serpent\'s Oath.app</span>. The first time, macOS asks you to confirm in System Settings › Privacy &amp; Security › <b>Open Anyway</b>, because the app is not notarized by Apple.`,
-    ver: 'Version', mb: 'MB',
-    req: 'Windows 10 or 11, 64-bit. Mac in beta. The launcher installs and updates the game. <a href="#run">How does it work?</a>',
-    run_h: 'Download and play',
-    run_sub: 'Three steps. The launcher does the installing and the updating.',
-    s1_h: 'Download the launcher',
-    s1_p: `Click the download button and save ${SETUPF} (about {mb} MB). It is the only download: the launcher fetches the game itself.`,
-    s2_h: 'Run it to install the launcher',
-    s2_p: 'Double-click the downloaded file. If a blue <b>"Windows protected your PC"</b> window appears, click <span class="key">More info</span>, then <span class="key">Run anyway</span>. Pick a language and click <b>Install</b>: no admin rights, with shortcuts on the desktop and in the Start menu. At the end the launcher opens by itself.',
-    s3_h: 'Click INSTALL, then CAMPAIGN',
-    s3_p: 'The launcher downloads and installs the game (pick a folder if you like), checks every file, and from then on updates it by itself whenever you open it. Next time, open it from the <b>The Serpent\'s Oath</b> shortcut.',
-    notes_h: 'Good to know about the installation',
-    n_ss: 'The blue <b>"Windows protected your PC"</b> window appears because the setup isn\'t digitally signed yet. <span class="key">More info</span>, then <span class="key">Run anyway</span> continues the install.',
-    n_save: 'Your saves live in your Windows profile, in <span class="path">%APPDATA%\\SerpentsOath</span>, not in the game folder.',
-    n_upd: '<b>Updates are automatic:</b> every time it opens, the launcher checks for a new version and downloads only the files that changed. Progress carries over, including from the old ZIP version, whose folder you can delete. When the launcher says a newer launcher is out, download and run the setup again: it updates the launcher in place and keeps the game and your saves.',
-    n_req: 'Windows 10 or 11, 64-bit. No admin rights needed: the launcher and the game install into your user folder. Uninstall from Settings › Apps; your saves stay unless you explicitly tick the box to delete them.',
-    n_full: '<span class="key">F11</span> or <span class="key">Alt+Enter</span> switches between full screen and a window.',
-    about_h: 'About the game',
-    about_p1: 'Val is an ordinary woman from a small village on the Aegean coast. On the night the stars went out, a black chariot took Roye from her, and she goes after him: through walled Greek cities, mountains and caves, to the river of the dead and down into the underworld. Along the way she fights monsters, talks with gods and heroes, and learns that Medusa, the creature everyone taught her to fear, is not what she seemed.',
-    wiki_cta: 'Every monster, weapon, skill and place: open the wiki',
-    about_p2: 'One big open world in pixel art, combat with weight, skills, weapons and outfits, horses, and music made for the game.',
-    f_world: 'Open world', f_fight: 'Combat and skills', f_horse: 'Horse riding', f_story: 'A story in chapters', f_lang: 'Hebrew and English',
-    lb_h: 'Hall of Fame',
-    lb_sub: 'The five highest-level characters in the online beta, and how they look.',
-    lb_soon_h: 'The hall is still empty',
-    lb_soon: 'The online beta opens soon. The first heroes will appear here as soon as they start to level up.',
-    lb_none: 'No heroes here yet. The first ones will appear here as soon as they start to level up.',
-    lb_load: 'Loading…',
-    lb_rank: 'Rank', lb_lv: 'Level', lb_since: 'Since {d}', lb_since_t: 'At this level since {d}', lb_pic: 'The character {n}',
-    lb_w: { sword: 'Sword', spear: 'Spear', axe: 'Axe' },
-    upd_h: 'Updates',
-    upd_sub: '{n} updates since 14 Oct 2026, newest first.',
-    soon: 'Coming soon',
-    cta_h: 'Ready to set out?',
-    foot: 'An adventure game for Windows (and Mac, in beta). Free. The launcher installs and updates it.',
-    top: 'Back to top',
-  },
-  es: {
-    nav_run: 'Descargar y jugar', nav_about: 'El juego', nav_lb: 'Salón de la fama', nav_upd: 'Novedades', nav_wiki: 'Wiki',
-    tagline: 'El viaje de Val para traer a Roye de vuelta a casa',
-    dl_btn: 'Descargar el launcher', dl_sub: 'Windows · ',
-    bo_p: 'Abre el launcher, pulsa la flechita junto a <span class="key">ONLINE</span>, elige <span class="key">BETA ONLINE</span>, y luego crea una cuenta y tu héroe.', bo_btn: 'Cómo unirse', bo_val: 'Val saltando de alegría',
-    mac_btn: 'Launcher para Mac', mac_sub: 'Beta · Apple silicon',
-    mac_p: `En Mac (beta): descarga ${MACF} (Apple silicon; <a class="intel" href="#">Mac con Intel</a>), descomprímelo y abre <span class="ltr">The Serpent\'s Oath.app</span>. La primera vez, macOS te pide confirmarlo en Ajustes del Sistema › Privacidad y seguridad › <b>Abrir igualmente</b>, porque Apple no ha notarizado la app.`,
-    ver: 'Versión', mb: 'MB',
-    req: 'Windows 10 u 11, 64 bits. Mac en beta. El launcher instala y actualiza el juego. <a href="#run">¿Cómo funciona?</a>',
-    run_h: 'Descargar y jugar',
-    run_sub: 'Tres pasos. El launcher se encarga de instalar y actualizar.',
-    s1_h: 'Descarga el launcher',
-    s1_p: `Pulsa el botón de descarga y guarda ${SETUPF} (unos {mb} MB). Es la única descarga: el juego lo descarga el propio launcher.`,
-    s2_h: 'Ejecútalo para instalar el launcher',
-    s2_p: 'Haz doble clic en el archivo descargado. Si aparece la ventana azul <b>«Windows protegió su PC»</b>, pulsa <span class="key">Más información</span> y luego <span class="key">Ejecutar de todas formas</span>. Elige el idioma (inglés o hebreo) y pulsa <b>Install</b>: sin permisos de administrador, con accesos directos en el escritorio y en el menú Inicio. Al terminar, el launcher se abre solo.',
-    s3_h: 'Pulsa INSTALL y luego CAMPAIGN',
-    s3_p: 'El launcher descarga e instala el juego (puedes elegir la carpeta), comprueba cada archivo y, desde entonces, lo actualiza solo cada vez que lo abres. La próxima vez, ábrelo desde el acceso directo <b>The Serpent\'s Oath</b>. El launcher y el juego están en inglés y en hebreo.',
-    notes_h: 'Conviene saber sobre la instalación',
-    n_ss: 'La ventana azul <b>«Windows protegió su PC»</b> aparece porque el instalador aún no tiene firma digital. <span class="key">Más información</span> y luego <span class="key">Ejecutar de todas formas</span> continúan la instalación.',
-    n_save: 'Tus partidas se guardan en tu perfil de Windows, en <span class="path">%APPDATA%\\SerpentsOath</span>, no en la carpeta del juego.',
-    n_upd: '<b>Las actualizaciones son automáticas:</b> cada vez que se abre, el launcher busca una versión nueva y descarga solo los archivos que han cambiado. El progreso se conserva, también el de la antigua versión ZIP, cuya carpeta puedes borrar. Cuando el launcher avise de que hay un launcher nuevo, descarga y ejecuta otra vez el instalador: lo actualiza en su sitio y conserva el juego y tus partidas.',
-    n_req: 'Windows 10 u 11, 64 bits. No hacen falta permisos de administrador: el launcher y el juego se instalan en tu carpeta de usuario. Se desinstala desde Configuración › Aplicaciones; tus partidas se conservan salvo que marques expresamente la casilla para borrarlas.',
-    n_full: '<span class="key">F11</span> o <span class="key">Alt+Enter</span> cambia entre pantalla completa y ventana.',
-    about_h: 'Sobre el juego',
-    about_p1: 'Val es una mujer corriente de un pequeño pueblo de la costa del Egeo. La noche en que se apagaron las estrellas, un carro negro se llevó a Roye, y ella sale tras él: por ciudades griegas amuralladas, montañas y cuevas, hasta el río de los muertos y el inframundo. Por el camino lucha contra monstruos, habla con dioses y héroes, y descubre que Medusa, la criatura a la que todos le enseñaron a temer, no es lo que parecía.',
-    wiki_cta: 'Todos los monstruos, armas, habilidades y lugares: abre la wiki',
-    about_p2: 'Un gran mundo abierto en pixel art, combates con peso, habilidades, armas y atuendos, caballos y música compuesta para el juego.',
-    f_world: 'Mundo abierto', f_fight: 'Combate y habilidades', f_horse: 'Montar a caballo', f_story: 'Una historia por capítulos', f_lang: 'En hebreo e inglés',
-    lb_h: 'Salón de la fama',
-    lb_sub: 'Los cinco personajes de mayor nivel de la beta online, y su aspecto.',
-    lb_soon_h: 'El salón aún está vacío',
-    lb_soon: 'La beta online abre pronto. Los primeros héroes aparecerán aquí en cuanto empiecen a subir de nivel.',
-    lb_none: 'Aún no hay ningún héroe. Los primeros aparecerán aquí en cuanto empiecen a subir de nivel.',
-    lb_load: 'Cargando…',
-    lb_rank: 'Puesto', lb_lv: 'Nivel', lb_since: 'Desde el {d}', lb_since_t: 'En este nivel desde el {d}', lb_pic: 'El personaje {n}',
-    lb_w: { sword: 'Espada', spear: 'Lanza', axe: 'Hacha' },
-    upd_h: 'Novedades',
-    upd_sub: '{n} actualizaciones desde el 14 oct 2026, la más reciente primero.',
-    soon: 'Próximamente',
-    cta_h: '¿Todo listo para partir?',
-    foot: 'Un juego de aventuras para Windows (y Mac, en beta). Gratis. El launcher lo instala y lo actualiza.',
-    top: 'Volver arriba',
-  },
-};
-// the clips under "About": real gameplay, recorded by tools/site/record.mjs in the game repo (8 s seamless loops)
-const CLIPS = [
-  { src: 'assets/clip-ride', he: 'Val רוכבת על סוס מלחמה מברונזה, החוצה משערי אתונה', en: 'Val rides out of the gates of Athens on her bronze warhorse', es: 'Val sale de las puertas de Atenas en su caballo de guerra de bronce' },
-  { src: 'assets/clip-fight', he: 'קרב מול להקה: חרב, מגן וכישורים', en: 'A fight against a pack: sword, shield and skills', es: 'Un combate contra una manada: espada, escudo y habilidades' },
-  { src: 'assets/clip-story', he: 'טרטרוס: קאמפה, השומרת, פוגשת את Val', en: 'Tartarus: Kampe, the warden, meets Val', es: 'Tártaro: Campe, la guardiana, se encuentra con Val' },
-  { src: 'assets/clip-inventory', he: 'התיק: נשקים, שריון וסטים לפי נדירות', en: 'The satchel: weapons, armour and sets by rarity', es: 'El zurrón: armas, armaduras y conjuntos por rareza' },
-];
-// the screenshots under "About": real captures from the game
-const SHOTS = [
-  { src: 'assets/shot-1.jpg', he: 'Val באגורה של אתונה', en: 'Val in the agora of Athens', es: 'Val en el ágora de Atenas' },
-  { src: 'assets/shot-2.jpg', he: 'קרב בדרך לתבאי', en: 'A fight on the road to Thebes', es: 'Un combate en el camino a Tebas' },
-  { src: 'assets/shot-3.jpg', he: 'כארון והסירה שלו על נהר המתים', en: 'Charon and his boat on the river of the dead', es: 'Caronte y su barca en el río de los muertos' },
-  { src: 'assets/shot-4.jpg', he: 'קיקלופ והרפיה בשעת אחר הצהריים', en: 'A cyclops and a harpy in the late afternoon', es: 'Un cíclope y una arpía a media tarde' },
-];
-
-const $ = (s) => document.querySelector(s);
-const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
-const MON = { en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'] };
-const fmt = (d, L) => { const [y, m, dd] = d.split('-').map(Number); return L === 'he' ? `${dd}.${m}.${y}` : `${dd} ${MON[L][m - 1]} ${y}`; };
-const PLAY = { he: 'הפעלה או השהיה', en: 'Play or pause', es: 'Reproducir o pausar' };
-const SITE = window.SITE || {}, UPDATES = window.UPDATES || [];
-const fill = (s) => s.replace('{mb}', SITE.LAUNCHER_MB || '').replace('{n}', UPDATES.length);
-let L = 'en';
-
-function render() {
-  const t = T[L];
-  SoLang.show(L);
-  document.querySelectorAll('[data-t]').forEach((e) => { e.textContent = fill(t[e.dataset.t]); });
-  document.querySelectorAll('[data-h]').forEach((e) => { e.innerHTML = fill(t[e.dataset.h]); });
-  // the version line under the button: the newest released update (an upcoming one isn't in the ZIP yet)
-  const cur = UPDATES.find((u) => !u.upcoming), meta = $('#meta'); meta.textContent = '';
-  const bit = (label, val) => { const s = el('span'); if (label) s.append(label + ' '); s.append(el('b', '', val)); return s; };
-  const parts = [];
-  if (cur?.v) parts.push(bit(t.ver, cur.v));
-  if (cur?.date) parts.push(bit('', fmt(cur.date, L)));
-  parts.forEach((p, i) => { if (i) meta.append(el('span', 'sep', '·')); meta.append(p); });
-  document.querySelectorAll('.winsz').forEach((e) => { e.textContent = t.dl_sub + (SITE.LAUNCHER_MB ? '\u2066' + SITE.LAUNCHER_MB + ' ' + t.mb + '\u2069' : ''); });
-  document.querySelectorAll('.macsz').forEach((e) => { e.textContent = t.mac_sub + (SITE.MAC_MB ? ' · \u2066' + SITE.MAC_MB + ' ' + t.mb + '\u2069' : ''); });
-  document.querySelectorAll('a.intel').forEach((a) => { a.href = SITE.MAC_INTEL_URL || '#'; });
-  $('#upd-sub').textContent = fill(t.upd_sub);
-  shots(); clips(); board(); heroes();
-}
-
-// each clip shows its poster until it comes near the screen, then loads and plays (muted, looping, inline on phones);
-// off screen it pauses. With motion off it stays a still: the play chip starts it by hand.
-const STILL = matchMedia('(prefers-reduced-motion: reduce)');
-const near = 'IntersectionObserver' in window ? new IntersectionObserver((es) => {
-  for (const e of es) { const v = e.target; if (e.isIntersecting) { load(v); if (!v.dataset.held) v.play().catch(() => {}); } else v.pause(); }
-}, { rootMargin: '200px 0px' }) : null;
-function load(v) {
-  if (v.dataset.on) return; v.dataset.on = 1;
-  for (const [ext, type] of [['webm', 'video/webm'], ['mp4', 'video/mp4']]) { const s = el('source'); s.src = `${v.dataset.src}.${ext}`; s.type = type; v.append(s); }
-  v.load();
-}
-let clipsBuilt = false;
-function clips() {
-  const box = $('#clips');
-  if (clipsBuilt) { // a language switch only changes the words
-    box.querySelectorAll('.clip').forEach((f, i) => { f.querySelector('figcaption').textContent = CLIPS[i][L]; f.querySelector('video').setAttribute('aria-label', CLIPS[i][L]); f.querySelector('.pp').setAttribute('aria-label', PLAY[L]); });
-    return;
-  }
-  clipsBuilt = true;
-  for (const c of CLIPS) {
-    const f = el('figure', 'clip'), fr = el('div', 'fr'), v = el('video'), b = el('button', 'pp');
-    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none'; v.poster = c.src + '.jpg';
-    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-label', c[L]);
-    v.width = 1280; v.height = 720; v.dataset.src = c.src;
-    b.type = 'button'; b.append(el('i')); b.setAttribute('aria-label', PLAY[L]);
-    const still = STILL.matches || !near;
-    if (still) v.dataset.held = 1;
-    b.setAttribute('aria-pressed', String(!still));
-    b.addEventListener('click', () => {
-      if (v.paused) { delete v.dataset.held; load(v); v.play().catch(() => {}); b.setAttribute('aria-pressed', 'true'); }
-      else { v.dataset.held = 1; v.pause(); b.setAttribute('aria-pressed', 'false'); }
-    });
-    fr.append(v, b); f.append(fr, el('figcaption', '', c[L])); box.append(f);
-    if (near && !STILL.matches) near.observe(v);
-  }
-}
-
-function shots() {
-  const box = $('#shots'); box.textContent = '';
-  for (const s of SHOTS) {
-    const f = el('figure', 'shot'), a = el('a'), img = el('img');
-    a.href = s.src; img.src = s.src; img.alt = s[L]; img.loading = 'lazy'; img.width = 960; img.height = 540;
-    a.append(img); f.append(a, el('figcaption', '', s[L])); box.append(f);
-  }
-}
-
-function board() {
-  const box = $('#log'), was = [...box.querySelectorAll('details')].map((d) => d.open);
-  box.textContent = '';
-  UPDATES.forEach((u, i) => {
-    const d = el('details', 'upd parch' + (u.upcoming ? ' up' : '')), s = el('summary'), x = u[L] || u.en;
-    d.open = was.length ? !!was[i] : i < 3;
-    s.append(el('span', 'dt', fmt(u.date, L)));
-    if (u.v) { const v = el('span', 'v', L === 'he' ? 'גרסה ' : 'v'); v.append(el('span', 'ltr', u.v)); s.append(v); }
-    if (u.upcoming) s.append(el('span', 'soon', T[L].soon));
-    s.append(el('span', 'tt', x.title));
-    const ul = el('ul'); for (const it of x.items) ul.append(el('li', '', it));
-    d.append(s, ul); box.append(d);
-  });
-}
-
-// the hall of fame: the online beta's top 5 by level, from the read-only RPC (never usernames, ids or emails). Asked
-// once; a language switch only redraws. Not set up, failed, slow or malformed: the empty hall ("opens soon").
-// Every name is set as text (textContent), never as markup.
-const LB = { state: 'off', list: [] }; // state: off | busy | ok
-const WEAPON_ICON = { sword: 'assets/pi-sword.png', spear: 'assets/pi-spear.png', axe: 'assets/pi-axe.png' };
-function heroRow(r) {
-  if (!r || typeof r !== 'object') return null;
-  const name = typeof r.name === 'string' ? r.name.trim().slice(0, 40) : '', level = Math.floor(Number(r.level));
-  if (!name || !Number.isFinite(level) || level < 1) return null;
-  let png = typeof r.portrait_png_base64 === 'string' ? r.portrait_png_base64.replace(/^data:image\/png;base64,/, '').replace(/\s+/g, '') : '';
-  if (!/^[A-Za-z0-9+/]+={0,2}$/.test(png)) png = '';
-  const at = r.reached_at ? new Date(r.reached_at) : null;
-  return { name, level, weapon: typeof r.weapon === 'string' ? r.weapon.trim().toLowerCase().slice(0, 24) : '', png, at: at && !isNaN(at) ? at : null };
-}
-async function loadHeroes() {
-  const url = String(SITE.SUPABASE_URL || '').trim().replace(/\/+$/, ''), key = String(SITE.ANON_KEY || '').trim();
-  if (!url || !key) return;
-  LB.state = 'busy'; heroes();
-  const ac = 'AbortController' in window ? new AbortController() : null, stop = setTimeout(() => ac?.abort(), 8000);
-  try {
-    const res = await fetch(url + '/rest/v1/rpc/leaderboard_top', {
-      method: 'POST', cache: 'no-store', signal: ac?.signal,
-      // a publishable key (sb_publishable_...) goes in apikey alone; a legacy anon key (a JWT) also as the bearer
-      headers: { apikey: key, ...(/^eyJ/.test(key) ? { Authorization: 'Bearer ' + key } : {}), 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ p_limit: 5 }),
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    if (!Array.isArray(data)) throw new Error('not a list');
-    LB.list = data.map(heroRow).filter(Boolean).slice(0, 5);
-    LB.state = 'ok';
-  } catch (e) { LB.state = 'off'; LB.list = []; }
-  clearTimeout(stop);
-  heroes();
-}
-function silhouette() { const d = el('div', 'sil'); d.setAttribute('aria-hidden', 'true'); return d; }
-function heroes() {
-  const t = T[L], box = $('#lb'); box.textContent = '';
-  box.setAttribute('aria-busy', String(LB.state === 'busy'));
-  if (LB.state === 'ok' && LB.list.length) {
-    const ol = el('ol', 'lb n' + LB.list.length);
-    LB.list.forEach((h, i) => {
-      const li = el('li', 'hc parch' + (i ? '' : ' r1')), pt = el('div', 'pt'), rk = el('span', 'rk', String(i + 1));
-      rk.setAttribute('aria-hidden', 'true');
-      li.append(el('span', 'sr', `${t.lb_rank} ${i + 1}: `), rk);
-      if (h.png) {
-        const img = el('img'); img.alt = t.lb_pic.replace('{n}', h.name); img.decoding = 'async';
-        img.addEventListener('error', () => img.replaceWith(silhouette()), { once: true });
-        img.src = 'data:image/png;base64,' + h.png; pt.append(img);
-      } else pt.append(silhouette());
-      const nm = el('p', 'nm' + (h.name.length > 18 ? ' longer' : h.name.length > 12 ? ' long' : ''), h.name); nm.dir = 'auto'; nm.title = h.name;
-      const lv = el('p', 'lv'); lv.append(el('span', '', t.lb_lv), el('b', '', String(h.level)));
-      li.append(pt, nm, lv);
-      if (h.weapon) {
-        const wp = el('span', 'wp'), icon = WEAPON_ICON[h.weapon];
-        if (icon) { const im = el('img'); im.src = icon; im.alt = ''; im.width = 18; im.height = 18; wp.append(im); }
-        wp.append(el('span', '', t.lb_w[h.weapon] || h.weapon)); li.append(wp);
-      }
-      if (h.at) {
-        const d = h.at, iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-        const tm = el('time', '', fmt(iso, L)); tm.dateTime = iso;
-        const p = el('p', 'since'), [a, b] = t.lb_since.split('{d}'); p.append(a, tm, b || ''); p.title = t.lb_since_t.replace('{d}', fmt(iso, L)); li.append(p);
-      }
-      ol.append(li);
-    });
-    box.append(ol);
-    return;
-  }
-  // the empty hall: five empty slots, rank 1 with a faint legendary ring
-  const wrap = el('div', 'lb-empty parch' + (LB.state === 'busy' ? ' busy' : '')), gh = el('ol', 'ghosts');
-  gh.setAttribute('aria-hidden', 'true');
-  for (let i = 1; i <= 5; i++) { const li = el('li'), pt = el('div', 'pt' + (i === 1 ? ' g1' : '')); pt.append(silhouette()); li.append(pt, el('b', '', String(i))); gh.append(li); }
-  wrap.append(gh);
-  if (LB.state === 'busy') wrap.append(el('p', '', t.lb_load));
-  else wrap.append(el('h3', '', t.lb_soon_h), el('p', '', LB.state === 'ok' ? t.lb_none : t.lb_soon));
-  box.append(wrap);
-}
-
-// the hero snake: a head and a body of segments, each a beat behind the one in front
-(() => { const sn = $('#snake'); for (let i = 0; i < 17; i++) { const s = el('i', i === 16 ? 'hd' : ''); s.style.setProperty('--i', 16 - i); sn.append(s); } })();
-// the site gives out the launcher only; the launcher installs and updates the game (no game ZIP is linked here)
-document.querySelectorAll('.dlbtn').forEach((a) => { a.href = SITE.LAUNCHER_URL || '#'; });
-document.querySelectorAll('.macbtn').forEach((a) => { if (SITE.MAC_URL) a.href = SITE.MAC_URL; else a.remove(); });
-if (!SITE.MAC_URL) { document.querySelectorAll('.macnote').forEach((e) => e.remove()); document.querySelectorAll('.dlrow').forEach((r) => { r.style.gridTemplateColumns = 'minmax(0, 1fr)'; r.style.width = 'min(440px, 100%)'; }); }
-
-// the living background: a 12 s seamless loop (webm, mp4 for Safari). With motion off it isn't even downloaded,
-// and the still town (hero.jpg) stays
-const bgv = $('#bgv');
-if (matchMedia('(prefers-reduced-motion: reduce)').matches) bgv.remove();
-else {
-  for (const [src, type] of [['assets/hero.webm', 'video/webm'], ['assets/hero.mp4', 'video/mp4']]) { const s = el('source'); s.src = src; s.type = type; bgv.append(s); }
-  bgv.preload = 'auto'; bgv.autoplay = true; bgv.load(); bgv.play().catch(() => {});
-}
-
-// language (lang.js): ?lang=he|en|es, then the visitor's last choice, then the browser's, then English; the globe changes it
-L = SoLang.pick();
-render();
-SoLang.mount((l) => { L = l; render(); });
-loadHeroes();
-</script>
+<script src="nav.js"></script>
+<script src="nav-auth.js"></script>
+<script src="home.js"></script>
 </body>
 </html>

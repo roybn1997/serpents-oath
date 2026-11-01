@@ -19,18 +19,75 @@ window.SITE = {
   MAC_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac.zip',
   MAC_INTEL_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac-Intel.zip',
   MAC_MB: 104,
+  // the launcher's cinematic for the 'Watch the trailer' button, without its extension (assets/trailer.webm + .mp4);
+  // '' plays the hero clip instead. Set it when the 1080p cinematic (cinematic-v4) is dropped into assets/.
+  TRAILER: '',
+  // the game's pages on social networks: full URLs, e.g. 'https://x.com/serpentsoath'. Empty = the icon shows as not linked yet.
+  SOCIAL: { x: '', instagram: '', facebook: '' },
   SUPABASE_URL: 'https://exyixhjorhrzunnrxqjs.supabase.co',
   ANON_KEY: 'sb_publishable_aR8BdNa0VGdx3DL6hlOKfA_kso_gZV_', // the public publishable (anon) key; never a secret/service key
 };
 
 window.UPDATES = [
+  // v34 entry for window.UPDATES in updates.js (put it first in the array)
+  {
+    v: '34', date: '2026-11-01',
+    he: { title: 'גרסה 34: לוגו חדש, הגנה אמיתית ופורום', items: [
+      'לוגו חדש: מדוזה בפיקסל-ארט, גם כאייקון של הלאנצר',
+      'הלאנצר: הסרטון ממלא את כל החלון, ב-1080p עם קרבות אמיתיים',
+      'הגנה: עמידת הגנה אמיתית לכל נשק, וחסימה שרואים',
+      'יצירת דמות: בלי הבהוב בלחיצה, חלון צר יותר ותצוגה חדה יותר',
+      'עץ הסקילים לפי מקצוע: שורה לכל מסלול, השם האמיתי של הנשק, וקטגוריות לפי שלב',
+      'הדרכה חדשה: קליאון ליד הפסל בכפר התחלה מגודר, חזירים חלשים ותרגול Dash',
+      'טרייד: חלון בגובה התיק, עם צ\'אט',
+      'סינון קללות בכל הצ\'אטים',
+      'ביצועים: שחקנים רחוקים בעיר מצוירים בצורה קלה יותר, ומי שבערפל לא מצויר בכלל',
+      'תפקידים לדמויות (שחקן, GM, ADMIN), פקודות צוות וסט המלאך Seraph',
+      'Hall of Fame מציג רק שחקנים רגילים',
+      'Sticky Keys כבוי בזמן משחק ב-Windows',
+      'אונליין: בלי מהירות x1.5 (הקמפיין שומר עליה)',
+      'פורום באתר: נושאים, תגובות ו-12 דרגות של אלים אולימפיים'
+    ] },
+    en: { title: 'Version 34: new logo, real guard and a forum', items: [
+      'New logo: a pixel-art Medusa, also the launcher icon',
+      'Launcher: the video fills the whole window, 1080p with real fights',
+      'Guard: a real defensive stance for every weapon, and a visible block',
+      'Character creation: no flicker on a click, a narrower window and a sharper preview',
+      'Skill tree by job: a row per path, the weapon\'s own name, categories by tier',
+      'New tutorial: Kleon by the statue in a fenced starting village, weak boars and Dash practice',
+      'Trade: the window matches the satchel\'s height, with a chat',
+      'Curse words are filtered in every chat',
+      'Performance: distant players in town are drawn lighter, players in the fog not at all',
+      'Character roles (player, GM, ADMIN), staff commands and the Seraph angel set',
+      'Hall of Fame shows regular players only',
+      'Sticky Keys is off while playing on Windows',
+      'Online: no x1.5 speed (the campaign keeps it)',
+      'A forum on the site: topics, replies and 12 Olympian ranks'
+    ] },
+    es: { title: 'Versión 34: logo nuevo, guardia real y un foro', items: [
+      'Logo nuevo: una Medusa en pixel art, también como icono del launcher',
+      'Launcher: el video llena toda la ventana, en 1080p con combates reales',
+      'Guardia: una postura defensiva real para cada arma, y un bloqueo visible',
+      'Creación de personaje: sin parpadeo al hacer clic, ventana más estrecha y vista más nítida',
+      'Árbol de habilidades por oficio: una fila por camino, el nombre real del arma, categorías por nivel',
+      'Tutorial nuevo: Kleon junto a la estatua en una aldea cercada, jabalíes débiles y práctica de Dash',
+      'Comercio: la ventana tiene la altura de la bolsa, con chat',
+      'Las palabrotas se filtran en todos los chats',
+      'Rendimiento: los jugadores lejanos en la ciudad se dibujan más ligeros, los de la niebla no se dibujan',
+      'Roles de personaje (jugador, GM, ADMIN), comandos de staff y el set de ángel Seraph',
+      'El Hall of Fame muestra solo jugadores normales',
+      'Sticky Keys desactivado mientras juegas en Windows',
+      'Online: sin velocidad x1.5 (la campaña la mantiene)',
+      'Un foro en el sitio: temas, respuestas y 12 rangos olímpicos'
+    ] }
+  },
   {
     v: '33', date: '2026-10-31',
     he: { title: 'גרסה 33: מקצועות, מסחר וידיים חדשות', items: [
       'ידיים חדשות עם אצבעות לכל הדמויות',
       'תנועות חלקות ואנושיות יותר: מעברים רכים, נשימה במנוחה וקומבו זורם',
       'יצירת דמות: חלון צר יותר, 3 בגדים (לבן, עור חום בהיר ובד כהה), 4 גווני עור, 3 צורות עיניים ו-3 צבעי עיניים',
-      'מקצועות: חמישה שלבים לכל מקצוע, עם קווסטים, סינרגיות ובסטיארי',
+      'מקצועות: חמש עבודות לכל מקצוע, עם קווסטים, סינרגיות ובסטיארי',
       'מסחר בין שחקנים, וחלון Info בלחיצה ימנית על שחקן',
       'התיק: 48 משבצות בכל לשונית, ואפשר להרחיב בדרכמות עד 96',
       'זורקים חפץ בגרירה אל מחוץ לתיק, וחברי הפארטי יכולים להרים אותו ראשונים',
@@ -41,7 +98,7 @@ window.UPDATES = [
       'אייקונים חדשים בסגנון פיקסלים לחפצים ולכישורים, וחיזוק לנשק מסומן ב-+ ירוק',
       'כישור תנועה לכל מקצוע, דרך הקווסט "דרכו של הכרוז": ארבעה שלבים בתבאי, דלפי, נאופקטוס ואולימפיה, עם המיני בוס פודרגה',
       'כלכלת כישורים חדשה: את כישורי המקצוע הראשון מוכר המאמן, כמה כישורים מוכרים כוהני הערים, ואת כל השאר לומדים בקווסטי שיעור ובניסיונות האולטימייט',
-      'קווסטי שיעור לשלבים 2 עד 5 בכל ארבעת המקצועות',
+      'קווסטי שיעור לעבודות 2 עד 5 בכל ארבעת המקצועות',
       'חלון קווסטים על U: הקווסטים הפעילים ואלה שאפשר לקחת',
       'אפשר למזער ולסגור את רשימת הקווסטים שעל המסך',
       'חפצי קווסט נופלים רק בזמן הקווסט שלהם, ואי אפשר למכור או לסחור בהם',
