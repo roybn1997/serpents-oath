@@ -15,10 +15,10 @@
 // (es: the site's Spanish; the game and the launcher are Hebrew and English, and the launcher reads he/en only.)
 window.SITE = {
   LAUNCHER_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Setup.exe',
-  LAUNCHER_MB: 93,
+  LAUNCHER_MB: 151,
   MAC_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac.zip',
   MAC_INTEL_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac-Intel.zip',
-  MAC_MB: 104,
+  MAC_MB: 162,
   // the launcher's cinematic for the 'Watch the trailer' button, without its extension (assets/trailer.webm + .mp4);
   // '' plays the hero clip instead. Set it when the 1080p cinematic (cinematic-v4) is dropped into assets/.
   TRAILER: '',

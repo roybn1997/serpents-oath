@@ -11,7 +11,7 @@ const T = {
   he: {
     nav_menu: 'תפריט', nav_game: 'המשחק', nav_lb: 'היכל התהילה', nav_upd: 'עדכונים', nav_wiki: 'ויקי', nav_forum: 'פורום', nav_account: 'כניסה', nav_dl: 'הורדה',
     tagline: 'המסע של Val להחזיר את Roye הביתה. הרפתקה בעולם פתוח ביוון העתיקה, חינם.',
-    dl_btn: 'הורדה ל-Windows', dl_sub: 'חינם · ', mac_btn: 'הורדה ל-Mac', mac_sub: 'בטא · ',
+    dl_btn: 'הורדה עבור Windows', dl_sub: 'חינם · ', mac_btn: 'הורדה עבור Mac', mac_sub: 'בטא · ',
     trailer: 'לצפות בטריילר', ver: 'גרסה', mb: 'MB',
     req: 'Windows 10 או 11, 64 ביט. Mac בבטא. המשגר מתקין ומעדכן את המשחק לבד. <a href="#run">איך זה עובד?</a>',
     run_h: 'הורדה והפעלה', run_sub: 'שלושה צעדים. את ההתקנה והעדכונים עושה המשגר.',
