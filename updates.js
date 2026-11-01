@@ -35,19 +35,31 @@ window.UPDATES = [
       'הבנקאי באלאיה: בנק אחד לכל החשבון עם 10 משבצות, משותף לכל הדמויות',
       'קוד הזמנה בן 8 תווים נדרש כדי לפתוח משתמש חדש בבטא',
       'אפליקציית Companion (בטא): כפר קטן בדפדפן ובטלפון, דייג בזמן שאתם רחוקים מהמשחק',
-      'נעילת דמות: דמות לא יכולה להיות במשחק ובאפליקציה באותו זמן'
+      'נעילת דמות: דמות לא יכולה להיות במשחק ובאפליקציה באותו זמן',
+      'החלפת מקצוע ראשי היא עכשיו סקיל בבר: קפיצה, סיבוב 360 והחלפה לדמות השנייה',
+      'מידע על שחקן מראה גם את רמת המקצוע השני',
+      '10 סוגי שיקויי חיים ו-10 של מאנה, וערים חזקות יותר מוכרות שיקויים חזקים יותר',
+      'המתפללים ליד הפסל בכפר ההתחלה כורעים כמו שצריך'
     ] },
     en: { title: 'Version 35: shared bank, invitation codes and the Companion app', items: [
       'The Banker in Elaia: one 10-slot bank for the whole account, shared by all your characters',
       'An 8-character invitation code is now needed to create a new account in the beta',
       'Companion app (beta): a little village in your browser and phone, fishing while you are away from the game',
-      'Character lock: a character cannot be in the game and in the app at the same time'
+      'Character lock: a character cannot be in the game and in the app at the same time',
+      'Switch Main is now a skill on the action bar: a jump, a 360 spin and you land as your other job',
+      'Player Info also shows the level of the second job',
+      '10 kinds of health and 10 of mana potions; stronger towns sell stronger potions',
+      'The worshippers at the statue in the starting village now kneel properly'
     ] },
     es: { title: 'Versión 35: banco compartido, códigos de invitación y la app Companion', items: [
       'El Banquero en Elaia: un banco de 10 casillas para toda la cuenta, compartido por todos tus personajes',
       'Ahora hace falta un código de invitación de 8 caracteres para crear una cuenta nueva en la beta',
       'App Companion (beta): una pequeña aldea en el navegador y el móvil, pesca mientras estás lejos del juego',
-      'Bloqueo de personaje: un personaje no puede estar en el juego y en la app a la vez'
+      'Bloqueo de personaje: un personaje no puede estar en el juego y en la app a la vez',
+      'Cambiar de clase principal es ahora una habilidad de la barra: salto, giro de 360 y aterrizas como tu otra clase',
+      'La información de un jugador también muestra el nivel de la segunda clase',
+      '10 tipos de pociones de vida y 10 de maná; las ciudades más fuertes venden pociones más fuertes',
+      'Los fieles de la estatua en la aldea inicial ahora se arrodillan bien'
     ] }
   },
   // v34 entry for window.UPDATES in updates.js (put it first in the array)
